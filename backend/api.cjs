@@ -34,6 +34,32 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
+// src/lib/prisma-engine.ts
+var require_prisma_engine = __commonJS({
+  "src/lib/prisma-engine.ts"() {
+    "use strict";
+    var import_node_fs = require("node:fs");
+    var import_node_path = require("node:path");
+    var import_node_os = require("node:os");
+    var engineName = (0, import_node_os.platform)() === "win32" ? "query_engine-windows.dll.node" : (0, import_node_os.platform)() === "darwin" ? "libquery_engine-darwin-arm64.dylib.node" : "libquery_engine-rhel-openssl-3.0.x.so.node";
+    var directories = [
+      (0, import_node_path.join)(process.cwd(), "query-engine"),
+      (0, import_node_path.join)(process.cwd(), "backend/query-engine"),
+      (0, import_node_path.join)(process.cwd(), "generated/prisma"),
+      (0, import_node_path.join)(process.cwd(), "backend/generated/prisma")
+    ];
+    if (!process.env.PRISMA_QUERY_ENGINE_LIBRARY) {
+      for (const directory2 of directories) {
+        const engine = (0, import_node_path.join)(directory2, engineName);
+        if ((0, import_node_fs.existsSync)(engine)) {
+          process.env.PRISMA_QUERY_ENGINE_LIBRARY = engine;
+          break;
+        }
+      }
+    }
+  }
+});
+
 // generated/prisma/runtime/library.js
 var require_library = __commonJS({
   "generated/prisma/runtime/library.js"(exports2, module2) {
@@ -5713,7 +5739,7 @@ var require_prisma = __commonJS({
       getPrismaClient: getPrismaClient2,
       sqltag: sqltag2,
       empty: empty2,
-      join: join3,
+      join: join2,
       raw: raw2,
       skip: skip2,
       Decimal: Decimal2,
@@ -5742,7 +5768,7 @@ var require_prisma = __commonJS({
     Prisma12.Decimal = Decimal2;
     Prisma12.sql = sqltag2;
     Prisma12.empty = empty2;
-    Prisma12.join = join3;
+    Prisma12.join = join2;
     Prisma12.raw = raw2;
     Prisma12.validator = Public2.validator;
     Prisma12.getExtensionContext = Extensions2.getExtensionContext;
@@ -6456,10 +6482,10 @@ __export(server_exports, {
 module.exports = __toCommonJS(server_exports);
 
 // src/http-app.ts
-var import_cookie_parser = __toESM(require("cookie-parser"), 1);
-var import_cors = __toESM(require("cors"), 1);
-var import_express10 = __toESM(require("express"), 1);
-var import_helmet = __toESM(require("helmet"), 1);
+var import_cookie_parser = __toESM(require("cookie-parser"));
+var import_cors = __toESM(require("cors"));
+var import_express10 = __toESM(require("express"));
+var import_helmet = __toESM(require("helmet"));
 var import_pino_http = require("pino-http");
 
 // src/config/env.ts
@@ -6534,7 +6560,7 @@ var storageConfigured = Boolean(
 );
 
 // src/lib/logger.ts
-var import_pino = __toESM(require("pino"), 1);
+var import_pino = __toESM(require("pino"));
 var logger = (0, import_pino.default)({
   level: isTest ? "silent" : env.LOG_LEVEL,
   redact: {
@@ -6553,32 +6579,12 @@ var logger = (0, import_pino.default)({
 });
 
 // src/services/auth.service.ts
-var import_bcryptjs = __toESM(require("bcryptjs"), 1);
-
-// src/lib/prisma-engine.ts
-var import_node_fs = require("node:fs");
-var import_node_path = require("node:path");
-var import_node_os = require("node:os");
-var engineName = (0, import_node_os.platform)() === "win32" ? "query_engine-windows.dll.node" : (0, import_node_os.platform)() === "darwin" ? "libquery_engine-darwin-arm64.dylib.node" : "libquery_engine-rhel-openssl-3.0.x.so.node";
-var directories = [
-  (0, import_node_path.join)(process.cwd(), "query-engine"),
-  (0, import_node_path.join)(process.cwd(), "backend/query-engine"),
-  (0, import_node_path.join)(process.cwd(), "generated/prisma"),
-  (0, import_node_path.join)(process.cwd(), "backend/generated/prisma")
-];
-if (!process.env.PRISMA_QUERY_ENGINE_LIBRARY) {
-  for (const directory2 of directories) {
-    const engine = (0, import_node_path.join)(directory2, engineName);
-    if ((0, import_node_fs.existsSync)(engine)) {
-      process.env.PRISMA_QUERY_ENGINE_LIBRARY = engine;
-      break;
-    }
-  }
-}
+var import_bcryptjs = __toESM(require("bcryptjs"));
 
 // src/lib/prisma.ts
-var import_prisma = __toESM(require_prisma(), 1);
-var import_prisma2 = __toESM(require_prisma(), 1);
+var import_prisma_engine = __toESM(require_prisma_engine());
+var import_prisma = __toESM(require_prisma());
+var import_prisma2 = __toESM(require_prisma());
 function unavailable(message) {
   return new Proxy({}, {
     get(_target, property) {
@@ -6868,7 +6874,7 @@ var errorHandler = (err, req, res, _next) => {
 };
 
 // src/middleware/rateLimit.ts
-var import_express_rate_limit = __toESM(require("express-rate-limit"), 1);
+var import_express_rate_limit = __toESM(require("express-rate-limit"));
 var handler = (req, res) => {
   res.status(429).json({
     error: { code: "RATE_LIMITED", message: "Too many requests. Please try again later.", requestId: req.id }
@@ -9252,7 +9258,7 @@ alumniAdminRoutes.use(
 var import_express5 = require("express");
 
 // src/controllers/auth.controller.ts
-var import_bcryptjs2 = __toESM(require("bcryptjs"), 1);
+var import_bcryptjs2 = __toESM(require("bcryptjs"));
 async function startSession(req, res, userId) {
   const { token } = await createSession(userId, { ip: req.ip, userAgent: req.get("user-agent") });
   res.cookie(SESSION_COOKIE, token, sessionCookieOptions());
@@ -9371,7 +9377,7 @@ authRoutes.post("/change-password", requireAuth, authLimiter, changePassword);
 var import_express6 = require("express");
 
 // src/controllers/media.controller.ts
-var import_multer2 = __toESM(require("multer"), 1);
+var import_multer2 = __toESM(require("multer"));
 var import_zod9 = require("zod");
 var uploadMiddleware = (0, import_multer2.default)({
   storage: import_multer2.default.memoryStorage(),
