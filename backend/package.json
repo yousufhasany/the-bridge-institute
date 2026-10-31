@@ -17,7 +17,7 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "admin:create": "tsx --env-file-if-exists=.env src/scripts/create-super-admin.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "node scripts/prisma-generate.mjs"
   },
   "prisma": {
     "schema": "../database/prisma/schema.prisma",

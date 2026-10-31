@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import { pinoHttp } from 'pino-http';
-import { allowedOrigins, env } from './config/env.js';
+import { allowedOrigins, env, envError } from './config/env.js';
 import { logger } from './lib/logger.js';
 import { loadSession } from './middleware/auth.js';
 import { csrfProtection } from './middleware/csrf.js';
@@ -58,4 +58,16 @@ export function createApp() {
   return app;
 }
 
-export default createApp();
+function configurationErrorApp(message: string) {
+  const app = express();
+  app.disable('x-powered-by');
+  app.use((_req, res) => {
+    res.status(500).json({
+      data: { status: 'degraded', database: 'unreachable' },
+      error: { code: 'CONFIG', message },
+    });
+  });
+  return app;
+}
+
+export default envError ? configurationErrorApp(envError) : createApp();

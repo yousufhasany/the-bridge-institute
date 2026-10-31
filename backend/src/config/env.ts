@@ -47,13 +47,27 @@ const schema = z.object({
 });
 
 const parsed = schema.safeParse(process.env);
-if (!parsed.success) {
-  const issues = parsed.error.issues.map((i) => `  - ${i.path.join('.')}: ${i.message}`).join('\n');
-  console.error(`Invalid backend environment configuration:\n${issues}`);
-  process.exit(1);
-}
 
-export const env = parsed.data;
+/** Missing keys are named here. Values are never included. */
+export const envError = parsed.success
+  ? null
+  : parsed.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`).join('; ');
+
+const fallback = {
+  NODE_ENV: 'production' as const,
+  PORT: '5000',
+  WEB_ORIGIN: 'http://localhost:5173',
+  APP_URL: 'http://localhost:5173',
+  DATABASE_URL: 'postgresql://invalid:invalid@127.0.0.1:5432/invalid',
+  SESSION_SECRET: 'x'.repeat(32),
+  SESSION_TTL_HOURS: '72',
+  COOKIE_SAMESITE: 'lax' as const,
+  TRUST_PROXY: '1',
+  LOG_LEVEL: 'silent' as const,
+};
+
+// Do not call process.exit. On Vercel that becomes a blank FUNCTION_INVOCATION_FAILED page.
+export const env = parsed.success ? parsed.data : schema.parse(fallback);
 export const isProduction = env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production';
 export const isTest = env.NODE_ENV === 'test';
 export const allowedOrigins = [
