@@ -4,6 +4,9 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  define: {
+    __ON_VERCEL__: JSON.stringify(process.env.VERCEL === '1'),
+  },
   server: { port: 5173, strictPort: true },
   preview: { port: 4173 },
   build: {

@@ -1,17 +1,19 @@
 const configuredBase = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, '') ?? '';
 
+declare const __ON_VERCEL__: boolean;
+
 function isLoopback(url: string) {
   return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/i.test(url);
 }
 
 /**
- * Local dev talks to the Express port. A production build on the Vercel project
- * uses the same host: public `/api` is rewritten to the backend service.
- * A localhost value left in `VITE_API_BASE_URL` is ignored in production so the
+ * Local dev talks to the Express port. On Vercel, public `/api` is rewritten
+ * to the backend service, including when a project build leaves DEV set.
+ * A localhost value left in `VITE_API_BASE_URL` is ignored there so the
  * browser does not try to call the visitor's own computer.
  */
 export const API_BASE_URL =
-  import.meta.env.DEV
+  import.meta.env.DEV && !__ON_VERCEL__
     ? configuredBase || 'http://localhost:5000/api/v1'
     : configuredBase && !isLoopback(configuredBase)
       ? configuredBase
