@@ -4,9 +4,10 @@
     "backend": {
       "root": "backend",
       "framework": "express",
-      "entrypoint": "src/server.ts",
+      "entrypoint": "app.cjs",
+      "buildCommand": "npm run build",
       "functions": {
-        "src/server.ts": {
+        "app.cjs": {
           "includeFiles": "{generated/prisma,backend/generated/prisma}/**"
         }
       }

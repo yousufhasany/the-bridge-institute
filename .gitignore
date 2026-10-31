@@ -10,8 +10,9 @@ coverage/
 !.env.example
 !.env.test.example
 
-# Generated Prisma client
+# Generated Prisma client and the Vercel CommonJS bundle
 backend/generated/
+backend/app.cjs
 
 # Local embedded PostgreSQL data (development only)
 .local-db/

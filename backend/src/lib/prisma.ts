@@ -1,14 +1,6 @@
-import { existsSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import './prisma-engine.js';
 import { PrismaClient } from '../../generated/prisma/index.js';
 import { envError, isProduction } from '../config/env.js';
-
-if (process.env.VERCEL && !process.env.PRISMA_QUERY_ENGINE_LIBRARY) {
-  const generatedDir = dirname(fileURLToPath(new URL('../../generated/prisma/index.js', import.meta.url)));
-  const engine = join(generatedDir, 'libquery_engine-rhel-openssl-3.0.x.so.node');
-  if (existsSync(engine)) process.env.PRISMA_QUERY_ENGINE_LIBRARY = engine;
-}
 
 function unavailable(message: string): PrismaClient {
   return new Proxy({} as PrismaClient, {
