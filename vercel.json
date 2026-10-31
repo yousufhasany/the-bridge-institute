@@ -4,9 +4,9 @@
     "backend": {
       "root": "backend",
       "framework": "express",
-      "entrypoint": "app.cjs",
+      "entrypoint": "app.js",
       "functions": {
-        "app.cjs": {
+        "app.js": {
           "includeFiles": "{query-engine,backend/query-engine,generated/prisma,backend/generated/prisma}/**"
         }
       }
