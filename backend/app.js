@@ -20,13 +20,18 @@ function bootError(error) {
   };
 }
 
-let app;
-try {
-  const loaded = require('./api.cjs');
-  app = loaded && loaded.default ? loaded.default : loaded;
-  if (typeof app !== 'function') throw new Error('API export was ' + typeof app);
-} catch (error) {
-  app = bootError(error);
-}
-
-module.exports = app;
+module.exports = function app(req, res) {
+  const url = req.url || '';
+  if (url.includes('entry-check')) {
+    send(res, 200, { data: { status: 'entry-ok' } });
+    return;
+  }
+  try {
+    const loaded = require('./api.cjs');
+    const handler = loaded && loaded.default ? loaded.default : loaded;
+    if (typeof handler !== 'function') throw new Error('API export was ' + typeof handler);
+    return handler(req, res);
+  } catch (error) {
+    return bootError(error)(req, res);
+  }
+};
