@@ -7,7 +7,7 @@
       "entrypoint": "src/server.ts",
       "functions": {
         "src/server.ts": {
-          "includeFiles": "generated/prisma/**"
+          "includeFiles": "{generated/prisma,backend/generated/prisma}/**"
         }
       }
     },
