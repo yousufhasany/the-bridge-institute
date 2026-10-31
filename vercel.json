@@ -4,12 +4,7 @@
     "backend": {
       "root": "backend",
       "framework": "express",
-      "entrypoint": "app.js",
-      "functions": {
-        "app.js": {
-          "includeFiles": "query-engine/**"
-        }
-      }
+      "entrypoint": "app.js"
     },
     "frontend": {
       "root": "frontend",
