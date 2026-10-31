@@ -10,9 +10,10 @@ coverage/
 !.env.example
 !.env.test.example
 
-# Generated Prisma client and the local CommonJS bundle
+# Generated Prisma client. backend/app.cjs is committed because Vercel
+# loads the API with the CommonJS loader.
 backend/generated/
-backend/app.cjs
+backend/app.mjs
 
 # Local embedded PostgreSQL data (development only)
 .local-db/

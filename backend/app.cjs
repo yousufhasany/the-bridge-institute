@@ -1,28 +1,20 @@
-import { createRequire } from 'node:module';
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-const require = createRequire(import.meta.url);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+"use strict";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
-}) : x)(function(x) {
-  if (typeof require !== "undefined") return require.apply(this, arguments);
-  throw Error('Dynamic require of "' + x + '" is not supported');
-});
-var __commonJS = (cb, mod) => function __require2() {
+var __commonJS = (cb, mod) => function __require() {
   try {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   } catch (e) {
     throw mod = 0, e;
   }
+};
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -40,10 +32,11 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // generated/prisma/runtime/library.js
 var require_library = __commonJS({
-  "generated/prisma/runtime/library.js"(exports, module) {
+  "generated/prisma/runtime/library.js"(exports2, module2) {
     "use strict";
     var yu = Object.create;
     var jt = Object.defineProperty;
@@ -71,7 +64,7 @@ var require_library = __commonJS({
     });
     var as = ue((Ng, ss) => {
       "use strict";
-      var Fc = __require("node:os"), os = __require("node:tty"), de = hi(), { env: G } = process, Qe;
+      var Fc = require("node:os"), os = require("node:tty"), de = hi(), { env: G } = process, Qe;
       de("no-color") || de("no-colors") || de("color=false") || de("color=never") ? Qe = 0 : (de("color") || de("colors") || de("color=true") || de("color=always")) && (Qe = 1);
       "FORCE_COLOR" in G && (G.FORCE_COLOR === "true" ? Qe = 1 : G.FORCE_COLOR === "false" ? Qe = 0 : Qe = G.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(G.FORCE_COLOR, 10), 3));
       function yi(e) {
@@ -188,7 +181,7 @@ var require_library = __commonJS({
     });
     var As = ue((Bh, _e) => {
       "use strict";
-      var Fi = __require("node:fs"), Mi = __require("node:path"), np = __require("node:os"), ip = __require("node:crypto"), op = vs(), Ts = op.version, sp = /(?:^|^)\s*(?:export\s+)?([\w.-]+)(?:\s*=\s*?|:\s+?)(\s*'(?:\\'|[^'])*'|\s*"(?:\\"|[^"])*"|\s*`(?:\\`|[^`])*`|[^#\r\n]+)?\s*(?:#.*)?(?:$|$)/mg;
+      var Fi = require("node:fs"), Mi = require("node:path"), np = require("node:os"), ip = require("node:crypto"), op = vs(), Ts = op.version, sp = /(?:^|^)\s*(?:export\s+)?([\w.-]+)(?:\s*=\s*?|:\s+?)(\s*'(?:\\'|[^'])*'|\s*"(?:\\"|[^"])*"|\s*`(?:\\`|[^`])*`|[^#\r\n]+)?\s*(?:#.*)?(?:$|$)/mg;
       function ap(e) {
         let r = {}, t = e.toString();
         t = t.replace(/\r\n?/mg, `
@@ -383,7 +376,7 @@ var require_library = __commonJS({
     });
     var jf = {};
     tr(jf, { DMMF: () => ct, Debug: () => N, Decimal: () => Fe, Extensions: () => ni, MetricsClient: () => Lr, PrismaClientInitializationError: () => P2, PrismaClientKnownRequestError: () => z11, PrismaClientRustPanicError: () => ae, PrismaClientUnknownRequestError: () => V, PrismaClientValidationError: () => Z, Public: () => ii, Sql: () => ie, createParam: () => va, defineDmmfProperty: () => Ca, deserializeJsonResponse: () => Vr, deserializeRawResult: () => Xn, dmmfToRuntimeDataModel: () => Ns, empty: () => Oa, getPrismaClient: () => fu, getRuntime: () => Kn, join: () => Da, makeStrictEnum: () => gu, makeTypedQueryFactory: () => Ia, objectEnumValues: () => On, raw: () => no, serializeJsonQuery: () => $n, skip: () => Mn, sqltag: () => io, warnEnvConflicts: () => hu, warnOnce: () => at });
-    module.exports = vu(jf);
+    module2.exports = vu(jf);
     var ni = {};
     tr(ni, { defineExtension: () => ko, getExtensionContext: () => _o });
     function ko(e) {
@@ -489,7 +482,7 @@ var require_library = __commonJS({
       Yr.length = 0;
     }
     var gr = N;
-    var Go = O(__require("node:fs"));
+    var Go = O(require("node:fs"));
     function ai() {
       let e = process.env.PRISMA_QUERY_ENGINE_LIBRARY;
       if (!(e && Go.default.existsSync(e)) && process.arch === "ia32") throw new Error('The default query engine type (Node-API, "library") is currently not supported for 32bit Node. Please set `engineType = "binary"` in the "generator" block of your "schema.prisma" file (or use the environment variables "PRISMA_CLIENT_ENGINE_TYPE=binary" and/or "PRISMA_CLI_QUERY_ENGINE_TYPE=binary".)');
@@ -500,9 +493,9 @@ var require_library = __commonJS({
       let t = r === "url";
       return e.includes("windows") ? t ? "query_engine.dll.node" : `query_engine-${e}.dll.node` : e.includes("darwin") ? t ? `${Ut}.dylib.node` : `${Ut}-${e}.dylib.node` : t ? `${Ut}.so.node` : `${Ut}-${e}.so.node`;
     }
-    var Ko = O(__require("node:child_process"));
-    var mi = O(__require("node:fs/promises"));
-    var Ht = O(__require("node:os"));
+    var Ko = O(require("node:child_process"));
+    var mi = O(require("node:fs/promises"));
+    var Ht = O(require("node:os"));
     var Oe = /* @__PURE__ */ Symbol.for("@ts-pattern/matcher");
     var Gu = /* @__PURE__ */ Symbol.for("@ts-pattern/isVariadic");
     var Wt = "@ts-pattern/anonymous-select-key";
@@ -671,7 +664,7 @@ var require_library = __commonJS({
         return this;
       }
     };
-    var Ho = __require("node:util");
+    var Ho = require("node:util");
     var Ju = { warn: Ie("prisma:warn") };
     var Ku = { warn: () => !process.env.PRISMA_DISABLE_WARNINGS };
     function Jt(e, ...r) {
@@ -831,7 +824,7 @@ ${c}`);
     }
     var Xt = {};
     tr(Xt, { beep: () => kc, clearScreen: () => Cc, clearTerminal: () => Ic, cursorBackward: () => mc, cursorDown: () => pc, cursorForward: () => dc, cursorGetPosition: () => hc, cursorHide: () => Ec, cursorLeft: () => ts, cursorMove: () => cc, cursorNextLine: () => yc, cursorPrevLine: () => bc, cursorRestorePosition: () => gc, cursorSavePosition: () => fc, cursorShow: () => wc, cursorTo: () => uc, cursorUp: () => rs, enterAlternativeScreen: () => Dc, eraseDown: () => Tc, eraseEndLine: () => vc, eraseLine: () => ns, eraseLines: () => xc, eraseScreen: () => gi, eraseStartLine: () => Pc, eraseUp: () => Sc, exitAlternativeScreen: () => Oc, iTerm: () => Lc, image: () => Nc, link: () => _c, scrollDown: () => Ac, scrollUp: () => Rc });
-    var Zt = O(__require("node:process"), 1);
+    var Zt = O(require("node:process"), 1);
     var zt = globalThis.window?.document !== void 0;
     var gg = globalThis.process?.versions?.node !== void 0;
     var hg = globalThis.process?.versions?.bun !== void 0;
@@ -986,7 +979,7 @@ ${c}`);
       };
     }
     var Wc = O(on());
-    var M = O(__require("node:path"));
+    var M = O(require("node:path"));
     var Jc = O(on());
     var wh = N("prisma:engines");
     function ms() {
@@ -1016,7 +1009,7 @@ ${c}`);
     M.default.join(__dirname, "../libquery_engine-rhel-openssl-1.1.x.so.node");
     M.default.join(__dirname, "../libquery_engine-rhel-openssl-3.0.x.so.node");
     M.default.join(__dirname, "../query_engine-windows.dll.node");
-    var Si = O(__require("node:fs"));
+    var Si = O(require("node:fs"));
     var fs = gr("chmodPlusX");
     function Ri(e) {
       if (process.platform === "win32") return;
@@ -1120,13 +1113,13 @@ ${(0, ws.default)(Hc(n), 2)}
       if (typeof e != "string") throw new TypeError(`Expected a \`string\`, got \`${typeof e}\``);
       return e.replace(rp, "");
     }
-    var it = O(__require("node:path"));
+    var it = O(require("node:path"));
     function Li(e) {
       return it.default.sep === it.default.posix.sep ? e : e.split(it.default.sep).join(it.default.posix.sep);
     }
     var qi = O(As());
-    var un = O(__require("node:fs"));
-    var xr = O(__require("node:path"));
+    var un = O(require("node:fs"));
+    var xr = O(require("node:path"));
     function Cs(e) {
       let r = e.ignoreProcessEnv ? {} : process.env, t = (n) => n.match(/(.?\${(?:[a-zA-Z0-9_]+)?})/g)?.reduce(function(o, s) {
         let a = /(.?)\${([a-zA-Z0-9_]+)?}/g.exec(s);
@@ -2172,7 +2165,7 @@ Env vars from ${Y(l)} overwrite the ones from ${Y(a)}
     }
     var Rr = ((b) => (b.findUnique = "findUnique", b.findUniqueOrThrow = "findUniqueOrThrow", b.findFirst = "findFirst", b.findFirstOrThrow = "findFirstOrThrow", b.findMany = "findMany", b.create = "create", b.createMany = "createMany", b.createManyAndReturn = "createManyAndReturn", b.update = "update", b.updateMany = "updateMany", b.updateManyAndReturn = "updateManyAndReturn", b.upsert = "upsert", b.delete = "delete", b.deleteMany = "deleteMany", b.groupBy = "groupBy", b.count = "count", b.aggregate = "aggregate", b.findRaw = "findRaw", b.aggregateRaw = "aggregateRaw", b))(Rr || {});
     var Xs = O(Di());
-    var Zs = O(__require("node:fs"));
+    var Zs = O(require("node:fs"));
     var Hs = { keyword: De, entity: De, value: (e) => W(nr(e)), punctuation: nr, directive: De, function: De, variable: (e) => W(nr(e)), string: (e) => W(qe(e)), boolean: Ie, number: De, comment: Hr };
     var dd = (e) => e;
     var vn = {};
@@ -3493,10 +3486,10 @@ Note that ${s.bold("include")} statements only accept relation fields.`, a;
       return e != null && e[qn] === qn;
     }
     var cu = O(Ti());
-    var pu = __require("node:async_hooks");
-    var du = __require("node:events");
-    var mu = O(__require("node:fs"));
-    var ri = O(__require("node:path"));
+    var pu = require("node:async_hooks");
+    var du = require("node:events");
+    var mu = O(require("node:fs"));
+    var ri = O(require("node:path"));
     var ie = class e {
       constructor(r, t) {
         if (r.length - 1 !== t.length) throw r.length === 0 ? new TypeError("Expected at least 1 string") : new TypeError(`Expected ${r.length} strings to have ${r.length - 1} values`);
@@ -3975,8 +3968,8 @@ Learn how: https://pris.ly/d/${ol[r]}-build`;
     function al(e, r) {
       return e ? e.datasources ? e.datasources : e.datasourceUrl ? { [r[0]]: { url: e.datasourceUrl } } : {} : {};
     }
-    var dl = O(__require("node:fs"));
-    var St = O(__require("node:path"));
+    var dl = O(require("node:fs"));
+    var St = O(require("node:path"));
     function Qn(e) {
       let { runtimeBinaryTarget: r } = e;
       return `Add "${r}" to \`binaryTargets\` in the "schema.prisma" file and run \`prisma generate\` after saving it:
@@ -4663,8 +4656,8 @@ ${r}`, R(t, true));
     function Ol(e) {
       if (e?.kind === "itx") return e.options.id;
     }
-    var wo = O(__require("node:os"));
-    var kl = O(__require("node:path"));
+    var wo = O(require("node:os"));
+    var kl = O(require("node:path"));
     var Eo = /* @__PURE__ */ Symbol("PrismaLibraryEngineCache");
     function ff() {
       let e = globalThis;
@@ -5708,9 +5701,9 @@ ${n}`;
 
 // generated/prisma/index.js
 var require_prisma = __commonJS({
-  "generated/prisma/index.js"(exports) {
+  "generated/prisma/index.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    Object.defineProperty(exports2, "__esModule", { value: true });
     var {
       PrismaClientKnownRequestError: PrismaClientKnownRequestError2,
       PrismaClientUnknownRequestError: PrismaClientUnknownRequestError2,
@@ -5735,8 +5728,8 @@ var require_prisma = __commonJS({
       createParam: createParam2
     } = require_library();
     var Prisma12 = {};
-    exports.Prisma = Prisma12;
-    exports.$Enums = {};
+    exports2.Prisma = Prisma12;
+    exports2.$Enums = {};
     Prisma12.prismaVersion = {
       client: "6.19.3",
       engine: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7"
@@ -5762,14 +5755,14 @@ var require_prisma = __commonJS({
       JsonNull: objectEnumValues2.classes.JsonNull,
       AnyNull: objectEnumValues2.classes.AnyNull
     };
-    var path = __require("path");
-    exports.Prisma.TransactionIsolationLevel = makeStrictEnum2({
+    var path = require("path");
+    exports2.Prisma.TransactionIsolationLevel = makeStrictEnum2({
       ReadUncommitted: "ReadUncommitted",
       ReadCommitted: "ReadCommitted",
       RepeatableRead: "RepeatableRead",
       Serializable: "Serializable"
     });
-    exports.Prisma.UserScalarFieldEnum = {
+    exports2.Prisma.UserScalarFieldEnum = {
       id: "id",
       email: "email",
       passwordHash: "passwordHash",
@@ -5781,7 +5774,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.RoleScalarFieldEnum = {
+    exports2.Prisma.RoleScalarFieldEnum = {
       id: "id",
       key: "key",
       name: "name",
@@ -5789,21 +5782,21 @@ var require_prisma = __commonJS({
       isSystem: "isSystem",
       createdAt: "createdAt"
     };
-    exports.Prisma.PermissionScalarFieldEnum = {
+    exports2.Prisma.PermissionScalarFieldEnum = {
       id: "id",
       key: "key",
       description: "description"
     };
-    exports.Prisma.UserRoleScalarFieldEnum = {
+    exports2.Prisma.UserRoleScalarFieldEnum = {
       userId: "userId",
       roleId: "roleId",
       assignedAt: "assignedAt"
     };
-    exports.Prisma.RolePermissionScalarFieldEnum = {
+    exports2.Prisma.RolePermissionScalarFieldEnum = {
       roleId: "roleId",
       permissionId: "permissionId"
     };
-    exports.Prisma.SessionScalarFieldEnum = {
+    exports2.Prisma.SessionScalarFieldEnum = {
       id: "id",
       userId: "userId",
       tokenHash: "tokenHash",
@@ -5814,7 +5807,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       lastSeenAt: "lastSeenAt"
     };
-    exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+    exports2.Prisma.PasswordResetTokenScalarFieldEnum = {
       id: "id",
       userId: "userId",
       tokenHash: "tokenHash",
@@ -5823,7 +5816,7 @@ var require_prisma = __commonJS({
       usedAt: "usedAt",
       createdAt: "createdAt"
     };
-    exports.Prisma.CourseCategoryScalarFieldEnum = {
+    exports2.Prisma.CourseCategoryScalarFieldEnum = {
       id: "id",
       slug: "slug",
       nameEn: "nameEn",
@@ -5832,7 +5825,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.CourseScalarFieldEnum = {
+    exports2.Prisma.CourseScalarFieldEnum = {
       id: "id",
       slug: "slug",
       icon: "icon",
@@ -5843,7 +5836,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.CourseTranslationScalarFieldEnum = {
+    exports2.Prisma.CourseTranslationScalarFieldEnum = {
       id: "id",
       courseId: "courseId",
       locale: "locale",
@@ -5853,21 +5846,21 @@ var require_prisma = __commonJS({
       duration: "duration",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.CourseTopicScalarFieldEnum = {
+    exports2.Prisma.CourseTopicScalarFieldEnum = {
       id: "id",
       courseId: "courseId",
       sortOrder: "sortOrder",
       textEn: "textEn",
       textBn: "textBn"
     };
-    exports.Prisma.LearningOutcomeScalarFieldEnum = {
+    exports2.Prisma.LearningOutcomeScalarFieldEnum = {
       id: "id",
       courseId: "courseId",
       sortOrder: "sortOrder",
       textEn: "textEn",
       textBn: "textBn"
     };
-    exports.Prisma.TrainingBatchScalarFieldEnum = {
+    exports2.Prisma.TrainingBatchScalarFieldEnum = {
       id: "id",
       code: "code",
       name: "name",
@@ -5879,11 +5872,11 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.BatchTeacherScalarFieldEnum = {
+    exports2.Prisma.BatchTeacherScalarFieldEnum = {
       batchId: "batchId",
       userId: "userId"
     };
-    exports.Prisma.StudentProfileScalarFieldEnum = {
+    exports2.Prisma.StudentProfileScalarFieldEnum = {
       id: "id",
       userId: "userId",
       studentCode: "studentCode",
@@ -5895,7 +5888,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.EnrollmentScalarFieldEnum = {
+    exports2.Prisma.EnrollmentScalarFieldEnum = {
       id: "id",
       studentId: "studentId",
       batchId: "batchId",
@@ -5904,7 +5897,7 @@ var require_prisma = __commonJS({
       enrolledAt: "enrolledAt",
       completedAt: "completedAt"
     };
-    exports.Prisma.AttendanceScalarFieldEnum = {
+    exports2.Prisma.AttendanceScalarFieldEnum = {
       id: "id",
       enrollmentId: "enrollmentId",
       date: "date",
@@ -5913,7 +5906,7 @@ var require_prisma = __commonJS({
       recordedById: "recordedById",
       createdAt: "createdAt"
     };
-    exports.Prisma.AssessmentScalarFieldEnum = {
+    exports2.Prisma.AssessmentScalarFieldEnum = {
       id: "id",
       batchId: "batchId",
       title: "title",
@@ -5922,7 +5915,7 @@ var require_prisma = __commonJS({
       dueDate: "dueDate",
       createdAt: "createdAt"
     };
-    exports.Prisma.AssessmentResultScalarFieldEnum = {
+    exports2.Prisma.AssessmentResultScalarFieldEnum = {
       id: "id",
       assessmentId: "assessmentId",
       enrollmentId: "enrollmentId",
@@ -5932,7 +5925,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.LearningMaterialScalarFieldEnum = {
+    exports2.Prisma.LearningMaterialScalarFieldEnum = {
       id: "id",
       courseId: "courseId",
       title: "title",
@@ -5944,7 +5937,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.CertificateScalarFieldEnum = {
+    exports2.Prisma.CertificateScalarFieldEnum = {
       id: "id",
       enrollmentId: "enrollmentId",
       certificateNo: "certificateNo",
@@ -5955,7 +5948,7 @@ var require_prisma = __commonJS({
       notes: "notes",
       createdAt: "createdAt"
     };
-    exports.Prisma.StudentApplicationScalarFieldEnum = {
+    exports2.Prisma.StudentApplicationScalarFieldEnum = {
       id: "id",
       referenceCode: "referenceCode",
       idempotencyKey: "idempotencyKey",
@@ -5974,7 +5967,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.ApplicationStatusHistoryScalarFieldEnum = {
+    exports2.Prisma.ApplicationStatusHistoryScalarFieldEnum = {
       id: "id",
       applicationId: "applicationId",
       fromStatus: "fromStatus",
@@ -5983,14 +5976,14 @@ var require_prisma = __commonJS({
       note: "note",
       createdAt: "createdAt"
     };
-    exports.Prisma.ApplicationInternalNoteScalarFieldEnum = {
+    exports2.Prisma.ApplicationInternalNoteScalarFieldEnum = {
       id: "id",
       applicationId: "applicationId",
       authorId: "authorId",
       body: "body",
       createdAt: "createdAt"
     };
-    exports.Prisma.CompanyScalarFieldEnum = {
+    exports2.Prisma.CompanyScalarFieldEnum = {
       id: "id",
       name: "name",
       website: "website",
@@ -6004,7 +5997,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.PartnershipInquiryScalarFieldEnum = {
+    exports2.Prisma.PartnershipInquiryScalarFieldEnum = {
       id: "id",
       organizationName: "organizationName",
       contactName: "contactName",
@@ -6019,7 +6012,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.PartnershipInteractionScalarFieldEnum = {
+    exports2.Prisma.PartnershipInteractionScalarFieldEnum = {
       id: "id",
       inquiryId: "inquiryId",
       companyId: "companyId",
@@ -6028,7 +6021,7 @@ var require_prisma = __commonJS({
       note: "note",
       occurredAt: "occurredAt"
     };
-    exports.Prisma.OpportunityScalarFieldEnum = {
+    exports2.Prisma.OpportunityScalarFieldEnum = {
       id: "id",
       companyId: "companyId",
       title: "title",
@@ -6042,7 +6035,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.AlumniCohortScalarFieldEnum = {
+    exports2.Prisma.AlumniCohortScalarFieldEnum = {
       id: "id",
       slug: "slug",
       name: "name",
@@ -6052,7 +6045,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.AlumniProfileScalarFieldEnum = {
+    exports2.Prisma.AlumniProfileScalarFieldEnum = {
       id: "id",
       userId: "userId",
       studentProfileId: "studentProfileId",
@@ -6084,7 +6077,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.AlumniRegistrationRequestScalarFieldEnum = {
+    exports2.Prisma.AlumniRegistrationRequestScalarFieldEnum = {
       id: "id",
       userId: "userId",
       fullName: "fullName",
@@ -6101,7 +6094,7 @@ var require_prisma = __commonJS({
       reviewedAt: "reviewedAt",
       createdAt: "createdAt"
     };
-    exports.Prisma.AlumniStoryScalarFieldEnum = {
+    exports2.Prisma.AlumniStoryScalarFieldEnum = {
       id: "id",
       slug: "slug",
       authorId: "authorId",
@@ -6118,7 +6111,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.AlumniAnnouncementScalarFieldEnum = {
+    exports2.Prisma.AlumniAnnouncementScalarFieldEnum = {
       id: "id",
       titleEn: "titleEn",
       titleBn: "titleBn",
@@ -6129,7 +6122,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.WebsiteSectionScalarFieldEnum = {
+    exports2.Prisma.WebsiteSectionScalarFieldEnum = {
       id: "id",
       key: "key",
       locale: "locale",
@@ -6140,7 +6133,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.WebsiteSettingScalarFieldEnum = {
+    exports2.Prisma.WebsiteSettingScalarFieldEnum = {
       id: "id",
       key: "key",
       group: "group",
@@ -6150,7 +6143,7 @@ var require_prisma = __commonJS({
       updatedById: "updatedById",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.FaqScalarFieldEnum = {
+    exports2.Prisma.FaqScalarFieldEnum = {
       id: "id",
       questionEn: "questionEn",
       answerEn: "answerEn",
@@ -6162,7 +6155,7 @@ var require_prisma = __commonJS({
       createdAt: "createdAt",
       updatedAt: "updatedAt"
     };
-    exports.Prisma.MediaAssetScalarFieldEnum = {
+    exports2.Prisma.MediaAssetScalarFieldEnum = {
       id: "id",
       bucket: "bucket",
       objectKey: "objectKey",
@@ -6174,7 +6167,7 @@ var require_prisma = __commonJS({
       uploadedById: "uploadedById",
       createdAt: "createdAt"
     };
-    exports.Prisma.ContactMessageScalarFieldEnum = {
+    exports2.Prisma.ContactMessageScalarFieldEnum = {
       id: "id",
       name: "name",
       email: "email",
@@ -6186,7 +6179,7 @@ var require_prisma = __commonJS({
       readAt: "readAt",
       createdAt: "createdAt"
     };
-    exports.Prisma.NotificationScalarFieldEnum = {
+    exports2.Prisma.NotificationScalarFieldEnum = {
       id: "id",
       userId: "userId",
       title: "title",
@@ -6195,7 +6188,7 @@ var require_prisma = __commonJS({
       readAt: "readAt",
       createdAt: "createdAt"
     };
-    exports.Prisma.AuditLogScalarFieldEnum = {
+    exports2.Prisma.AuditLogScalarFieldEnum = {
       id: "id",
       actorId: "actorId",
       action: "action",
@@ -6205,36 +6198,36 @@ var require_prisma = __commonJS({
       ipAddress: "ipAddress",
       createdAt: "createdAt"
     };
-    exports.Prisma.SortOrder = {
+    exports2.Prisma.SortOrder = {
       asc: "asc",
       desc: "desc"
     };
-    exports.Prisma.NullableJsonNullValueInput = {
+    exports2.Prisma.NullableJsonNullValueInput = {
       DbNull: Prisma12.DbNull,
       JsonNull: Prisma12.JsonNull
     };
-    exports.Prisma.JsonNullValueInput = {
+    exports2.Prisma.JsonNullValueInput = {
       JsonNull: Prisma12.JsonNull
     };
-    exports.Prisma.QueryMode = {
+    exports2.Prisma.QueryMode = {
       default: "default",
       insensitive: "insensitive"
     };
-    exports.Prisma.NullsOrder = {
+    exports2.Prisma.NullsOrder = {
       first: "first",
       last: "last"
     };
-    exports.Prisma.JsonNullValueFilter = {
+    exports2.Prisma.JsonNullValueFilter = {
       DbNull: Prisma12.DbNull,
       JsonNull: Prisma12.JsonNull,
       AnyNull: Prisma12.AnyNull
     };
-    exports.ContentStatus = exports.$Enums.ContentStatus = {
+    exports2.ContentStatus = exports2.$Enums.ContentStatus = {
       DRAFT: "DRAFT",
       PUBLISHED: "PUBLISHED",
       ARCHIVED: "ARCHIVED"
     };
-    exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+    exports2.ApplicationStatus = exports2.$Enums.ApplicationStatus = {
       SUBMITTED: "SUBMITTED",
       UNDER_REVIEW: "UNDER_REVIEW",
       SHORTLISTED: "SHORTLISTED",
@@ -6242,47 +6235,47 @@ var require_prisma = __commonJS({
       REJECTED: "REJECTED",
       WAITLISTED: "WAITLISTED"
     };
-    exports.StudentStatus = exports.$Enums.StudentStatus = {
+    exports2.StudentStatus = exports2.$Enums.StudentStatus = {
       ACTIVE: "ACTIVE",
       INACTIVE: "INACTIVE",
       GRADUATED: "GRADUATED",
       WITHDRAWN: "WITHDRAWN"
     };
-    exports.BatchStatus = exports.$Enums.BatchStatus = {
+    exports2.BatchStatus = exports2.$Enums.BatchStatus = {
       PLANNED: "PLANNED",
       ACTIVE: "ACTIVE",
       COMPLETED: "COMPLETED",
       CANCELLED: "CANCELLED"
     };
-    exports.EnrollmentStatus = exports.$Enums.EnrollmentStatus = {
+    exports2.EnrollmentStatus = exports2.$Enums.EnrollmentStatus = {
       ACTIVE: "ACTIVE",
       COMPLETED: "COMPLETED",
       WITHDRAWN: "WITHDRAWN"
     };
-    exports.AttendanceStatus = exports.$Enums.AttendanceStatus = {
+    exports2.AttendanceStatus = exports2.$Enums.AttendanceStatus = {
       PRESENT: "PRESENT",
       ABSENT: "ABSENT",
       LATE: "LATE",
       EXCUSED: "EXCUSED"
     };
-    exports.CertificateStatus = exports.$Enums.CertificateStatus = {
+    exports2.CertificateStatus = exports2.$Enums.CertificateStatus = {
       PENDING: "PENDING",
       APPROVED: "APPROVED",
       ISSUED: "ISSUED",
       REVOKED: "REVOKED"
     };
-    exports.CompanyStatus = exports.$Enums.CompanyStatus = {
+    exports2.CompanyStatus = exports2.$Enums.CompanyStatus = {
       PROSPECT: "PROSPECT",
       ACTIVE: "ACTIVE",
       INACTIVE: "INACTIVE"
     };
-    exports.InquiryStatus = exports.$Enums.InquiryStatus = {
+    exports2.InquiryStatus = exports2.$Enums.InquiryStatus = {
       NEW: "NEW",
       IN_REVIEW: "IN_REVIEW",
       CONTACTED: "CONTACTED",
       CLOSED: "CLOSED"
     };
-    exports.OpportunityType = exports.$Enums.OpportunityType = {
+    exports2.OpportunityType = exports2.$Enums.OpportunityType = {
       INTERNSHIP: "INTERNSHIP",
       JOB: "JOB",
       TRAINING: "TRAINING",
@@ -6290,43 +6283,43 @@ var require_prisma = __commonJS({
       MENTORING: "MENTORING",
       OTHER: "OTHER"
     };
-    exports.OpportunityAudience = exports.$Enums.OpportunityAudience = {
+    exports2.OpportunityAudience = exports2.$Enums.OpportunityAudience = {
       STUDENTS: "STUDENTS",
       ALUMNI: "ALUMNI",
       ALL: "ALL"
     };
-    exports.OpportunityStatus = exports.$Enums.OpportunityStatus = {
+    exports2.OpportunityStatus = exports2.$Enums.OpportunityStatus = {
       DRAFT: "DRAFT",
       PUBLISHED: "PUBLISHED",
       CLOSED: "CLOSED"
     };
-    exports.ReviewStatus = exports.$Enums.ReviewStatus = {
+    exports2.ReviewStatus = exports2.$Enums.ReviewStatus = {
       PENDING: "PENDING",
       APPROVED: "APPROVED",
       REJECTED: "REJECTED"
     };
-    exports.AlumniVerification = exports.$Enums.AlumniVerification = {
+    exports2.AlumniVerification = exports2.$Enums.AlumniVerification = {
       PENDING: "PENDING",
       VERIFIED: "VERIFIED",
       REJECTED: "REJECTED"
     };
-    exports.PublicationStatus = exports.$Enums.PublicationStatus = {
+    exports2.PublicationStatus = exports2.$Enums.PublicationStatus = {
       NOT_SUBMITTED: "NOT_SUBMITTED",
       PENDING: "PENDING",
       APPROVED: "APPROVED",
       REJECTED: "REJECTED"
     };
-    exports.StoryStatus = exports.$Enums.StoryStatus = {
+    exports2.StoryStatus = exports2.$Enums.StoryStatus = {
       SUBMITTED: "SUBMITTED",
       PUBLISHED: "PUBLISHED",
       REJECTED: "REJECTED",
       ARCHIVED: "ARCHIVED"
     };
-    exports.AssetVisibility = exports.$Enums.AssetVisibility = {
+    exports2.AssetVisibility = exports2.$Enums.AssetVisibility = {
       PUBLIC: "PUBLIC",
       PRIVATE: "PRIVATE"
     };
-    exports.Prisma.ModelName = {
+    exports2.Prisma.ModelName = {
       User: "User",
       Role: "Role",
       Permission: "Permission",
@@ -6421,7 +6414,7 @@ var require_prisma = __commonJS({
       "inlineSchemaHash": "27a6decb4b2695ff77dd01c483b806182d25bc54059b4ded9b77eefec10199d1",
       "copyEngine": true
     };
-    var fs = __require("fs");
+    var fs = require("fs");
     config.dirname = __dirname;
     if (!fs.existsSync(path.join(__dirname, "schema.prisma"))) {
       const alternativePaths = [
@@ -6435,7 +6428,7 @@ var require_prisma = __commonJS({
       config.isBundled = true;
     }
     config.runtimeDataModel = JSON.parse('{"models":{"User":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"passwordHash","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"fullName","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"phone","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"preferredLocale","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"en","isGenerated":false,"isUpdatedAt":false},{"name":"isActive","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":true,"isGenerated":false,"isUpdatedAt":false},{"name":"lastLoginAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"roles","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"UserRole","nativeType":null,"relationName":"UserToUserRole","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"sessions","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Session","nativeType":null,"relationName":"SessionToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"passwordResetTokens","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"PasswordResetToken","nativeType":null,"relationName":"PasswordResetTokenToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"studentProfile","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"StudentProfile","nativeType":null,"relationName":"StudentProfileToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"alumniProfile","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniProfile","nativeType":null,"relationName":"AlumniProfileToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"alumniRequests","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniRegistrationRequest","nativeType":null,"relationName":"AlumniRequestUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"reviewedAlumni","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniRegistrationRequest","nativeType":null,"relationName":"AlumniRequestReviewer","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"applications","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"StudentApplication","nativeType":null,"relationName":"StudentApplicationToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"statusChanges","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"ApplicationStatusHistory","nativeType":null,"relationName":"ApplicationStatusHistoryToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"applicationNotes","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"ApplicationInternalNote","nativeType":null,"relationName":"ApplicationInternalNoteToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"teachingBatches","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"BatchTeacher","nativeType":null,"relationName":"BatchTeacherToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"auditLogs","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AuditLog","nativeType":null,"relationName":"AuditLogToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"notifications","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Notification","nativeType":null,"relationName":"NotificationToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"mediaAssets","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"MediaAsset","nativeType":null,"relationName":"MediaAssetToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"interactions","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"PartnershipInteraction","nativeType":null,"relationName":"PartnershipInteractionToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"contactMessages","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"ContactMessage","nativeType":null,"relationName":"ContactMessageToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"approvedCertificates","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Certificate","nativeType":null,"relationName":"CertificateToUser","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Role":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"key","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"description","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"isSystem","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":true,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"users","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"UserRole","nativeType":null,"relationName":"RoleToUserRole","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"permissions","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"RolePermission","nativeType":null,"relationName":"RoleToRolePermission","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Permission":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"key","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"description","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"roles","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"RolePermission","nativeType":null,"relationName":"PermissionToRolePermission","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"UserRole":{"dbName":null,"schema":null,"fields":[{"name":"userId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"roleId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"assignedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"UserToUserRole","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"role","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Role","nativeType":null,"relationName":"RoleToUserRole","relationFromFields":["roleId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":{"name":null,"fields":["userId","roleId"]},"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"RolePermission":{"dbName":null,"schema":null,"fields":[{"name":"roleId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"permissionId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"role","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Role","nativeType":null,"relationName":"RoleToRolePermission","relationFromFields":["roleId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"permission","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Permission","nativeType":null,"relationName":"PermissionToRolePermission","relationFromFields":["permissionId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":{"name":null,"fields":["roleId","permissionId"]},"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Session":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"tokenHash","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"expiresAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"revokedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"ipAddress","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"userAgent","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"lastSeenAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"SessionToUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"PasswordResetToken":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"tokenHash","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"purpose","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"reset","isGenerated":false,"isUpdatedAt":false},{"name":"expiresAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"usedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"PasswordResetTokenToUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"CourseCategory":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"slug","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"nameEn","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"nameBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"sortOrder","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Int","nativeType":null,"default":0,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"courses","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Course","nativeType":null,"relationName":"CourseToCourseCategory","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Course":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"slug","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"icon","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"book-open","isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"ContentStatus","nativeType":null,"default":"DRAFT","isGenerated":false,"isUpdatedAt":false},{"name":"sortOrder","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Int","nativeType":null,"default":0,"isGenerated":false,"isUpdatedAt":false},{"name":"categoryId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"publishedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"category","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"CourseCategory","nativeType":null,"relationName":"CourseToCourseCategory","relationFromFields":["categoryId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"translations","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"CourseTranslation","nativeType":null,"relationName":"CourseToCourseTranslation","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"topics","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"CourseTopic","nativeType":null,"relationName":"CourseToCourseTopic","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"outcomes","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"LearningOutcome","nativeType":null,"relationName":"CourseToLearningOutcome","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"batches","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"TrainingBatch","nativeType":null,"relationName":"CourseToTrainingBatch","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"materials","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"LearningMaterial","nativeType":null,"relationName":"CourseToLearningMaterial","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"cohorts","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniCohort","nativeType":null,"relationName":"AlumniCohortToCourse","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"alumni","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniProfile","nativeType":null,"relationName":"AlumniProfileToCourse","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"CourseTranslation":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"courseId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"locale","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"title","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"summary","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"description","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"duration","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"course","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Course","nativeType":null,"relationName":"CourseToCourseTranslation","relationFromFields":["courseId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[["courseId","locale"]],"uniqueIndexes":[{"name":null,"fields":["courseId","locale"]}],"isGenerated":false,"documentation":"One row per language so editing English never overwrites Bangla (and vice versa)."},"CourseTopic":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"courseId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"sortOrder","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Int","nativeType":null,"default":0,"isGenerated":false,"isUpdatedAt":false},{"name":"textEn","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"textBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"course","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Course","nativeType":null,"relationName":"CourseToCourseTopic","relationFromFields":["courseId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"LearningOutcome":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"courseId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"sortOrder","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Int","nativeType":null,"default":0,"isGenerated":false,"isUpdatedAt":false},{"name":"textEn","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"textBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"course","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Course","nativeType":null,"relationName":"CourseToLearningOutcome","relationFromFields":["courseId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"TrainingBatch":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"code","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"courseId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"startDate","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Date",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"endDate","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Date",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"capacity","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Int","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"BatchStatus","nativeType":null,"default":"PLANNED","isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"course","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Course","nativeType":null,"relationName":"CourseToTrainingBatch","relationFromFields":["courseId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"teachers","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"BatchTeacher","nativeType":null,"relationName":"BatchTeacherToTrainingBatch","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"enrollments","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Enrollment","nativeType":null,"relationName":"EnrollmentToTrainingBatch","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"assessments","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Assessment","nativeType":null,"relationName":"AssessmentToTrainingBatch","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"BatchTeacher":{"dbName":null,"schema":null,"fields":[{"name":"batchId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"batch","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"TrainingBatch","nativeType":null,"relationName":"BatchTeacherToTrainingBatch","relationFromFields":["batchId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"BatchTeacherToUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":{"name":null,"fields":["batchId","userId"]},"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"StudentProfile":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"studentCode","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"educationLevel","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"currentStatus","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"StudentStatus","nativeType":null,"default":"ACTIVE","isGenerated":false,"isUpdatedAt":false},{"name":"graduatedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"sourceApplicationId","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"StudentProfileToUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"sourceApplication","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"StudentApplication","nativeType":null,"relationName":"StudentApplicationToStudentProfile","relationFromFields":["sourceApplicationId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"enrollments","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Enrollment","nativeType":null,"relationName":"EnrollmentToStudentProfile","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"alumniProfile","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniProfile","nativeType":null,"relationName":"AlumniProfileToStudentProfile","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Enrollment":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"studentId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"batchId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"EnrollmentStatus","nativeType":null,"default":"ACTIVE","isGenerated":false,"isUpdatedAt":false},{"name":"progress","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Int","nativeType":null,"default":0,"isGenerated":false,"isUpdatedAt":false},{"name":"enrolledAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"completedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"student","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"StudentProfile","nativeType":null,"relationName":"EnrollmentToStudentProfile","relationFromFields":["studentId"],"relationToFields":["id"],"relationOnDelete":"Restrict","isGenerated":false,"isUpdatedAt":false},{"name":"batch","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"TrainingBatch","nativeType":null,"relationName":"EnrollmentToTrainingBatch","relationFromFields":["batchId"],"relationToFields":["id"],"relationOnDelete":"Restrict","isGenerated":false,"isUpdatedAt":false},{"name":"attendance","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Attendance","nativeType":null,"relationName":"AttendanceToEnrollment","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"results","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AssessmentResult","nativeType":null,"relationName":"AssessmentResultToEnrollment","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"certificate","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Certificate","nativeType":null,"relationName":"CertificateToEnrollment","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[["studentId","batchId"]],"uniqueIndexes":[{"name":null,"fields":["studentId","batchId"]}],"isGenerated":false},"Attendance":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"enrollmentId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"date","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Date",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AttendanceStatus","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"note","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"recordedById","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"enrollment","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Enrollment","nativeType":null,"relationName":"AttendanceToEnrollment","relationFromFields":["enrollmentId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[["enrollmentId","date"]],"uniqueIndexes":[{"name":null,"fields":["enrollmentId","date"]}],"isGenerated":false},"Assessment":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"batchId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"title","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"type","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"assignment","isGenerated":false,"isUpdatedAt":false},{"name":"maxScore","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Int","nativeType":null,"default":100,"isGenerated":false,"isUpdatedAt":false},{"name":"dueDate","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"batch","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"TrainingBatch","nativeType":null,"relationName":"AssessmentToTrainingBatch","relationFromFields":["batchId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"results","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AssessmentResult","nativeType":null,"relationName":"AssessmentToAssessmentResult","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"AssessmentResult":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"assessmentId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"enrollmentId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"score","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Decimal","nativeType":["Decimal",["6","2"]],"isGenerated":false,"isUpdatedAt":false},{"name":"feedback","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"gradedById","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"assessment","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Assessment","nativeType":null,"relationName":"AssessmentToAssessmentResult","relationFromFields":["assessmentId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"enrollment","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Enrollment","nativeType":null,"relationName":"AssessmentResultToEnrollment","relationFromFields":["enrollmentId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[["assessmentId","enrollmentId"]],"uniqueIndexes":[{"name":null,"fields":["assessmentId","enrollmentId"]}],"isGenerated":false},"LearningMaterial":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"courseId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"title","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"description","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"url","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"assetId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"isPublished","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":false,"isGenerated":false,"isUpdatedAt":false},{"name":"sortOrder","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Int","nativeType":null,"default":0,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"course","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Course","nativeType":null,"relationName":"CourseToLearningMaterial","relationFromFields":["courseId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"asset","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"MediaAsset","nativeType":null,"relationName":"LearningMaterialToMediaAsset","relationFromFields":["assetId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Certificate":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"enrollmentId","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"certificateNo","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"CertificateStatus","nativeType":null,"default":"PENDING","isGenerated":false,"isUpdatedAt":false},{"name":"approvedById","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"approvedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"issuedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"notes","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"enrollment","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Enrollment","nativeType":null,"relationName":"CertificateToEnrollment","relationFromFields":["enrollmentId"],"relationToFields":["id"],"relationOnDelete":"Restrict","isGenerated":false,"isUpdatedAt":false},{"name":"approvedBy","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"CertificateToUser","relationFromFields":["approvedById"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false,"documentation":"Certificates are never issued automatically: they require explicit staff approval."},"StudentApplication":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"referenceCode","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"idempotencyKey","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"fullName","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"phone","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"currentStatus","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"highestEducation","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"areaOfInterest","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"motivation","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"preferredContact","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"locale","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"en","isGenerated":false,"isUpdatedAt":false},{"name":"consentAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"ApplicationStatus","nativeType":null,"default":"SUBMITTED","isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"user","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"StudentApplicationToUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"history","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"ApplicationStatusHistory","nativeType":null,"relationName":"ApplicationStatusHistoryToStudentApplication","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"notes","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"ApplicationInternalNote","nativeType":null,"relationName":"ApplicationInternalNoteToStudentApplication","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"studentProfile","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"StudentProfile","nativeType":null,"relationName":"StudentApplicationToStudentProfile","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"ApplicationStatusHistory":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"applicationId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"fromStatus","kind":"enum","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"ApplicationStatus","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"toStatus","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"ApplicationStatus","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"changedById","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"note","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"application","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"StudentApplication","nativeType":null,"relationName":"ApplicationStatusHistoryToStudentApplication","relationFromFields":["applicationId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"changedBy","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"ApplicationStatusHistoryToUser","relationFromFields":["changedById"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"ApplicationInternalNote":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"applicationId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"authorId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"body","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"application","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"StudentApplication","nativeType":null,"relationName":"ApplicationInternalNoteToStudentApplication","relationFromFields":["applicationId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"author","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"ApplicationInternalNoteToUser","relationFromFields":["authorId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false,"documentation":"Private staff notes. Never returned by applicant-facing endpoints."},"Company":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"website","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"industry","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"contactName","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"contactEmail","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"phone","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"notes","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"CompanyStatus","nativeType":null,"default":"PROSPECT","isGenerated":false,"isUpdatedAt":false},{"name":"listedPublicly","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":false,"isGenerated":false,"isUpdatedAt":false,"documentation":"Name, industry and website may be shown on the public site. Contact details never are."},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"inquiries","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"PartnershipInquiry","nativeType":null,"relationName":"CompanyToPartnershipInquiry","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"interactions","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"PartnershipInteraction","nativeType":null,"relationName":"CompanyToPartnershipInteraction","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"opportunities","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Opportunity","nativeType":null,"relationName":"CompanyToOpportunity","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"PartnershipInquiry":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"organizationName","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"contactName","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"workEmail","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"phone","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"website","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"interest","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"message","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"consentAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"InquiryStatus","nativeType":null,"default":"NEW","isGenerated":false,"isUpdatedAt":false},{"name":"companyId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"company","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Company","nativeType":null,"relationName":"CompanyToPartnershipInquiry","relationFromFields":["companyId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"interactions","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"PartnershipInteraction","nativeType":null,"relationName":"PartnershipInquiryToPartnershipInteraction","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"PartnershipInteraction":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"inquiryId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"companyId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"authorId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"type","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"note","isGenerated":false,"isUpdatedAt":false},{"name":"note","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"occurredAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"inquiry","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"PartnershipInquiry","nativeType":null,"relationName":"PartnershipInquiryToPartnershipInteraction","relationFromFields":["inquiryId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"company","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Company","nativeType":null,"relationName":"CompanyToPartnershipInteraction","relationFromFields":["companyId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"author","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"PartnershipInteractionToUser","relationFromFields":["authorId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Opportunity":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"companyId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"title","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"type","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"OpportunityType","nativeType":null,"default":"OTHER","isGenerated":false,"isUpdatedAt":false},{"name":"description","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"location","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"applyUrl","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"deadline","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"audience","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"OpportunityAudience","nativeType":null,"default":"ALL","isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"OpportunityStatus","nativeType":null,"default":"DRAFT","isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"company","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Company","nativeType":null,"relationName":"CompanyToOpportunity","relationFromFields":["companyId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"AlumniCohort":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"slug","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"graduationYear","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Int","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"courseId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"description","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"course","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Course","nativeType":null,"relationName":"AlumniCohortToCourse","relationFromFields":["courseId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"profiles","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniProfile","nativeType":null,"relationName":"AlumniCohortToAlumniProfile","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"requests","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniRegistrationRequest","nativeType":null,"relationName":"AlumniCohortToAlumniRegistrationRequest","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"AlumniProfile":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"studentProfileId","kind":"scalar","isList":false,"isRequired":false,"isUnique":true,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"slug","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"displayName","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"cohortId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"courseId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"graduationYear","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Int","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"programName","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"professionalTitle","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"organization","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"professionalField","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"skills","kind":"scalar","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":[],"isGenerated":false,"isUpdatedAt":false},{"name":"interests","kind":"scalar","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":[],"isGenerated":false,"isUpdatedAt":false},{"name":"bioEn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"bioBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"linkedinUrl","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"portfolioUrl","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"photoAssetId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"contactEmail","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"contactPhone","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"verificationStatus","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"AlumniVerification","nativeType":null,"default":"PENDING","isGenerated":false,"isUpdatedAt":false},{"name":"isPublic","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":false,"isGenerated":false,"isUpdatedAt":false},{"name":"publicConsentAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"publicationStatus","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"PublicationStatus","nativeType":null,"default":"NOT_SUBMITTED","isGenerated":false,"isUpdatedAt":false},{"name":"pendingChanges","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Json","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"reviewNote","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"archivedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"AlumniProfileToUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"studentProfile","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"StudentProfile","nativeType":null,"relationName":"AlumniProfileToStudentProfile","relationFromFields":["studentProfileId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"cohort","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniCohort","nativeType":null,"relationName":"AlumniCohortToAlumniProfile","relationFromFields":["cohortId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"course","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Course","nativeType":null,"relationName":"AlumniProfileToCourse","relationFromFields":["courseId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"photo","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"MediaAsset","nativeType":null,"relationName":"AlumniProfileToMediaAsset","relationFromFields":["photoAssetId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"stories","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniStory","nativeType":null,"relationName":"AlumniProfileToAlumniStory","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false,"documentation":"Public directory shows a profile only when verificationStatus = VERIFIED,\\\\nisPublic = true (explicit consent), publicationStatus = APPROVED and archivedAt is null."},"AlumniRegistrationRequest":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"fullName","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"graduationYear","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Int","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"courseId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"cohortId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"studentCode","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"message","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"matchedStudentId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"ReviewStatus","nativeType":null,"default":"PENDING","isGenerated":false,"isUpdatedAt":false},{"name":"reviewNote","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"reviewedById","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"reviewedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"AlumniRequestUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"reviewedBy","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"AlumniRequestReviewer","relationFromFields":["reviewedById"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"cohort","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniCohort","nativeType":null,"relationName":"AlumniCohortToAlumniRegistrationRequest","relationFromFields":["cohortId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"AlumniStory":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"slug","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"authorId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"titleEn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"titleBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"excerptEn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"excerptBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"bodyEn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"bodyBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"imageAssetId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"StoryStatus","nativeType":null,"default":"SUBMITTED","isGenerated":false,"isUpdatedAt":false},{"name":"reviewNote","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"publishedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true},{"name":"author","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniProfile","nativeType":null,"relationName":"AlumniProfileToAlumniStory","relationFromFields":["authorId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false},{"name":"image","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"MediaAsset","nativeType":null,"relationName":"AlumniStoryToMediaAsset","relationFromFields":["imageAssetId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"AlumniAnnouncement":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"titleEn","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"titleBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"bodyEn","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"bodyBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"ContentStatus","nativeType":null,"default":"DRAFT","isGenerated":false,"isUpdatedAt":false},{"name":"publishedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"WebsiteSection":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"key","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"locale","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"draftContent","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Json","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"publishedContent","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Json","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"publishedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"updatedById","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true}],"primaryKey":null,"uniqueFields":[["key","locale"]],"uniqueIndexes":[{"name":null,"fields":["key","locale"]}],"isGenerated":false,"documentation":"Draft and published content are stored separately so editing never changes the\\\\npublic site until publication. One row per (key, locale)."},"WebsiteSetting":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"key","kind":"scalar","isList":false,"isRequired":true,"isUnique":true,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"group","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"value","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Json","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"isPublic","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":false,"isGenerated":false,"isUpdatedAt":false},{"name":"description","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"updatedById","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false,"documentation":"Key/value settings grouped by purpose: contact, qr, social, seo, program.\\\\nisPublic controls whether the value may be returned by public endpoints."},"Faq":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"questionEn","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"answerEn","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"questionBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"answerBn","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"category","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"general","isGenerated":false,"isUpdatedAt":false},{"name":"sortOrder","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Int","nativeType":null,"default":0,"isGenerated":false,"isUpdatedAt":false},{"name":"isPublished","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":false,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":true}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"MediaAsset":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"bucket","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"objectKey","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"fileName","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"mimeType","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"sizeBytes","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Int","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"visibility","kind":"enum","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"AssetVisibility","nativeType":null,"default":"PRIVATE","isGenerated":false,"isUpdatedAt":false},{"name":"altText","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"uploadedById","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"uploadedBy","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"MediaAssetToUser","relationFromFields":["uploadedById"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false},{"name":"materials","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"LearningMaterial","nativeType":null,"relationName":"LearningMaterialToMediaAsset","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"alumniPhotos","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniProfile","nativeType":null,"relationName":"AlumniProfileToMediaAsset","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false},{"name":"storyImages","kind":"object","isList":true,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"AlumniStory","nativeType":null,"relationName":"AlumniStoryToMediaAsset","relationFromFields":[],"relationToFields":[],"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[["bucket","objectKey"]],"uniqueIndexes":[{"name":null,"fields":["bucket","objectKey"]}],"isGenerated":false,"documentation":"Metadata for objects held in external storage (Supabase Storage). Binaries are never stored here."},"ContactMessage":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"subject","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"message","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"category","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":"general","isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"isRead","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"Boolean","nativeType":null,"default":false,"isGenerated":false,"isUpdatedAt":false},{"name":"readAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"user","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"ContactMessageToUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"Notification":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"userId","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"title","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"body","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"link","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"readAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"DateTime","nativeType":["Timestamptz",["3"]],"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"user","kind":"object","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"NotificationToUser","relationFromFields":["userId"],"relationToFields":["id"],"relationOnDelete":"Cascade","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false},"AuditLog":{"dbName":null,"schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["Uuid",[]],"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"actorId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":true,"hasDefaultValue":false,"type":"String","nativeType":["Uuid",[]],"isGenerated":false,"isUpdatedAt":false},{"name":"action","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"entityType","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"entityId","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"metadata","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Json","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"ipAddress","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":["Timestamptz",["3"]],"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"actor","kind":"object","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"User","nativeType":null,"relationName":"AuditLogToUser","relationFromFields":["actorId"],"relationToFields":["id"],"relationOnDelete":"SetNull","isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false}},"enums":{"ContentStatus":{"values":[{"name":"DRAFT","dbName":null},{"name":"PUBLISHED","dbName":null},{"name":"ARCHIVED","dbName":null}],"dbName":null},"ApplicationStatus":{"values":[{"name":"SUBMITTED","dbName":null},{"name":"UNDER_REVIEW","dbName":null},{"name":"SHORTLISTED","dbName":null},{"name":"ACCEPTED","dbName":null},{"name":"REJECTED","dbName":null},{"name":"WAITLISTED","dbName":null}],"dbName":null},"StudentStatus":{"values":[{"name":"ACTIVE","dbName":null},{"name":"INACTIVE","dbName":null},{"name":"GRADUATED","dbName":null},{"name":"WITHDRAWN","dbName":null}],"dbName":null},"BatchStatus":{"values":[{"name":"PLANNED","dbName":null},{"name":"ACTIVE","dbName":null},{"name":"COMPLETED","dbName":null},{"name":"CANCELLED","dbName":null}],"dbName":null},"EnrollmentStatus":{"values":[{"name":"ACTIVE","dbName":null},{"name":"COMPLETED","dbName":null},{"name":"WITHDRAWN","dbName":null}],"dbName":null},"AttendanceStatus":{"values":[{"name":"PRESENT","dbName":null},{"name":"ABSENT","dbName":null},{"name":"LATE","dbName":null},{"name":"EXCUSED","dbName":null}],"dbName":null},"CertificateStatus":{"values":[{"name":"PENDING","dbName":null},{"name":"APPROVED","dbName":null},{"name":"ISSUED","dbName":null},{"name":"REVOKED","dbName":null}],"dbName":null},"CompanyStatus":{"values":[{"name":"PROSPECT","dbName":null},{"name":"ACTIVE","dbName":null},{"name":"INACTIVE","dbName":null}],"dbName":null},"InquiryStatus":{"values":[{"name":"NEW","dbName":null},{"name":"IN_REVIEW","dbName":null},{"name":"CONTACTED","dbName":null},{"name":"CLOSED","dbName":null}],"dbName":null},"OpportunityType":{"values":[{"name":"INTERNSHIP","dbName":null},{"name":"JOB","dbName":null},{"name":"TRAINING","dbName":null},{"name":"PROJECT","dbName":null},{"name":"MENTORING","dbName":null},{"name":"OTHER","dbName":null}],"dbName":null},"OpportunityAudience":{"values":[{"name":"STUDENTS","dbName":null},{"name":"ALUMNI","dbName":null},{"name":"ALL","dbName":null}],"dbName":null},"OpportunityStatus":{"values":[{"name":"DRAFT","dbName":null},{"name":"PUBLISHED","dbName":null},{"name":"CLOSED","dbName":null}],"dbName":null},"ReviewStatus":{"values":[{"name":"PENDING","dbName":null},{"name":"APPROVED","dbName":null},{"name":"REJECTED","dbName":null}],"dbName":null},"AlumniVerification":{"values":[{"name":"PENDING","dbName":null},{"name":"VERIFIED","dbName":null},{"name":"REJECTED","dbName":null}],"dbName":null},"PublicationStatus":{"values":[{"name":"NOT_SUBMITTED","dbName":null},{"name":"PENDING","dbName":null},{"name":"APPROVED","dbName":null},{"name":"REJECTED","dbName":null}],"dbName":null},"StoryStatus":{"values":[{"name":"SUBMITTED","dbName":null},{"name":"PUBLISHED","dbName":null},{"name":"REJECTED","dbName":null},{"name":"ARCHIVED","dbName":null}],"dbName":null},"AssetVisibility":{"values":[{"name":"PUBLIC","dbName":null},{"name":"PRIVATE","dbName":null}],"dbName":null}},"types":{}}');
-    defineDmmfProperty2(exports.Prisma, config.runtimeDataModel);
+    defineDmmfProperty2(exports2.Prisma, config.runtimeDataModel);
     config.engineWasm = void 0;
     config.compilerWasm = void 0;
     var { warnEnvConflicts: warnEnvConflicts2 } = require_library();
@@ -6444,8 +6437,8 @@ var require_prisma = __commonJS({
       schemaEnvPath: config.relativeEnvPaths.schemaEnvPath && path.resolve(config.dirname, config.relativeEnvPaths.schemaEnvPath)
     });
     var PrismaClient2 = getPrismaClient2(config);
-    exports.PrismaClient = PrismaClient2;
-    Object.assign(exports, Prisma12);
+    exports2.PrismaClient = PrismaClient2;
+    Object.assign(exports2, Prisma12);
     path.join(__dirname, "query_engine-windows.dll.node");
     path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node");
     path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
@@ -6455,15 +6448,22 @@ var require_prisma = __commonJS({
   }
 });
 
+// src/server.ts
+var server_exports = {};
+__export(server_exports, {
+  default: () => server_default
+});
+module.exports = __toCommonJS(server_exports);
+
 // src/app.ts
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import express from "express";
-import helmet from "helmet";
-import { pinoHttp } from "pino-http";
+var import_cookie_parser = __toESM(require("cookie-parser"), 1);
+var import_cors = __toESM(require("cors"), 1);
+var import_express10 = __toESM(require("express"), 1);
+var import_helmet = __toESM(require("helmet"), 1);
+var import_pino_http = require("pino-http");
 
 // src/config/env.ts
-import { z } from "zod";
+var import_zod = require("zod");
 function deploymentOrigins() {
   const hosts = [process.env.VERCEL_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL].filter(
     (host) => Boolean(host)
@@ -6481,24 +6481,24 @@ if (origins.length > 0) {
   if (localOrigin(process.env.APP_URL)) process.env.APP_URL = primary;
   if (!process.env.TRUST_PROXY || process.env.TRUST_PROXY === "0") process.env.TRUST_PROXY = "1";
 }
-var schema = z.object({
-  NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
-  PORT: z.coerce.number().int().positive().default(5e3),
-  WEB_ORIGIN: z.string().default("http://localhost:5173"),
-  APP_URL: z.string().url().default("http://localhost:5173"),
-  DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
-  SESSION_SECRET: z.string().min(32, "SESSION_SECRET must be at least 32 characters"),
-  SESSION_TTL_HOURS: z.coerce.number().positive().default(72),
-  COOKIE_SAMESITE: z.enum(["lax", "strict", "none"]).default("lax"),
+var schema = import_zod.z.object({
+  NODE_ENV: import_zod.z.enum(["development", "test", "production"]).default("development"),
+  PORT: import_zod.z.coerce.number().int().positive().default(5e3),
+  WEB_ORIGIN: import_zod.z.string().default("http://localhost:5173"),
+  APP_URL: import_zod.z.string().url().default("http://localhost:5173"),
+  DATABASE_URL: import_zod.z.string().min(1, "DATABASE_URL is required"),
+  SESSION_SECRET: import_zod.z.string().min(32, "SESSION_SECRET must be at least 32 characters"),
+  SESSION_TTL_HOURS: import_zod.z.coerce.number().positive().default(72),
+  COOKIE_SAMESITE: import_zod.z.enum(["lax", "strict", "none"]).default("lax"),
   /** Number of reverse proxies in front of the API (needed for correct client IPs and rate limits). */
-  TRUST_PROXY: z.coerce.number().int().min(0).max(5).default(0),
-  STORAGE_URL: z.string().optional().default(""),
-  STORAGE_SERVICE_KEY: z.string().optional().default(""),
-  STORAGE_PUBLIC_BUCKET: z.string().default("public-media"),
-  STORAGE_PRIVATE_BUCKET: z.string().default("private-files"),
-  EMAIL_PROVIDER_API_KEY: z.string().optional().default(""),
-  EMAIL_FROM: z.string().optional().default(""),
-  LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info")
+  TRUST_PROXY: import_zod.z.coerce.number().int().min(0).max(5).default(0),
+  STORAGE_URL: import_zod.z.string().optional().default(""),
+  STORAGE_SERVICE_KEY: import_zod.z.string().optional().default(""),
+  STORAGE_PUBLIC_BUCKET: import_zod.z.string().default("public-media"),
+  STORAGE_PRIVATE_BUCKET: import_zod.z.string().default("private-files"),
+  EMAIL_PROVIDER_API_KEY: import_zod.z.string().optional().default(""),
+  EMAIL_FROM: import_zod.z.string().optional().default(""),
+  LOG_LEVEL: import_zod.z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info")
 });
 var parsed = schema.safeParse(process.env);
 var envError = parsed.success ? null : parsed.error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`).join("; ");
@@ -6523,8 +6523,8 @@ var allowedOrigins = [
 var storageConfigured = Boolean(env.STORAGE_URL && env.STORAGE_SERVICE_KEY);
 
 // src/lib/logger.ts
-import pino from "pino";
-var logger = pino({
+var import_pino = __toESM(require("pino"), 1);
+var logger = (0, import_pino.default)({
   level: isTest ? "silent" : env.LOG_LEVEL,
   redact: {
     paths: [
@@ -6542,23 +6542,23 @@ var logger = pino({
 });
 
 // src/services/auth.service.ts
-import bcrypt from "bcryptjs";
+var import_bcryptjs = __toESM(require("bcryptjs"), 1);
 
 // src/lib/prisma-engine.ts
-import { existsSync } from "node:fs";
-import { join as join2 } from "node:path";
-import { platform } from "node:os";
-var engineName = platform() === "win32" ? "query_engine-windows.dll.node" : platform() === "darwin" ? "libquery_engine-darwin-arm64.dylib.node" : "libquery_engine-rhel-openssl-3.0.x.so.node";
+var import_node_fs = require("node:fs");
+var import_node_path = require("node:path");
+var import_node_os = require("node:os");
+var engineName = (0, import_node_os.platform)() === "win32" ? "query_engine-windows.dll.node" : (0, import_node_os.platform)() === "darwin" ? "libquery_engine-darwin-arm64.dylib.node" : "libquery_engine-rhel-openssl-3.0.x.so.node";
 var directories = [
-  join2(process.cwd(), "query-engine"),
-  join2(process.cwd(), "backend/query-engine"),
-  join2(process.cwd(), "generated/prisma"),
-  join2(process.cwd(), "backend/generated/prisma")
+  (0, import_node_path.join)(process.cwd(), "query-engine"),
+  (0, import_node_path.join)(process.cwd(), "backend/query-engine"),
+  (0, import_node_path.join)(process.cwd(), "generated/prisma"),
+  (0, import_node_path.join)(process.cwd(), "backend/generated/prisma")
 ];
 if (!process.env.PRISMA_QUERY_ENGINE_LIBRARY) {
   for (const directory2 of directories) {
-    const engine = join2(directory2, engineName);
-    if (existsSync(engine)) {
+    const engine = (0, import_node_path.join)(directory2, engineName);
+    if ((0, import_node_fs.existsSync)(engine)) {
       process.env.PRISMA_QUERY_ENGINE_LIBRARY = engine;
       break;
     }
@@ -6589,24 +6589,24 @@ function createClient() {
 var prisma = createClient();
 
 // src/utils/crypto.ts
-import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
-var randomToken = (bytes = 32) => randomBytes(bytes).toString("base64url");
-var hashToken = (token) => createHmac("sha256", env.SESSION_SECRET).update(token).digest("hex");
+var import_node_crypto = require("node:crypto");
+var randomToken = (bytes = 32) => (0, import_node_crypto.randomBytes)(bytes).toString("base64url");
+var hashToken = (token) => (0, import_node_crypto.createHmac)("sha256", env.SESSION_SECRET).update(token).digest("hex");
 function safeEqual(a, b) {
   const ab = Buffer.from(a);
   const bb = Buffer.from(b);
-  return ab.length === bb.length && timingSafeEqual(ab, bb);
+  return ab.length === bb.length && (0, import_node_crypto.timingSafeEqual)(ab, bb);
 }
 var REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 function referenceCode(prefix, length = 8) {
-  const bytes = randomBytes(length);
+  const bytes = (0, import_node_crypto.randomBytes)(length);
   let out = "";
   for (const b of bytes) out += REF_ALPHABET[b % REF_ALPHABET.length];
   return `${prefix}-${(/* @__PURE__ */ new Date()).getUTCFullYear()}-${out}`;
 }
 
 // src/utils/http.ts
-import { z as z2 } from "zod";
+var import_zod2 = require("zod");
 var ApiError = class _ApiError extends Error {
   constructor(status, code, message, details) {
     super(message);
@@ -6658,18 +6658,18 @@ function parse(schema2, input) {
   return result.data;
 }
 var body = (req, schema2) => parse(schema2, req.body ?? {});
-var uuidParam = z2.object({ id: z2.string().uuid() });
+var uuidParam = import_zod2.z.object({ id: import_zod2.z.string().uuid() });
 var idParam = (req) => {
   const result = uuidParam.safeParse(req.params);
   if (!result.success) throw ApiError.notFound();
   return result.data.id;
 };
-var paginationSchema = z2.object({
-  page: z2.coerce.number().int().min(1).max(1e4).default(1),
-  pageSize: z2.coerce.number().int().min(1).max(100).default(20),
-  q: z2.string().trim().max(200).optional(),
-  sort: z2.string().max(50).optional(),
-  order: z2.enum(["asc", "desc"]).default("desc")
+var paginationSchema = import_zod2.z.object({
+  page: import_zod2.z.coerce.number().int().min(1).max(1e4).default(1),
+  pageSize: import_zod2.z.coerce.number().int().min(1).max(100).default(20),
+  q: import_zod2.z.string().trim().max(200).optional(),
+  sort: import_zod2.z.string().max(50).optional(),
+  order: import_zod2.z.enum(["asc", "desc"]).default("desc")
 });
 function pageArgs(p) {
   return { skip: (p.page - 1) * p.pageSize, take: p.pageSize };
@@ -6681,17 +6681,17 @@ function orderBy(p, allowed, fallback2 = "createdAt") {
   const field = p.sort && allowed.includes(p.sort) ? p.sort : fallback2;
   return { [field]: p.order };
 }
-var optionalText = (max) => z2.string().trim().max(max).optional().nullable().transform((v) => v ? v : null);
-var optionalUrl = z2.string().trim().max(500).optional().nullable().refine((v) => !v || /^https?:\/\//i.test(v), "Must be an http(s) URL").transform((v) => v ? v : null);
-var email = z2.string().trim().toLowerCase().email().max(254);
+var optionalText = (max) => import_zod2.z.string().trim().max(max).optional().nullable().transform((v) => v ? v : null);
+var optionalUrl = import_zod2.z.string().trim().max(500).optional().nullable().refine((v) => !v || /^https?:\/\//i.test(v), "Must be an http(s) URL").transform((v) => v ? v : null);
+var email = import_zod2.z.string().trim().toLowerCase().email().max(254);
 
 // src/services/auth.service.ts
 var BCRYPT_ROUNDS = 12;
-var DUMMY_HASH = bcrypt.hashSync("timing-equaliser-not-a-password", BCRYPT_ROUNDS);
-var hashPassword = (password2) => bcrypt.hash(password2, BCRYPT_ROUNDS);
+var DUMMY_HASH = import_bcryptjs.default.hashSync("timing-equaliser-not-a-password", BCRYPT_ROUNDS);
+var hashPassword = (password2) => import_bcryptjs.default.hash(password2, BCRYPT_ROUNDS);
 async function verifyCredentials(email2, password2) {
   const user = await prisma.user.findUnique({ where: { email: email2.toLowerCase() } });
-  const valid = await bcrypt.compare(password2, user?.passwordHash ?? DUMMY_HASH);
+  const valid = await import_bcryptjs.default.compare(password2, user?.passwordHash ?? DUMMY_HASH);
   if (!user || !user.passwordHash || !valid || !user.isActive) {
     throw new ApiError(401, "INVALID_CREDENTIALS", "Invalid email or password");
   }
@@ -6822,7 +6822,7 @@ function csrfProtection(req, _res, next) {
 }
 
 // src/middleware/errorHandler.ts
-import { MulterError } from "multer";
+var import_multer = require("multer");
 var notFoundHandler = (req, res) => {
   res.status(404).json({ error: { code: "NOT_FOUND", message: "Route not found", requestId: req.id } });
 };
@@ -6835,7 +6835,7 @@ var errorHandler = (err, req, res, _next) => {
     else if (err.code === "P2025") error = ApiError.notFound();
     else if (err.code === "P2003") error = ApiError.conflict("This record is referenced by other records", "IN_USE");
     else error = new ApiError(500, "INTERNAL_ERROR", "An unexpected error occurred");
-  } else if (err instanceof MulterError) {
+  } else if (err instanceof import_multer.MulterError) {
     error = ApiError.badRequest(err.code === "LIMIT_FILE_SIZE" ? "File is too large" : "Invalid upload");
   } else if (err?.type === "entity.parse.failed") {
     error = ApiError.badRequest("Malformed JSON body");
@@ -6857,32 +6857,32 @@ var errorHandler = (err, req, res, _next) => {
 };
 
 // src/middleware/rateLimit.ts
-import rateLimit from "express-rate-limit";
+var import_express_rate_limit = __toESM(require("express-rate-limit"), 1);
 var handler = (req, res) => {
   res.status(429).json({
     error: { code: "RATE_LIMITED", message: "Too many requests. Please try again later.", requestId: req.id }
   });
 };
-var make = (windowMs, limit) => rateLimit({ windowMs, limit, standardHeaders: "draft-8", legacyHeaders: false, handler, skip: () => isTest });
+var make = (windowMs, limit) => (0, import_express_rate_limit.default)({ windowMs, limit, standardHeaders: "draft-8", legacyHeaders: false, handler, skip: () => isTest });
 var globalLimiter = make(15 * 6e4, 600);
 var authLimiter = make(15 * 6e4, 20);
 var formLimiter = make(10 * 6e4, 10);
 
 // src/middleware/requestId.ts
-import { randomUUID } from "node:crypto";
+var import_node_crypto2 = require("node:crypto");
 var VALID_ID = /^[A-Za-z0-9._-]{8,64}$/;
 function requestId(req, res, next) {
   const incoming = req.get("x-request-id");
-  req.id = incoming && VALID_ID.test(incoming) ? incoming : randomUUID();
+  req.id = incoming && VALID_ID.test(incoming) ? incoming : (0, import_node_crypto2.randomUUID)();
   res.setHeader("X-Request-Id", req.id);
   next();
 }
 
 // src/routes/index.ts
-import { Router as Router9 } from "express";
+var import_express9 = require("express");
 
 // src/routes/admin.routes.ts
-import { Router } from "express";
+var import_express = require("express");
 
 // src/config/permissions.ts
 var P = {
@@ -6998,231 +6998,231 @@ If you were not expecting this message you can ignore it.`
 }
 
 // src/validators/admin.validators.ts
-import { z as z3 } from "zod";
-var uuid = z3.string().uuid();
+var import_zod3 = require("zod");
+var uuid = import_zod3.z.string().uuid();
 var optionalUuid = uuid.optional().nullable().transform((v) => v ?? null);
-var optionalDate = z3.coerce.date().optional().nullable().transform((v) => v ?? null);
-var sortOrder = z3.coerce.number().int().min(0).max(1e4);
-var roleKey = z3.string().regex(/^[A-Z][A-Z0-9_]{1,40}$/);
-var createUserSchema = z3.object({
-  fullName: z3.string().trim().min(2).max(120),
+var optionalDate = import_zod3.z.coerce.date().optional().nullable().transform((v) => v ?? null);
+var sortOrder = import_zod3.z.coerce.number().int().min(0).max(1e4);
+var roleKey = import_zod3.z.string().regex(/^[A-Z][A-Z0-9_]{1,40}$/);
+var createUserSchema = import_zod3.z.object({
+  fullName: import_zod3.z.string().trim().min(2).max(120),
   email,
   phone: optionalText(30),
-  roleKeys: z3.array(roleKey).max(10).default([])
+  roleKeys: import_zod3.z.array(roleKey).max(10).default([])
 });
-var updateUserSchema = z3.object({
-  fullName: z3.string().trim().min(2).max(120),
+var updateUserSchema = import_zod3.z.object({
+  fullName: import_zod3.z.string().trim().min(2).max(120),
   phone: optionalText(30),
-  isActive: z3.boolean(),
-  roleKeys: z3.array(roleKey).max(10)
+  isActive: import_zod3.z.boolean(),
+  roleKeys: import_zod3.z.array(roleKey).max(10)
 }).partial();
-var userFilterSchema = z3.object({
+var userFilterSchema = import_zod3.z.object({
   role: roleKey.optional(),
-  isActive: z3.enum(["true", "false"]).optional()
+  isActive: import_zod3.z.enum(["true", "false"]).optional()
 });
-var createRoleSchema = z3.object({
+var createRoleSchema = import_zod3.z.object({
   key: roleKey,
-  name: z3.string().trim().min(2).max(80),
+  name: import_zod3.z.string().trim().min(2).max(80),
   description: optionalText(300),
-  permissions: z3.array(z3.string().max(60)).max(100).default([])
+  permissions: import_zod3.z.array(import_zod3.z.string().max(60)).max(100).default([])
 });
-var rolePermissionsSchema = z3.object({ permissions: z3.array(z3.string().max(60)).max(100) });
-var translation = z3.object({
-  title: z3.string().trim().min(2).max(160),
-  summary: z3.string().trim().min(2).max(500),
-  description: z3.string().trim().min(2).max(1e4),
+var rolePermissionsSchema = import_zod3.z.object({ permissions: import_zod3.z.array(import_zod3.z.string().max(60)).max(100) });
+var translation = import_zod3.z.object({
+  title: import_zod3.z.string().trim().min(2).max(160),
+  summary: import_zod3.z.string().trim().min(2).max(500),
+  description: import_zod3.z.string().trim().min(2).max(1e4),
   duration: optionalText(80)
 });
-var bilingualItem = z3.object({ en: z3.string().trim().min(1).max(300), bn: optionalText(300) });
-var courseSchema = z3.object({
-  slug: z3.string().trim().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers and hyphens").max(80).optional(),
-  icon: z3.string().trim().regex(/^[a-z0-9-]{1,40}$/).default("book-open"),
+var bilingualItem = import_zod3.z.object({ en: import_zod3.z.string().trim().min(1).max(300), bn: optionalText(300) });
+var courseSchema = import_zod3.z.object({
+  slug: import_zod3.z.string().trim().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers and hyphens").max(80).optional(),
+  icon: import_zod3.z.string().trim().regex(/^[a-z0-9-]{1,40}$/).default("book-open"),
   categoryId: optionalUuid,
   sortOrder: sortOrder.default(0),
-  translations: z3.object({ en: translation, bn: translation.optional() }),
-  topics: z3.array(bilingualItem).max(50).default([]),
-  outcomes: z3.array(bilingualItem).max(50).default([])
+  translations: import_zod3.z.object({ en: translation, bn: translation.optional() }),
+  topics: import_zod3.z.array(bilingualItem).max(50).default([]),
+  outcomes: import_zod3.z.array(bilingualItem).max(50).default([])
 });
-var courseUpdateSchema = z3.object({
+var courseUpdateSchema = import_zod3.z.object({
   slug: courseSchema.shape.slug,
-  icon: z3.string().trim().regex(/^[a-z0-9-]{1,40}$/),
+  icon: import_zod3.z.string().trim().regex(/^[a-z0-9-]{1,40}$/),
   categoryId: optionalUuid,
   sortOrder,
-  translations: z3.object({ en: translation.optional(), bn: translation.optional() }),
-  topics: z3.array(bilingualItem).max(50),
-  outcomes: z3.array(bilingualItem).max(50)
+  translations: import_zod3.z.object({ en: translation.optional(), bn: translation.optional() }),
+  topics: import_zod3.z.array(bilingualItem).max(50),
+  outcomes: import_zod3.z.array(bilingualItem).max(50)
 }).partial();
-var courseStatusSchema = z3.object({ status: z3.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]) });
-var reorderSchema = z3.object({ ids: z3.array(uuid).min(1).max(200) });
-var categorySchema = z3.object({
-  slug: z3.string().trim().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(80),
-  nameEn: z3.string().trim().min(2).max(120),
+var courseStatusSchema = import_zod3.z.object({ status: import_zod3.z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]) });
+var reorderSchema = import_zod3.z.object({ ids: import_zod3.z.array(uuid).min(1).max(200) });
+var categorySchema = import_zod3.z.object({
+  slug: import_zod3.z.string().trim().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(80),
+  nameEn: import_zod3.z.string().trim().min(2).max(120),
   nameBn: optionalText(120),
   sortOrder: sortOrder.default(0)
 });
-var materialSchema = z3.object({
+var materialSchema = import_zod3.z.object({
   courseId: uuid,
-  title: z3.string().trim().min(2).max(200),
+  title: import_zod3.z.string().trim().min(2).max(200),
   description: optionalText(2e3),
   url: optionalUrl,
   assetId: optionalUuid,
-  isPublished: z3.boolean().default(false),
+  isPublished: import_zod3.z.boolean().default(false),
   sortOrder: sortOrder.default(0)
 });
-var materialFilterSchema = z3.object({ courseId: uuid.optional() });
-var applicationStatus = z3.enum(["SUBMITTED", "UNDER_REVIEW", "SHORTLISTED", "ACCEPTED", "REJECTED", "WAITLISTED"]);
-var applicationFilterSchema = z3.object({ status: applicationStatus.optional() });
-var applicationStatusSchema = z3.object({ status: applicationStatus, note: optionalText(2e3) });
-var noteSchema = z3.object({ body: z3.string().trim().min(1).max(5e3) });
-var studentUpdateSchema = z3.object({
-  status: z3.enum(["ACTIVE", "INACTIVE", "GRADUATED", "WITHDRAWN"]),
+var materialFilterSchema = import_zod3.z.object({ courseId: uuid.optional() });
+var applicationStatus = import_zod3.z.enum(["SUBMITTED", "UNDER_REVIEW", "SHORTLISTED", "ACCEPTED", "REJECTED", "WAITLISTED"]);
+var applicationFilterSchema = import_zod3.z.object({ status: applicationStatus.optional() });
+var applicationStatusSchema = import_zod3.z.object({ status: applicationStatus, note: optionalText(2e3) });
+var noteSchema = import_zod3.z.object({ body: import_zod3.z.string().trim().min(1).max(5e3) });
+var studentUpdateSchema = import_zod3.z.object({
+  status: import_zod3.z.enum(["ACTIVE", "INACTIVE", "GRADUATED", "WITHDRAWN"]),
   educationLevel: optionalText(120),
   currentStatus: optionalText(120)
 }).partial();
-var studentSelfUpdateSchema = z3.object({ educationLevel: optionalText(120), currentStatus: optionalText(120) }).partial();
-var studentFilterSchema = z3.object({ status: z3.enum(["ACTIVE", "INACTIVE", "GRADUATED", "WITHDRAWN"]).optional() });
-var batchStatus = z3.enum(["PLANNED", "ACTIVE", "COMPLETED", "CANCELLED"]);
+var studentSelfUpdateSchema = import_zod3.z.object({ educationLevel: optionalText(120), currentStatus: optionalText(120) }).partial();
+var studentFilterSchema = import_zod3.z.object({ status: import_zod3.z.enum(["ACTIVE", "INACTIVE", "GRADUATED", "WITHDRAWN"]).optional() });
+var batchStatus = import_zod3.z.enum(["PLANNED", "ACTIVE", "COMPLETED", "CANCELLED"]);
 var batchBase = {
-  code: z3.string().trim().regex(/^[A-Za-z0-9-]{2,40}$/),
-  name: z3.string().trim().min(2).max(160),
+  code: import_zod3.z.string().trim().regex(/^[A-Za-z0-9-]{2,40}$/),
+  name: import_zod3.z.string().trim().min(2).max(160),
   courseId: optionalUuid,
   startDate: optionalDate,
   endDate: optionalDate,
-  capacity: z3.coerce.number().int().min(1).max(1e4).optional().nullable().transform((v) => v ?? null),
+  capacity: import_zod3.z.coerce.number().int().min(1).max(1e4).optional().nullable().transform((v) => v ?? null),
   status: batchStatus.default("PLANNED")
 };
-var batchSchema = z3.object(batchBase);
-var batchUpdateSchema = z3.object({ ...batchBase, status: batchStatus }).partial();
-var batchTeachersSchema = z3.object({ userIds: z3.array(uuid).max(20) });
-var batchFilterSchema = z3.object({ status: batchStatus.optional(), courseId: uuid.optional() });
-var enrollmentSchema = z3.object({ studentId: uuid, batchId: uuid });
-var enrollmentUpdateSchema = z3.object({ status: z3.enum(["ACTIVE", "COMPLETED", "WITHDRAWN"]), progress: z3.coerce.number().int().min(0).max(100) }).partial();
-var enrollmentFilterSchema = z3.object({ batchId: uuid.optional(), studentId: uuid.optional() });
-var attendanceQuerySchema = z3.object({ batchId: uuid, date: z3.string().regex(/^\d{4}-\d{2}-\d{2}$/) });
-var attendanceSaveSchema = z3.object({
+var batchSchema = import_zod3.z.object(batchBase);
+var batchUpdateSchema = import_zod3.z.object({ ...batchBase, status: batchStatus }).partial();
+var batchTeachersSchema = import_zod3.z.object({ userIds: import_zod3.z.array(uuid).max(20) });
+var batchFilterSchema = import_zod3.z.object({ status: batchStatus.optional(), courseId: uuid.optional() });
+var enrollmentSchema = import_zod3.z.object({ studentId: uuid, batchId: uuid });
+var enrollmentUpdateSchema = import_zod3.z.object({ status: import_zod3.z.enum(["ACTIVE", "COMPLETED", "WITHDRAWN"]), progress: import_zod3.z.coerce.number().int().min(0).max(100) }).partial();
+var enrollmentFilterSchema = import_zod3.z.object({ batchId: uuid.optional(), studentId: uuid.optional() });
+var attendanceQuerySchema = import_zod3.z.object({ batchId: uuid, date: import_zod3.z.string().regex(/^\d{4}-\d{2}-\d{2}$/) });
+var attendanceSaveSchema = import_zod3.z.object({
   batchId: uuid,
-  date: z3.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  records: z3.array(z3.object({ enrollmentId: uuid, status: z3.enum(["PRESENT", "ABSENT", "LATE", "EXCUSED"]), note: optionalText(500) })).max(500)
+  date: import_zod3.z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  records: import_zod3.z.array(import_zod3.z.object({ enrollmentId: uuid, status: import_zod3.z.enum(["PRESENT", "ABSENT", "LATE", "EXCUSED"]), note: optionalText(500) })).max(500)
 });
-var assessmentSchema = z3.object({
+var assessmentSchema = import_zod3.z.object({
   batchId: uuid,
-  title: z3.string().trim().min(2).max(200),
-  type: z3.enum(["assignment", "quiz", "exam", "project", "practical"]).default("assignment"),
-  maxScore: z3.coerce.number().int().min(1).max(1e3).default(100),
+  title: import_zod3.z.string().trim().min(2).max(200),
+  type: import_zod3.z.enum(["assignment", "quiz", "exam", "project", "practical"]).default("assignment"),
+  maxScore: import_zod3.z.coerce.number().int().min(1).max(1e3).default(100),
   dueDate: optionalDate
 });
 var assessmentUpdateSchema = assessmentSchema.omit({ batchId: true }).partial();
-var assessmentFilterSchema = z3.object({ batchId: uuid.optional() });
-var resultsQuerySchema = z3.object({ assessmentId: uuid });
-var resultsSaveSchema = z3.object({
+var assessmentFilterSchema = import_zod3.z.object({ batchId: uuid.optional() });
+var resultsQuerySchema = import_zod3.z.object({ assessmentId: uuid });
+var resultsSaveSchema = import_zod3.z.object({
   assessmentId: uuid,
-  records: z3.array(z3.object({ enrollmentId: uuid, score: z3.coerce.number().min(0).max(1e3), feedback: optionalText(2e3) })).max(500)
+  records: import_zod3.z.array(import_zod3.z.object({ enrollmentId: uuid, score: import_zod3.z.coerce.number().min(0).max(1e3), feedback: optionalText(2e3) })).max(500)
 });
-var certificateCreateSchema = z3.object({ enrollmentId: uuid, notes: optionalText(1e3) });
-var certificateActionSchema = z3.object({ notes: optionalText(1e3) });
-var certificateFilterSchema = z3.object({ status: z3.enum(["PENDING", "APPROVED", "ISSUED", "REVOKED"]).optional() });
+var certificateCreateSchema = import_zod3.z.object({ enrollmentId: uuid, notes: optionalText(1e3) });
+var certificateActionSchema = import_zod3.z.object({ notes: optionalText(1e3) });
+var certificateFilterSchema = import_zod3.z.object({ status: import_zod3.z.enum(["PENDING", "APPROVED", "ISSUED", "REVOKED"]).optional() });
 var companyBase = {
-  name: z3.string().trim().min(2).max(160),
+  name: import_zod3.z.string().trim().min(2).max(160),
   website: optionalUrl,
   industry: optionalText(120),
   contactName: optionalText(120),
   contactEmail: email.optional().nullable().transform((v) => v ?? null),
   phone: optionalText(30),
   notes: optionalText(5e3),
-  status: z3.enum(["PROSPECT", "ACTIVE", "INACTIVE"]).default("PROSPECT")
+  status: import_zod3.z.enum(["PROSPECT", "ACTIVE", "INACTIVE"]).default("PROSPECT")
 };
-var companySchema = z3.object({ ...companyBase, listedPublicly: z3.boolean().default(false) });
-var companyUpdateSchema = z3.object({ ...companyBase, status: z3.enum(["PROSPECT", "ACTIVE", "INACTIVE"]), listedPublicly: z3.boolean() }).partial();
-var companyFilterSchema = z3.object({ status: z3.enum(["PROSPECT", "ACTIVE", "INACTIVE"]).optional() });
-var inquiryUpdateSchema = z3.object({ status: z3.enum(["NEW", "IN_REVIEW", "CONTACTED", "CLOSED"]), companyId: optionalUuid }).partial();
-var inquiryFilterSchema = z3.object({ status: z3.enum(["NEW", "IN_REVIEW", "CONTACTED", "CLOSED"]).optional() });
-var interactionSchema = z3.object({
-  type: z3.enum(["note", "call", "email", "meeting"]).default("note"),
-  note: z3.string().trim().min(1).max(5e3)
+var companySchema = import_zod3.z.object({ ...companyBase, listedPublicly: import_zod3.z.boolean().default(false) });
+var companyUpdateSchema = import_zod3.z.object({ ...companyBase, status: import_zod3.z.enum(["PROSPECT", "ACTIVE", "INACTIVE"]), listedPublicly: import_zod3.z.boolean() }).partial();
+var companyFilterSchema = import_zod3.z.object({ status: import_zod3.z.enum(["PROSPECT", "ACTIVE", "INACTIVE"]).optional() });
+var inquiryUpdateSchema = import_zod3.z.object({ status: import_zod3.z.enum(["NEW", "IN_REVIEW", "CONTACTED", "CLOSED"]), companyId: optionalUuid }).partial();
+var inquiryFilterSchema = import_zod3.z.object({ status: import_zod3.z.enum(["NEW", "IN_REVIEW", "CONTACTED", "CLOSED"]).optional() });
+var interactionSchema = import_zod3.z.object({
+  type: import_zod3.z.enum(["note", "call", "email", "meeting"]).default("note"),
+  note: import_zod3.z.string().trim().min(1).max(5e3)
 });
 var opportunityBase = {
   companyId: optionalUuid,
-  title: z3.string().trim().min(2).max(200),
-  type: z3.enum(["INTERNSHIP", "JOB", "TRAINING", "PROJECT", "MENTORING", "OTHER"]).default("OTHER"),
-  description: z3.string().trim().min(10).max(1e4),
+  title: import_zod3.z.string().trim().min(2).max(200),
+  type: import_zod3.z.enum(["INTERNSHIP", "JOB", "TRAINING", "PROJECT", "MENTORING", "OTHER"]).default("OTHER"),
+  description: import_zod3.z.string().trim().min(10).max(1e4),
   location: optionalText(160),
   applyUrl: optionalUrl,
   deadline: optionalDate,
-  audience: z3.enum(["STUDENTS", "ALUMNI", "ALL"]).default("ALL"),
-  status: z3.enum(["DRAFT", "PUBLISHED", "CLOSED"]).default("DRAFT")
+  audience: import_zod3.z.enum(["STUDENTS", "ALUMNI", "ALL"]).default("ALL"),
+  status: import_zod3.z.enum(["DRAFT", "PUBLISHED", "CLOSED"]).default("DRAFT")
 };
-var opportunitySchema = z3.object(opportunityBase);
-var opportunityUpdateSchema = z3.object({
+var opportunitySchema = import_zod3.z.object(opportunityBase);
+var opportunityUpdateSchema = import_zod3.z.object({
   ...opportunityBase,
-  type: z3.enum(["INTERNSHIP", "JOB", "TRAINING", "PROJECT", "MENTORING", "OTHER"]),
-  audience: z3.enum(["STUDENTS", "ALUMNI", "ALL"]),
-  status: z3.enum(["DRAFT", "PUBLISHED", "CLOSED"])
+  type: import_zod3.z.enum(["INTERNSHIP", "JOB", "TRAINING", "PROJECT", "MENTORING", "OTHER"]),
+  audience: import_zod3.z.enum(["STUDENTS", "ALUMNI", "ALL"]),
+  status: import_zod3.z.enum(["DRAFT", "PUBLISHED", "CLOSED"])
 }).partial();
-var opportunityFilterSchema = z3.object({
-  status: z3.enum(["DRAFT", "PUBLISHED", "CLOSED"]).optional(),
-  audience: z3.enum(["STUDENTS", "ALUMNI", "ALL"]).optional()
+var opportunityFilterSchema = import_zod3.z.object({
+  status: import_zod3.z.enum(["DRAFT", "PUBLISHED", "CLOSED"]).optional(),
+  audience: import_zod3.z.enum(["STUDENTS", "ALUMNI", "ALL"]).optional()
 });
-var contactFilterSchema = z3.object({
-  isRead: z3.enum(["true", "false"]).optional(),
-  category: z3.enum(["general", "admission", "partnership", "alumni-assistance"]).optional()
+var contactFilterSchema = import_zod3.z.object({
+  isRead: import_zod3.z.enum(["true", "false"]).optional(),
+  category: import_zod3.z.enum(["general", "admission", "partnership", "alumni-assistance"]).optional()
 });
-var contactUpdateSchema = z3.object({ isRead: z3.boolean() });
+var contactUpdateSchema = import_zod3.z.object({ isRead: import_zod3.z.boolean() });
 var faqBase = {
-  questionEn: z3.string().trim().min(5).max(300),
-  answerEn: z3.string().trim().min(5).max(5e3),
+  questionEn: import_zod3.z.string().trim().min(5).max(300),
+  answerEn: import_zod3.z.string().trim().min(5).max(5e3),
   questionBn: optionalText(300),
   answerBn: optionalText(5e3),
-  category: z3.string().trim().regex(/^[a-z0-9-]{1,40}$/).default("general"),
+  category: import_zod3.z.string().trim().regex(/^[a-z0-9-]{1,40}$/).default("general"),
   sortOrder: sortOrder.default(0),
-  isPublished: z3.boolean().default(false)
+  isPublished: import_zod3.z.boolean().default(false)
 };
-var faqSchema = z3.object(faqBase);
-var faqUpdateSchema = z3.object({ ...faqBase, category: z3.string().trim().regex(/^[a-z0-9-]{1,40}$/), sortOrder, isPublished: z3.boolean() }).partial();
-var sectionKey = z3.string().regex(/^[a-z][a-z0-9-]{1,40}$/);
-var jsonValue = z3.lazy(
-  () => z3.union([z3.string().max(1e4), z3.number(), z3.boolean(), z3.null(), z3.array(jsonValue).max(100), z3.record(z3.string().max(60), jsonValue)])
+var faqSchema = import_zod3.z.object(faqBase);
+var faqUpdateSchema = import_zod3.z.object({ ...faqBase, category: import_zod3.z.string().trim().regex(/^[a-z0-9-]{1,40}$/), sortOrder, isPublished: import_zod3.z.boolean() }).partial();
+var sectionKey = import_zod3.z.string().regex(/^[a-z][a-z0-9-]{1,40}$/);
+var jsonValue = import_zod3.z.lazy(
+  () => import_zod3.z.union([import_zod3.z.string().max(1e4), import_zod3.z.number(), import_zod3.z.boolean(), import_zod3.z.null(), import_zod3.z.array(jsonValue).max(100), import_zod3.z.record(import_zod3.z.string().max(60), jsonValue)])
 );
-var sectionContentSchema = z3.object({ content: z3.record(z3.string().max(60), jsonValue) });
-var auditFilterSchema = z3.object({
-  entityType: z3.string().max(60).optional(),
-  action: z3.string().max(80).optional(),
+var sectionContentSchema = import_zod3.z.object({ content: import_zod3.z.record(import_zod3.z.string().max(60), jsonValue) });
+var auditFilterSchema = import_zod3.z.object({
+  entityType: import_zod3.z.string().max(60).optional(),
+  action: import_zod3.z.string().max(80).optional(),
   actorId: uuid.optional()
 });
 var cohortBase = {
-  slug: z3.string().trim().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(80),
-  name: z3.string().trim().min(2).max(160),
-  graduationYear: z3.coerce.number().int().min(2e3).max(2100).optional().nullable().transform((v) => v ?? null),
+  slug: import_zod3.z.string().trim().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(80),
+  name: import_zod3.z.string().trim().min(2).max(160),
+  graduationYear: import_zod3.z.coerce.number().int().min(2e3).max(2100).optional().nullable().transform((v) => v ?? null),
   courseId: optionalUuid,
   description: optionalText(2e3)
 };
-var cohortSchema = z3.object(cohortBase);
-var cohortUpdateSchema = z3.object(cohortBase).partial();
+var cohortSchema = import_zod3.z.object(cohortBase);
+var cohortUpdateSchema = import_zod3.z.object(cohortBase).partial();
 var announcementBase = {
-  titleEn: z3.string().trim().min(2).max(200),
+  titleEn: import_zod3.z.string().trim().min(2).max(200),
   titleBn: optionalText(200),
-  bodyEn: z3.string().trim().min(2).max(1e4),
+  bodyEn: import_zod3.z.string().trim().min(2).max(1e4),
   bodyBn: optionalText(1e4),
-  status: z3.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).default("DRAFT")
+  status: import_zod3.z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).default("DRAFT")
 };
-var announcementSchema = z3.object(announcementBase);
-var announcementUpdateSchema = z3.object({ ...announcementBase, status: z3.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]) }).partial();
-var announcementFilterSchema = z3.object({ status: z3.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).optional() });
-var reviewDecisionSchema = z3.object({ note: optionalText(2e3) });
-var reviewFilterSchema = z3.object({ status: z3.enum(["PENDING", "APPROVED", "REJECTED"]).optional() });
-var profileFilterSchema = z3.object({
-  verificationStatus: z3.enum(["PENDING", "VERIFIED", "REJECTED"]).optional(),
-  publicationStatus: z3.enum(["NOT_SUBMITTED", "PENDING", "APPROVED", "REJECTED"]).optional(),
-  archived: z3.enum(["true", "false"]).optional()
+var announcementSchema = import_zod3.z.object(announcementBase);
+var announcementUpdateSchema = import_zod3.z.object({ ...announcementBase, status: import_zod3.z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]) }).partial();
+var announcementFilterSchema = import_zod3.z.object({ status: import_zod3.z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).optional() });
+var reviewDecisionSchema = import_zod3.z.object({ note: optionalText(2e3) });
+var reviewFilterSchema = import_zod3.z.object({ status: import_zod3.z.enum(["PENDING", "APPROVED", "REJECTED"]).optional() });
+var profileFilterSchema = import_zod3.z.object({
+  verificationStatus: import_zod3.z.enum(["PENDING", "VERIFIED", "REJECTED"]).optional(),
+  publicationStatus: import_zod3.z.enum(["NOT_SUBMITTED", "PENDING", "APPROVED", "REJECTED"]).optional(),
+  archived: import_zod3.z.enum(["true", "false"]).optional()
 });
-var storyFilterSchema = z3.object({ status: z3.enum(["SUBMITTED", "PUBLISHED", "REJECTED", "ARCHIVED"]).optional() });
-var adminProfileUpdateSchema = z3.object({
-  displayName: z3.string().trim().min(2).max(120),
+var storyFilterSchema = import_zod3.z.object({ status: import_zod3.z.enum(["SUBMITTED", "PUBLISHED", "REJECTED", "ARCHIVED"]).optional() });
+var adminProfileUpdateSchema = import_zod3.z.object({
+  displayName: import_zod3.z.string().trim().min(2).max(120),
   cohortId: optionalUuid,
   courseId: optionalUuid,
   graduationYear: cohortBase.graduationYear,
   programName: optionalText(160)
 }).partial();
-var adminStoryUpdateSchema = z3.object({
+var adminStoryUpdateSchema = import_zod3.z.object({
   titleEn: optionalText(200),
   titleBn: optionalText(200),
   excerptEn: optionalText(500),
@@ -7431,9 +7431,9 @@ async function deleteRole(req, res) {
 }
 
 // src/controllers/cms.controller.ts
-import { z as z4 } from "zod";
-var locale = z4.enum(["en", "bn"]);
-var sectionParams = z4.object({ key: sectionKey, locale });
+var import_zod4 = require("zod");
+var locale = import_zod4.z.enum(["en", "bn"]);
+var sectionParams = import_zod4.z.object({ key: sectionKey, locale });
 var MAX_SECTION_BYTES = 64 * 1024;
 var getSectionParams = (req) => {
   const r = sectionParams.safeParse(req.params);
@@ -7441,7 +7441,7 @@ var getSectionParams = (req) => {
   return r.data;
 };
 async function publicSections(req, res) {
-  const { locale: lang } = parse(z4.object({ locale: locale.default("en") }), req.query);
+  const { locale: lang } = parse(import_zod4.z.object({ locale: locale.default("en") }), req.query);
   const rows = await prisma.websiteSection.findMany({ where: { locale: lang, publishedContent: { not: import_prisma2.Prisma.AnyNull } } });
   res.set("Cache-Control", "no-cache");
   ok(res, Object.fromEntries(rows.map((r) => [r.key, r.publishedContent])));
@@ -7493,7 +7493,7 @@ async function unpublish(req, res) {
   ok(res, updated);
 }
 async function publicFaqs(req, res) {
-  const { locale: lang } = parse(z4.object({ locale: locale.default("en") }), req.query);
+  const { locale: lang } = parse(import_zod4.z.object({ locale: locale.default("en") }), req.query);
   const faqs = await prisma.faq.findMany({ where: { isPublished: true }, orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }] });
   res.set("Cache-Control", "no-cache");
   ok(
@@ -7506,27 +7506,27 @@ async function publicFaqs(req, res) {
     }))
   );
 }
-var emailOrEmpty = z4.union([z4.literal(""), z4.string().trim().toLowerCase().email().max(254)]);
-var urlOrEmpty = z4.union([z4.literal(""), z4.string().trim().max(500).regex(/^https?:\/\/[^\s]+$/i, "Must be an http(s) URL")]);
+var emailOrEmpty = import_zod4.z.union([import_zod4.z.literal(""), import_zod4.z.string().trim().toLowerCase().email().max(254)]);
+var urlOrEmpty = import_zod4.z.union([import_zod4.z.literal(""), import_zod4.z.string().trim().max(500).regex(/^https?:\/\/[^\s]+$/i, "Must be an http(s) URL")]);
 function settingRule(key) {
   if (/^contact\.[a-zA-Z]+Email$/.test(key)) return emailOrEmpty;
-  if (key === "contact.phone") return z4.string().trim().max(40);
-  if (key === "contact.address") return z4.string().trim().max(500);
+  if (key === "contact.phone") return import_zod4.z.string().trim().max(40);
+  if (key === "contact.address") return import_zod4.z.string().trim().max(500);
   if (key === "social.facebookUrl" || key.startsWith("qr.")) return urlOrEmpty;
-  if (key === "social.links") return z4.array(z4.object({ label: z4.string().trim().min(1).max(60), url: urlOrEmpty })).max(20);
+  if (key === "social.links") return import_zod4.z.array(import_zod4.z.object({ label: import_zod4.z.string().trim().min(1).max(60), url: urlOrEmpty })).max(20);
   if (key === "seo.defaults") {
-    return z4.object({
-      titleEn: z4.string().trim().max(120),
-      titleBn: z4.string().trim().max(120),
-      descriptionEn: z4.string().trim().max(300),
-      descriptionBn: z4.string().trim().max(300)
+    return import_zod4.z.object({
+      titleEn: import_zod4.z.string().trim().max(120),
+      titleBn: import_zod4.z.string().trim().max(120),
+      descriptionEn: import_zod4.z.string().trim().max(300),
+      descriptionBn: import_zod4.z.string().trim().max(300)
     });
   }
   if (key === "program.sixMonthProgram") {
-    return z4.object({
-      status: z4.enum(["requires_review", "confirmed", "not_applicable"]),
-      enabled: z4.boolean(),
-      relationship: z4.string().trim().max(1e3)
+    return import_zod4.z.object({
+      status: import_zod4.z.enum(["requires_review", "confirmed", "not_applicable"]),
+      enabled: import_zod4.z.boolean(),
+      relationship: import_zod4.z.string().trim().max(1e3)
     });
   }
   throw ApiError.badRequest("This setting cannot be edited");
@@ -7540,11 +7540,11 @@ async function adminSettings(_req, res) {
   ok(res, await prisma.websiteSetting.findMany({ orderBy: [{ group: "asc" }, { key: "asc" }] }));
 }
 async function updateSetting(req, res) {
-  const key = z4.string().regex(/^[a-zA-Z.]{3,60}$/).safeParse(req.params.key);
+  const key = import_zod4.z.string().regex(/^[a-zA-Z.]{3,60}$/).safeParse(req.params.key);
   if (!key.success) throw ApiError.notFound();
   const existing = await prisma.websiteSetting.findUnique({ where: { key: key.data } });
   if (!existing) throw ApiError.notFound("Unknown setting");
-  const { value } = body(req, z4.object({ value: settingRule(key.data) }));
+  const { value } = body(req, import_zod4.z.object({ value: settingRule(key.data) }));
   const program = value;
   const isPublic = key.data === "program.sixMonthProgram" ? program.status === "confirmed" && program.enabled === true : existing.isPublic;
   const updated = await prisma.websiteSetting.update({
@@ -7627,7 +7627,7 @@ async function dashboard(req, res) {
 }
 
 // src/routes/admin.routes.ts
-var userRoutes = Router();
+var userRoutes = (0, import_express.Router)();
 var manageUsers = requirePermission(P.usersManage);
 userRoutes.get("/", manageUsers, listUsers);
 userRoutes.post("/", manageUsers, createUser);
@@ -7636,52 +7636,52 @@ userRoutes.patch("/:id", manageUsers, updateUser);
 userRoutes.post("/:id/revoke-sessions", manageUsers, revokeUserSessions);
 userRoutes.post("/:id/invite", manageUsers, resendInvite);
 userRoutes.delete("/:id", manageUsers, deleteUser);
-var roleRoutes = Router();
+var roleRoutes = (0, import_express.Router)();
 var manageRoles = requirePermission(P.rolesManage);
 roleRoutes.get("/", requirePermission(P.rolesManage, P.usersManage), listRoles);
 roleRoutes.get("/permissions", manageRoles, listPermissions);
 roleRoutes.post("/", manageRoles, createRole);
 roleRoutes.put("/:id/permissions", manageRoles, setRolePermissions);
 roleRoutes.delete("/:id", manageRoles, deleteRole);
-var auditRoutes = Router();
+var auditRoutes = (0, import_express.Router)();
 auditRoutes.get("/", requirePermission(P.auditRead), auditLogs);
-var dashboardRoutes = Router();
+var dashboardRoutes = (0, import_express.Router)();
 dashboardRoutes.get("/", requirePermission(P.dashboardView), dashboard);
 
 // src/routes/admissions.routes.ts
-import { Router as Router2 } from "express";
+var import_express2 = require("express");
 
 // src/validators/public.validators.ts
-import { z as z5 } from "zod";
-var consent = z5.literal(true, { error: "Consent is required" });
-var applicationSchema = z5.object({
-  fullName: z5.string().trim().min(2).max(120),
+var import_zod5 = require("zod");
+var consent = import_zod5.z.literal(true, { error: "Consent is required" });
+var applicationSchema = import_zod5.z.object({
+  fullName: import_zod5.z.string().trim().min(2).max(120),
   email,
-  phone: z5.string().trim().min(6).max(30).regex(/^[+0-9 ()-]+$/, "Invalid phone number"),
-  currentStatus: z5.enum(["graduate_seeking_employment", "hsc_qualified", "student", "employed", "other"]),
+  phone: import_zod5.z.string().trim().min(6).max(30).regex(/^[+0-9 ()-]+$/, "Invalid phone number"),
+  currentStatus: import_zod5.z.enum(["graduate_seeking_employment", "hsc_qualified", "student", "employed", "other"]),
   highestEducation: optionalText(120),
   /** Ignored. The programme is always all five foundation courses. */
-  areaOfInterest: z5.string().trim().max(120).optional(),
-  motivation: z5.string().trim().min(20).max(2e3),
-  preferredContact: z5.enum(["email", "phone", "either"]).optional().nullable(),
-  locale: z5.enum(["en", "bn"]).default("en"),
+  areaOfInterest: import_zod5.z.string().trim().max(120).optional(),
+  motivation: import_zod5.z.string().trim().min(20).max(2e3),
+  preferredContact: import_zod5.z.enum(["email", "phone", "either"]).optional().nullable(),
+  locale: import_zod5.z.enum(["en", "bn"]).default("en"),
   privacyConsent: consent,
-  idempotencyKey: z5.string().uuid().optional()
+  idempotencyKey: import_zod5.z.string().uuid().optional()
 });
-var contactSchema = z5.object({
-  name: z5.string().trim().min(2).max(120),
+var contactSchema = import_zod5.z.object({
+  name: import_zod5.z.string().trim().min(2).max(120),
   email,
-  subject: z5.string().trim().min(2).max(200),
-  message: z5.string().trim().min(10).max(5e3),
-  category: z5.enum(["general", "admission", "partnership"]).default("general")
+  subject: import_zod5.z.string().trim().min(2).max(200),
+  message: import_zod5.z.string().trim().min(10).max(5e3),
+  category: import_zod5.z.enum(["general", "admission", "partnership"]).default("general")
 });
-var partnershipInquirySchema = z5.object({
-  organizationName: z5.string().trim().min(2).max(160),
-  contactName: z5.string().trim().min(2).max(120),
+var partnershipInquirySchema = import_zod5.z.object({
+  organizationName: import_zod5.z.string().trim().min(2).max(160),
+  contactName: import_zod5.z.string().trim().min(2).max(120),
   workEmail: email,
   phone: optionalText(30),
   website: optionalUrl,
-  interest: z5.enum([
+  interest: import_zod5.z.enum([
     "skill_requirements",
     "training_collaboration",
     "guest_sessions_mentoring",
@@ -7692,7 +7692,7 @@ var partnershipInquirySchema = z5.object({
     "reskilling_upskilling",
     "other"
   ]),
-  message: z5.string().trim().min(10).max(5e3),
+  message: import_zod5.z.string().trim().min(10).max(5e3),
   consent
 });
 
@@ -8291,7 +8291,7 @@ var certificateAction = (action) => async (req, res) => {
 };
 
 // src/routes/admissions.routes.ts
-var applicationRoutes = Router2();
+var applicationRoutes = (0, import_express2.Router)();
 var admissions = requirePermission(P.applicationsManage);
 applicationRoutes.post("/", formLimiter, submit);
 applicationRoutes.get("/mine", requireAuth, mine);
@@ -8300,7 +8300,7 @@ applicationRoutes.get("/:id", admissions, get);
 applicationRoutes.patch("/:id/status", admissions, updateStatus);
 applicationRoutes.post("/:id/notes", admissions, addNote);
 applicationRoutes.post("/:id/onboard", admissions, onboard);
-var studentRoutes = Router2();
+var studentRoutes = (0, import_express2.Router)();
 var viewStudents = requirePermission(P.studentsManage, P.trainingManage);
 studentRoutes.get("/me", requireAuth, me);
 studentRoutes.patch("/me", requireAuth, updateMe);
@@ -8309,7 +8309,7 @@ studentRoutes.get("/:id", viewStudents, get2);
 studentRoutes.patch("/:id", requirePermission(P.studentsManage), update);
 var manage = requirePermission(P.trainingManage);
 var teachOrManage = requirePermission(P.trainingManage, P.trainingTeach);
-var batchRoutes = Router2();
+var batchRoutes = (0, import_express2.Router)();
 batchRoutes.get("/teachers", manage, listTeachers);
 batchRoutes.get("/", teachOrManage, listBatches);
 batchRoutes.post("/", manage, createBatch);
@@ -8317,22 +8317,22 @@ batchRoutes.get("/:id", teachOrManage, getBatch);
 batchRoutes.patch("/:id", manage, updateBatch);
 batchRoutes.delete("/:id", manage, deleteBatch);
 batchRoutes.put("/:id/teachers", manage, setTeachers);
-var enrollmentRoutes = Router2();
+var enrollmentRoutes = (0, import_express2.Router)();
 enrollmentRoutes.get("/", teachOrManage, listEnrollments);
 enrollmentRoutes.post("/", manage, createEnrollment);
 enrollmentRoutes.patch("/:id", teachOrManage, updateEnrollment);
-var attendanceRoutes = Router2();
+var attendanceRoutes = (0, import_express2.Router)();
 attendanceRoutes.get("/", teachOrManage, getAttendance);
 attendanceRoutes.put("/", teachOrManage, saveAttendance);
-var assessmentRoutes = Router2();
+var assessmentRoutes = (0, import_express2.Router)();
 assessmentRoutes.get("/", teachOrManage, listAssessments);
 assessmentRoutes.post("/", teachOrManage, createAssessment);
 assessmentRoutes.patch("/:id", teachOrManage, updateAssessment);
 assessmentRoutes.delete("/:id", teachOrManage, deleteAssessment);
-var resultRoutes = Router2();
+var resultRoutes = (0, import_express2.Router)();
 resultRoutes.get("/", teachOrManage, getResults);
 resultRoutes.put("/", teachOrManage, saveResults);
-var certificateRoutes = Router2();
+var certificateRoutes = (0, import_express2.Router)();
 var certs = requirePermission(P.certificatesManage);
 certificateRoutes.get("/", certs, listCertificates);
 certificateRoutes.post("/", certs, createCertificate);
@@ -8341,13 +8341,13 @@ certificateRoutes.post("/:id/issue", certs, certificateAction("issue"));
 certificateRoutes.post("/:id/revoke", certs, certificateAction("revoke"));
 
 // src/routes/alumni.routes.ts
-import { Router as Router4 } from "express";
+var import_express4 = require("express");
 
 // src/controllers/alumni.controller.ts
-import { z as z8 } from "zod";
+var import_zod8 = require("zod");
 
 // src/services/storage.service.ts
-import { randomUUID as randomUUID2 } from "node:crypto";
+var import_node_crypto3 = require("node:crypto");
 var SIGNATURES = [
   { mime: "image/jpeg", ext: "jpg", test: (b) => b[0] === 255 && b[1] === 216 && b[2] === 255 },
   { mime: "image/png", ext: "png", test: (b) => b.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) },
@@ -8371,7 +8371,7 @@ var headers = () => ({ Authorization: `Bearer ${env.STORAGE_SERVICE_KEY}`, apike
 async function putObject(visibility, folder, ext, mime, data) {
   assertConfigured();
   const bucket = visibility === "PUBLIC" ? env.STORAGE_PUBLIC_BUCKET : env.STORAGE_PRIVATE_BUCKET;
-  const objectKey = `${folder}/${(/* @__PURE__ */ new Date()).toISOString().slice(0, 7)}/${randomUUID2()}.${ext}`;
+  const objectKey = `${folder}/${(/* @__PURE__ */ new Date()).toISOString().slice(0, 7)}/${(0, import_node_crypto3.randomUUID)()}.${ext}`;
   const response = await fetch(`${base()}/storage/v1/object/${bucket}/${objectKey}`, {
     method: "POST",
     headers: { ...headers(), "Content-Type": mime, "x-upsert": "false" },
@@ -8481,61 +8481,61 @@ async function directoryFilters(locale3) {
 }
 
 // src/utils/slug.ts
-import { randomBytes as randomBytes2 } from "node:crypto";
+var import_node_crypto4 = require("node:crypto");
 function slugify(input) {
   const base2 = input.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60);
   return base2 || "item";
 }
-var uniqueSlug = (input) => `${slugify(input)}-${randomBytes2(3).toString("hex")}`;
+var uniqueSlug = (input) => `${slugify(input)}-${(0, import_node_crypto4.randomBytes)(3).toString("hex")}`;
 
 // src/validators/alumni.validators.ts
-import { z as z7 } from "zod";
+var import_zod7 = require("zod");
 
 // src/validators/auth.validators.ts
-import { z as z6 } from "zod";
-var password = z6.string().min(passwordSchemaRules.min).max(passwordSchemaRules.max);
-var locale2 = z6.enum(["en", "bn"]);
-var loginSchema = z6.object({
+var import_zod6 = require("zod");
+var password = import_zod6.z.string().min(passwordSchemaRules.min).max(passwordSchemaRules.max);
+var locale2 = import_zod6.z.enum(["en", "bn"]);
+var loginSchema = import_zod6.z.object({
   email,
-  password: z6.string().min(1).max(passwordSchemaRules.max)
+  password: import_zod6.z.string().min(1).max(passwordSchemaRules.max)
 });
-var registerSchema = z6.object({
-  fullName: z6.string().trim().min(2).max(120),
+var registerSchema = import_zod6.z.object({
+  fullName: import_zod6.z.string().trim().min(2).max(120),
   email,
   password,
   phone: optionalText(30),
   preferredLocale: locale2.default("en")
 });
-var forgotPasswordSchema = z6.object({ email });
-var resetPasswordSchema = z6.object({
-  token: z6.string().min(20).max(200),
+var forgotPasswordSchema = import_zod6.z.object({ email });
+var resetPasswordSchema = import_zod6.z.object({
+  token: import_zod6.z.string().min(20).max(200),
   password
 });
-var changePasswordSchema = z6.object({
-  currentPassword: z6.string().min(1).max(passwordSchemaRules.max),
+var changePasswordSchema = import_zod6.z.object({
+  currentPassword: import_zod6.z.string().min(1).max(passwordSchemaRules.max),
   newPassword: password
 });
-var updateMeSchema = z6.object({
-  fullName: z6.string().trim().min(2).max(120),
+var updateMeSchema = import_zod6.z.object({
+  fullName: import_zod6.z.string().trim().min(2).max(120),
   phone: optionalText(30),
   preferredLocale: locale2
 }).partial();
 
 // src/validators/alumni.validators.ts
-var year = z7.coerce.number().int().min(2e3).max(2100).optional().nullable().transform((v) => v ?? null);
-var optionalUuid2 = z7.string().uuid().optional().nullable().transform((v) => v ?? null);
-var tagList = z7.array(z7.string().trim().min(1).max(40)).max(20);
-var directoryQuerySchema = z7.object({
-  page: z7.coerce.number().int().min(1).max(1e4).default(1),
-  pageSize: z7.coerce.number().int().min(1).max(48).default(12),
-  q: z7.string().trim().max(100).optional(),
-  cohort: z7.string().max(80).optional(),
-  course: z7.string().max(80).optional(),
-  year: z7.coerce.number().int().min(2e3).max(2100).optional(),
-  field: z7.string().max(80).optional()
+var year = import_zod7.z.coerce.number().int().min(2e3).max(2100).optional().nullable().transform((v) => v ?? null);
+var optionalUuid2 = import_zod7.z.string().uuid().optional().nullable().transform((v) => v ?? null);
+var tagList = import_zod7.z.array(import_zod7.z.string().trim().min(1).max(40)).max(20);
+var directoryQuerySchema = import_zod7.z.object({
+  page: import_zod7.z.coerce.number().int().min(1).max(1e4).default(1),
+  pageSize: import_zod7.z.coerce.number().int().min(1).max(48).default(12),
+  q: import_zod7.z.string().trim().max(100).optional(),
+  cohort: import_zod7.z.string().max(80).optional(),
+  course: import_zod7.z.string().max(80).optional(),
+  year: import_zod7.z.coerce.number().int().min(2e3).max(2100).optional(),
+  field: import_zod7.z.string().max(80).optional()
 });
-var alumniJoinSchema = z7.object({
-  fullName: z7.string().trim().min(2).max(120),
+var alumniJoinSchema = import_zod7.z.object({
+  fullName: import_zod7.z.string().trim().min(2).max(120),
   email,
   password: password.optional(),
   graduationYear: year,
@@ -8544,8 +8544,8 @@ var alumniJoinSchema = z7.object({
   studentCode: optionalText(40),
   message: optionalText(2e3)
 });
-var alumniSelfUpdateSchema = z7.object({
-  displayName: z7.string().trim().min(2).max(120),
+var alumniSelfUpdateSchema = import_zod7.z.object({
+  displayName: import_zod7.z.string().trim().min(2).max(120),
   professionalTitle: optionalText(160),
   organization: optionalText(160),
   professionalField: optionalText(120),
@@ -8572,11 +8572,11 @@ var PUBLIC_PROFILE_FIELDS = [
   "portfolioUrl",
   "photoAssetId"
 ];
-var visibilitySchema = z7.object({
-  isPublic: z7.boolean(),
-  consent: z7.boolean().optional()
+var visibilitySchema = import_zod7.z.object({
+  isPublic: import_zod7.z.boolean(),
+  consent: import_zod7.z.boolean().optional()
 });
-var storySubmitSchema = z7.object({
+var storySubmitSchema = import_zod7.z.object({
   titleEn: optionalText(200),
   titleBn: optionalText(200),
   excerptEn: optionalText(500),
@@ -8587,14 +8587,14 @@ var storySubmitSchema = z7.object({
 }).refine((s) => s.titleEn && s.bodyEn || s.titleBn && s.bodyBn, {
   message: "Provide a title and story in at least one language"
 });
-var assistanceSchema = z7.object({
-  subject: z7.string().trim().min(2).max(200),
-  message: z7.string().trim().min(10).max(5e3)
+var assistanceSchema = import_zod7.z.object({
+  subject: import_zod7.z.string().trim().min(2).max(200),
+  message: import_zod7.z.string().trim().min(10).max(5e3)
 });
 
 // src/controllers/alumni.controller.ts
-var localeQuery = z8.object({ locale: z8.enum(["en", "bn"]).default("en") });
-var slugParam = z8.object({ slug: z8.string().regex(/^[a-z0-9-]{1,100}$/) });
+var localeQuery = import_zod8.z.object({ locale: import_zod8.z.enum(["en", "bn"]).default("en") });
+var slugParam = import_zod8.z.object({ slug: import_zod8.z.string().regex(/^[a-z0-9-]{1,100}$/) });
 var getSlug = (req) => {
   const r = slugParam.safeParse(req.params);
   if (!r.success) throw ApiError.notFound();
@@ -8650,7 +8650,7 @@ async function publicProfile(req, res) {
 }
 async function publicStories(req, res) {
   const { locale: locale3 } = parse(localeQuery, req.query);
-  const page = z8.coerce.number().int().min(1).max(1e3).catch(1).parse(req.query.page);
+  const page = import_zod8.z.coerce.number().int().min(1).max(1e3).catch(1).parse(req.query.page);
   const pageSize = 9;
   const where = { status: "PUBLISHED", author: { archivedAt: null } };
   const [items, total] = await Promise.all([
@@ -9085,9 +9085,9 @@ var storyAction = (action) => async (req, res) => {
 };
 
 // src/controllers/crud.factory.ts
-import { Router as Router3 } from "express";
+var import_express3 = require("express");
 function crudRouter(options) {
-  const router = Router3();
+  const router = (0, import_express3.Router)();
   const guard = requirePermission(options.permission);
   const { delegate } = options;
   const list3 = async (req, res) => {
@@ -9141,7 +9141,7 @@ function crudRouter(options) {
 }
 
 // src/routes/alumni.routes.ts
-var alumniRoutes = Router4();
+var alumniRoutes = (0, import_express4.Router)();
 var self = requirePermission(P.alumniSelf);
 alumniRoutes.get("/directory", directory);
 alumniRoutes.get("/directory/filters", filters);
@@ -9158,7 +9158,7 @@ alumniRoutes.post("/me/stories", self, formLimiter, submitStory);
 alumniRoutes.put("/me/stories/:id", self, updateStory);
 alumniRoutes.get("/announcements", self, announcements);
 alumniRoutes.post("/me/assistance", self, formLimiter, requestAssistance);
-var alumniAdminRoutes = Router4();
+var alumniAdminRoutes = (0, import_express4.Router)();
 var manage2 = requirePermission(P.alumniManage);
 alumniAdminRoutes.get("/overview", manage2, overview);
 alumniAdminRoutes.get("/registrations", manage2, listRegistrations);
@@ -9207,10 +9207,10 @@ alumniAdminRoutes.use(
 );
 
 // src/routes/auth.routes.ts
-import { Router as Router5 } from "express";
+var import_express5 = require("express");
 
 // src/controllers/auth.controller.ts
-import bcrypt2 from "bcryptjs";
+var import_bcryptjs2 = __toESM(require("bcryptjs"), 1);
 async function startSession(req, res, userId) {
   const { token } = await createSession(userId, { ip: req.ip, userAgent: req.get("user-agent") });
   res.cookie(SESSION_COOKIE, token, sessionCookieOptions());
@@ -9292,7 +9292,7 @@ async function changePassword(req, res) {
   const auth = currentUser(req);
   const input = body(req, changePasswordSchema);
   const user = await prisma.user.findUniqueOrThrow({ where: { id: auth.id } });
-  if (!user.passwordHash || !await bcrypt2.compare(input.currentPassword, user.passwordHash)) {
+  if (!user.passwordHash || !await import_bcryptjs2.default.compare(input.currentPassword, user.passwordHash)) {
     throw new ApiError(400, "INVALID_PASSWORD", "Current password is incorrect");
   }
   await prisma.$transaction([
@@ -9314,7 +9314,7 @@ async function updateMe3(req, res) {
 }
 
 // src/routes/auth.routes.ts
-var authRoutes = Router5();
+var authRoutes = (0, import_express5.Router)();
 authRoutes.get("/csrf", csrf);
 authRoutes.get("/me", me3);
 authRoutes.patch("/me", requireAuth, updateMe3);
@@ -9326,19 +9326,19 @@ authRoutes.post("/reset-password", authLimiter, resetPassword);
 authRoutes.post("/change-password", requireAuth, authLimiter, changePassword);
 
 // src/routes/cms.routes.ts
-import { Router as Router6 } from "express";
+var import_express6 = require("express");
 
 // src/controllers/media.controller.ts
-import multer from "multer";
-import { z as z9 } from "zod";
-var uploadMiddleware = multer({
-  storage: multer.memoryStorage(),
+var import_multer2 = __toESM(require("multer"), 1);
+var import_zod9 = require("zod");
+var uploadMiddleware = (0, import_multer2.default)({
+  storage: import_multer2.default.memoryStorage(),
   limits: { fileSize: MAX_UPLOAD_BYTES, files: 1 }
 }).single("file");
 var IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
-var uploadFields = z9.object({
-  purpose: z9.enum(["alumni-photo", "story-image", "cms-image", "learning-material"]),
-  altText: z9.string().trim().max(200).optional()
+var uploadFields = import_zod9.z.object({
+  purpose: import_zod9.z.enum(["alumni-photo", "story-image", "cms-image", "learning-material"]),
+  altText: import_zod9.z.string().trim().max(200).optional()
 });
 function rulesFor(req, purpose) {
   switch (purpose) {
@@ -9391,13 +9391,13 @@ async function url(req, res) {
 }
 
 // src/routes/cms.routes.ts
-var cmsRoutes = Router6();
+var cmsRoutes = (0, import_express6.Router)();
 cmsRoutes.get("/sections", publicSections);
 cmsRoutes.get("/admin/sections", requirePermission(P.cmsEdit), adminSections);
 cmsRoutes.put("/admin/sections/:key/:locale", requirePermission(P.cmsEdit), saveDraft);
 cmsRoutes.post("/admin/sections/:key/:locale/publish", requirePermission(P.cmsPublish), publish);
 cmsRoutes.post("/admin/sections/:key/:locale/unpublish", requirePermission(P.cmsPublish), unpublish);
-var faqRoutes = Router6();
+var faqRoutes = (0, import_express6.Router)();
 faqRoutes.get("/", publicFaqs);
 faqRoutes.use(
   "/admin",
@@ -9413,19 +9413,19 @@ faqRoutes.use(
     defaultOrder: "asc"
   })
 );
-var settingsRoutes = Router6();
+var settingsRoutes = (0, import_express6.Router)();
 settingsRoutes.get("/public", publicSettings);
 settingsRoutes.get("/", requirePermission(P.settingsManage), adminSettings);
 settingsRoutes.put("/:key", requirePermission(P.settingsManage), updateSetting);
-var mediaRoutes = Router6();
+var mediaRoutes = (0, import_express6.Router)();
 mediaRoutes.post("/", requireAuth, uploadMiddleware, upload);
 mediaRoutes.get("/:id/url", requireAuth, url);
 
 // src/routes/courses.routes.ts
-import { Router as Router7 } from "express";
+var import_express7 = require("express");
 
 // src/controllers/courses.controller.ts
-import { z as z10 } from "zod";
+var import_zod10 = require("zod");
 
 // src/services/course.service.ts
 var courseInclude = {
@@ -9476,8 +9476,8 @@ function adminCourse(course) {
 }
 
 // src/controllers/courses.controller.ts
-var localeQuery2 = z10.object({ locale: z10.enum(["en", "bn"]).default("en") });
-var slugParam2 = z10.object({ slug: z10.string().regex(/^[a-z0-9-]{1,80}$/) });
+var localeQuery2 = import_zod10.z.object({ locale: import_zod10.z.enum(["en", "bn"]).default("en") });
+var slugParam2 = import_zod10.z.object({ slug: import_zod10.z.string().regex(/^[a-z0-9-]{1,80}$/) });
 async function listPublic(req, res) {
   const { locale: locale3 } = parse(localeQuery2, req.query);
   const courses = await publishedCourses();
@@ -9493,7 +9493,7 @@ async function getPublic(req, res) {
   res.set("Cache-Control", "no-cache");
   ok(res, localizeCourse(course, locale3));
 }
-var adminFilter = z10.object({ status: z10.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).optional() });
+var adminFilter = import_zod10.z.object({ status: import_zod10.z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).optional() });
 async function adminList(req, res) {
   const p = parse(paginationSchema, req.query);
   const f = parse(adminFilter, req.query);
@@ -9614,7 +9614,7 @@ async function adminDelete(req, res) {
 }
 
 // src/routes/courses.routes.ts
-var courseRoutes = Router7();
+var courseRoutes = (0, import_express7.Router)();
 var manage3 = requirePermission(P.coursesManage);
 courseRoutes.get("/admin", manage3, adminList);
 courseRoutes.post("/admin", manage3, adminCreate);
@@ -9652,7 +9652,7 @@ var learningMaterialRoutes = crudRouter({
 });
 
 // src/routes/engagement.routes.ts
-import { Router as Router8 } from "express";
+var import_express8 = require("express");
 
 // src/controllers/engagement.controller.ts
 async function submitInquiry(req, res) {
@@ -9806,7 +9806,7 @@ async function listPublicPartners(_req, res) {
 
 // src/routes/engagement.routes.ts
 var companies = requirePermission(P.companiesManage);
-var companyRoutes = Router8();
+var companyRoutes = (0, import_express8.Router)();
 companyRoutes.get("/partners", listPublicPartners);
 companyRoutes.use(
   crudRouter({
@@ -9822,14 +9822,14 @@ companyRoutes.use(
     include: { _count: { select: { opportunities: true, inquiries: true } } }
   })
 );
-var inquiryRoutes = Router8();
+var inquiryRoutes = (0, import_express8.Router)();
 inquiryRoutes.post("/", formLimiter, submitInquiry);
 inquiryRoutes.get("/", companies, listInquiries);
 inquiryRoutes.get("/:id", companies, getInquiry);
 inquiryRoutes.patch("/:id", companies, updateInquiry);
 inquiryRoutes.post("/:id/interactions", companies, addInteraction);
 inquiryRoutes.post("/:id/convert", companies, convertInquiry);
-var opportunityRoutes = Router8();
+var opportunityRoutes = (0, import_express8.Router)();
 opportunityRoutes.get("/available", requireAuth, availableOpportunities);
 opportunityRoutes.use(
   crudRouter({
@@ -9845,7 +9845,7 @@ opportunityRoutes.use(
     include: { company: { select: { id: true, name: true } } }
   })
 );
-var contactRoutes = Router8();
+var contactRoutes = (0, import_express8.Router)();
 var contact = requirePermission(P.contactManage);
 contactRoutes.post("/", formLimiter, submitContact);
 contactRoutes.get("/", contact, listContact);
@@ -9853,7 +9853,7 @@ contactRoutes.patch("/:id", contact, updateContact);
 contactRoutes.delete("/:id", contact, deleteContact);
 
 // src/routes/index.ts
-var apiRouter = Router9();
+var apiRouter = (0, import_express9.Router)();
 apiRouter.get("/health", async (_req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
@@ -9893,12 +9893,12 @@ apiRouter.use("/media", mediaRoutes);
 
 // src/app.ts
 function createApp() {
-  const app = express();
+  const app = (0, import_express10.default)();
   app.disable("x-powered-by");
   app.set("trust proxy", env.TRUST_PROXY);
   app.use(requestId);
   app.use(
-    pinoHttp({
+    (0, import_pino_http.pinoHttp)({
       logger,
       genReqId: (req) => req.id,
       customLogLevel: (_req, res, err) => err || res.statusCode >= 500 ? "error" : res.statusCode >= 400 ? "warn" : "info",
@@ -9909,14 +9909,14 @@ function createApp() {
     })
   );
   app.use(
-    helmet({
+    (0, import_helmet.default)({
       // The API only serves JSON; a locked-down CSP is safe.
       contentSecurityPolicy: { directives: { defaultSrc: ["'none'"], frameAncestors: ["'none'"] } },
       crossOriginResourcePolicy: { policy: "same-site" }
     })
   );
   app.use(
-    cors({
+    (0, import_cors.default)({
       origin: (origin, callback) => callback(null, !origin || allowedOrigins.includes(origin)),
       credentials: true,
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
@@ -9924,9 +9924,9 @@ function createApp() {
       maxAge: 600
     })
   );
-  app.use(express.json({ limit: "200kb" }));
-  app.use(express.urlencoded({ extended: false, limit: "50kb" }));
-  app.use(cookieParser());
+  app.use(import_express10.default.json({ limit: "200kb" }));
+  app.use(import_express10.default.urlencoded({ extended: false, limit: "50kb" }));
+  app.use((0, import_cookie_parser.default)());
   app.use("/api/v1", globalLimiter, loadSession, csrfProtection, apiRouter);
   app.get("/", (_req, res) => res.json({ data: { name: "The Bridge Institute API", docs: "/api/v1/health" } }));
   app.use(notFoundHandler);
@@ -9934,7 +9934,7 @@ function createApp() {
   return app;
 }
 function configurationErrorApp(message) {
-  const app = express();
+  const app = (0, import_express10.default)();
   app.disable("x-powered-by");
   app.use((_req, res) => {
     res.status(500).json({
@@ -9963,9 +9963,6 @@ if (!process.env.VERCEL) {
   process.on("SIGINT", () => void shutdown("SIGINT"));
   process.on("SIGTERM", () => void shutdown("SIGTERM"));
 }
-export {
-  server_default as default
-};
 /*! Bundled license information:
 
 decimal.js/decimal.mjs:
@@ -9977,3 +9974,5 @@ decimal.js/decimal.mjs:
    *  MIT Licence
    *)
 */
+module.exports = module.exports.default ?? module.exports;
+
