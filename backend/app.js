@@ -1,37 +1,28 @@
-const fs = require('fs');
-const path = require('path');
+const express = require('express');
 
-const engine = path.join(__dirname, 'query-engine', 'libquery_engine-rhel-openssl-3.0.x.so.node');
-if (process.platform === 'linux' && !process.env.PRISMA_QUERY_ENGINE_LIBRARY && fs.existsSync(engine)) {
-  process.env.PRISMA_QUERY_ENGINE_LIBRARY = engine;
-}
-
-function send(res, status, body) {
-  res.statusCode = status;
-  res.setHeader('content-type', 'application/json; charset=utf-8');
-  res.end(JSON.stringify(body));
-}
-
-function bootError(error) {
-  const message = error && error.stack ? error.stack : String(error);
+function failureApp(error) {
+  const message = error && (error.stack || error.message) ? error.stack || error.message : String(error);
   const detail = message.replace(/postgres(?:ql)?:\/\/\S+/gi, 'postgresql://redacted').slice(0, 800);
-  return function app(_req, res) {
-    send(res, 500, { data: { status: 'boot-failed', detail } });
-  };
+  const app = express();
+  app.use((_req, res) => {
+    res.status(500).json({ data: { status: 'boot-failed', detail } });
+  });
+  return app;
 }
 
-module.exports = function app(req, res) {
-  const url = req.url || '';
-  if (url.includes('entry-check')) {
-    send(res, 200, { data: { status: 'entry-ok' } });
-    return;
+let app;
+try {
+  const fs = require('fs');
+  const path = require('path');
+  const engine = path.join(__dirname, 'query-engine', 'libquery_engine-rhel-openssl-3.0.x.so.node');
+  if (process.platform === 'linux' && !process.env.PRISMA_QUERY_ENGINE_LIBRARY && fs.existsSync(engine)) {
+    process.env.PRISMA_QUERY_ENGINE_LIBRARY = engine;
   }
-  try {
-    const loaded = require('./api.cjs');
-    const handler = loaded && loaded.default ? loaded.default : loaded;
-    if (typeof handler !== 'function') throw new Error('API export was ' + typeof handler);
-    return handler(req, res);
-  } catch (error) {
-    return bootError(error)(req, res);
-  }
-};
+  const loaded = require('./api.cjs');
+  app = loaded && loaded.default ? loaded.default : loaded;
+  if (typeof app !== 'function') throw new Error('API export was ' + typeof app);
+} catch (error) {
+  app = failureApp(error);
+}
+
+module.exports = app;
