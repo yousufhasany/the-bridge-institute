@@ -1,11 +1,21 @@
 const configuredBase = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, '') ?? '';
 
+function isLoopback(url: string) {
+  return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/i.test(url);
+}
+
 /**
  * Local dev talks to the Express port. A production build on the Vercel project
  * uses the same host: public `/api` is rewritten to the backend service.
- * `VITE_API_BASE_URL` still overrides this when the API lives on another origin.
+ * A localhost value left in `VITE_API_BASE_URL` is ignored in production so the
+ * browser does not try to call the visitor's own computer.
  */
-export const API_BASE_URL = configuredBase || (import.meta.env.DEV ? 'http://localhost:5000/api/v1' : '/api/v1');
+export const API_BASE_URL =
+  import.meta.env.DEV
+    ? configuredBase || 'http://localhost:5000/api/v1'
+    : configuredBase && !isLoopback(configuredBase)
+      ? configuredBase
+      : '/api/v1';
 
 export interface PageMeta {
   page: number;

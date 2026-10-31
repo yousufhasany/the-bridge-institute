@@ -3,7 +3,13 @@
   "services": {
     "backend": {
       "root": "backend",
-      "framework": "express"
+      "framework": "express",
+      "entrypoint": "src/server.ts",
+      "functions": {
+        "src/server.ts": {
+          "includeFiles": "generated/prisma/**"
+        }
+      }
     },
     "frontend": {
       "root": "frontend",

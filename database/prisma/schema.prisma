@@ -3,8 +3,9 @@
 // into backend/generated/prisma so the backend can import it directly.
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../../backend/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../../backend/generated/prisma"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
