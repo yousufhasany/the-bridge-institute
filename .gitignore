@@ -10,9 +10,9 @@ coverage/
 !.env.example
 !.env.test.example
 
-# Generated Prisma client and the Vercel CommonJS bundle
+# Generated Prisma client. backend/app.cjs is committed so Vercel can see the
+# Express entrypoint; `npm run build` rewrites it on each deploy.
 backend/generated/
-backend/app.cjs
 
 # Local embedded PostgreSQL data (development only)
 .local-db/
