@@ -11,6 +11,8 @@ const engineName =
       : 'libquery_engine-rhel-openssl-3.0.x.so.node';
 
 const directories = [
+  join(process.cwd(), 'query-engine'),
+  join(process.cwd(), 'backend/query-engine'),
   join(process.cwd(), 'generated/prisma'),
   join(process.cwd(), 'backend/generated/prisma'),
 ];

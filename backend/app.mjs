@@ -18,7 +18,11 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
   throw Error('Dynamic require of "' + x + '" is not supported');
 });
 var __commonJS = (cb, mod) => function __require2() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  try {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  } catch (e) {
+    throw mod = 0, e;
+  }
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -499,8 +503,8 @@ var require_library = __commonJS({
     var Ko = O(__require("node:child_process"));
     var mi = O(__require("node:fs/promises"));
     var Ht = O(__require("node:os"));
-    var Oe = Symbol.for("@ts-pattern/matcher");
-    var Gu = Symbol.for("@ts-pattern/isVariadic");
+    var Oe = /* @__PURE__ */ Symbol.for("@ts-pattern/matcher");
+    var Gu = /* @__PURE__ */ Symbol.for("@ts-pattern/isVariadic");
     var Wt = "@ts-pattern/anonymous-select-key";
     var ui = (e) => !!(e && typeof e == "object");
     var Qt = (e) => e && !!e[Oe];
@@ -2152,7 +2156,7 @@ Env vars from ${Y(l)} overwrite the ones from ${Y(a)}
     function cd(e) {
       return y(e = new this(e), e.e + 1, 1);
     }
-    m[Symbol.for("nodejs.util.inspect.custom")] = m.toString;
+    m[/* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom")] = m.toString;
     m[Symbol.toStringTag] = "Decimal";
     var Le = m.constructor = Ks(Gi);
     hn = new Le(hn);
@@ -3018,7 +3022,7 @@ Note that ${s.bold("include")} statements only accept relation fields.`, a;
     function kr(e) {
       return e instanceof mt;
     }
-    var Dn = Symbol();
+    var Dn = /* @__PURE__ */ Symbol();
     var Yi = /* @__PURE__ */ new WeakMap();
     var Me = class {
       constructor(r) {
@@ -3235,7 +3239,7 @@ Note that ${s.bold("include")} statements only accept relation fields.`, a;
     function va(e) {
       return new Fn(e);
     }
-    var Pa = Symbol();
+    var Pa = /* @__PURE__ */ Symbol();
     var bt = class {
       constructor(r) {
         if (r !== Pa) throw new Error("Skip instance can not be constructed directly");
@@ -3568,7 +3572,7 @@ Note that ${s.bold("include")} statements only accept relation fields.`, a;
       let r = new Set(e);
       return { getPrototypeOf: () => Object.prototype, getOwnPropertyDescriptor: () => jn, has: (t, n) => r.has(n), set: (t, n, i) => r.add(n) && Reflect.set(t, n, i), ownKeys: () => [...r] };
     }
-    var ka = Symbol.for("nodejs.util.inspect.custom");
+    var ka = /* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom");
     function he(e, r) {
       let t = am(r), n = /* @__PURE__ */ new Set(), i = new Proxy(e, { get(o, s) {
         if (n.has(s)) return o[s];
@@ -3804,7 +3808,7 @@ Prisma Accelerate has built-in connection pooling to prevent such errors: https:
     function Ga(e) {
       return e.replace(/^./, (r) => r.toUpperCase());
     }
-    var co = Symbol();
+    var co = /* @__PURE__ */ Symbol();
     function Pt(e) {
       let r = [Fm(e), Mm(e), re(co, () => e), re("$parent", () => e._appliedParent)], t = e._extensions.getAllClientExtensions();
       return t && r.push(xt(t)), he(e, r);
@@ -4661,7 +4665,7 @@ ${r}`, R(t, true));
     }
     var wo = O(__require("node:os"));
     var kl = O(__require("node:path"));
-    var Eo = Symbol("PrismaLibraryEngineCache");
+    var Eo = /* @__PURE__ */ Symbol("PrismaLibraryEngineCache");
     function ff() {
       let e = globalThis;
       return e[Eo] === void 0 && (e[Eo] = {}), e[Eo];
@@ -5508,7 +5512,7 @@ ${n}`;
     var rr = N("prisma:client");
     typeof globalThis == "object" && (globalThis.NODE_CLIENT = true);
     var Ff = { requestArgsToMiddlewareArgs: (e) => e, middlewareArgsToRequestArgs: (e) => e };
-    var Mf = Symbol.for("prisma.client.transaction.id");
+    var Mf = /* @__PURE__ */ Symbol.for("prisma.client.transaction.id");
     var $f = { id: 0, nextId() {
       return ++this.id;
     } };
@@ -6546,6 +6550,8 @@ import { join as join2 } from "node:path";
 import { platform } from "node:os";
 var engineName = platform() === "win32" ? "query_engine-windows.dll.node" : platform() === "darwin" ? "libquery_engine-darwin-arm64.dylib.node" : "libquery_engine-rhel-openssl-3.0.x.so.node";
 var directories = [
+  join2(process.cwd(), "query-engine"),
+  join2(process.cwd(), "backend/query-engine"),
   join2(process.cwd(), "generated/prisma"),
   join2(process.cwd(), "backend/generated/prisma")
 ];
@@ -6608,6 +6614,9 @@ var ApiError = class _ApiError extends Error {
     this.code = code;
     this.details = details;
   }
+  status;
+  code;
+  details;
   static badRequest(message = "Bad request", details) {
     return new _ApiError(400, "BAD_REQUEST", message, details);
   }
@@ -9849,8 +9858,10 @@ apiRouter.get("/health", async (_req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
     res.json({ data: { status: "ok", database: "ok" } });
-  } catch {
-    res.status(503).json({ data: { status: "degraded", database: "unreachable" } });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "unreachable";
+    const detail = message.replace(/postgres(?:ql)?:\/\/\S+/gi, "postgresql://redacted").slice(0, 240);
+    res.status(503).json({ data: { status: "degraded", database: "unreachable", detail } });
   }
 });
 apiRouter.use("/auth", authRoutes);

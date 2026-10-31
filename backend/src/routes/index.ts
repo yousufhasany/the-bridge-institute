@@ -24,8 +24,10 @@ apiRouter.get('/health', async (_req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
     res.json({ data: { status: 'ok', database: 'ok' } });
-  } catch {
-    res.status(503).json({ data: { status: 'degraded', database: 'unreachable' } });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'unreachable';
+    const detail = message.replace(/postgres(?:ql)?:\/\/\S+/gi, 'postgresql://redacted').slice(0, 240);
+    res.status(503).json({ data: { status: 'degraded', database: 'unreachable', detail } });
   }
 });
 
