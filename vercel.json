@@ -4,9 +4,9 @@
     "backend": {
       "root": "backend",
       "framework": "express",
-      "entrypoint": "src/server.ts",
+      "entrypoint": "app.mjs",
       "functions": {
-        "src/server.ts": {
+        "app.mjs": {
           "includeFiles": "{generated/prisma,backend/generated/prisma}/**"
         }
       }
