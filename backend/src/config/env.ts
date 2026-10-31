@@ -1,4 +1,8 @@
+import { config as loadEnv } from 'dotenv';
 import { z } from 'zod';
+
+// Tests set their own env. Do not let a developer .env override that.
+if (process.env.NODE_ENV !== 'test') loadEnv();
 
 function deploymentOrigins() {
   const hosts = [process.env.VERCEL_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL].filter(
@@ -41,6 +45,13 @@ const schema = z.object({
   STORAGE_SERVICE_KEY: z.string().optional().default(''),
   STORAGE_PUBLIC_BUCKET: z.string().default('public-media'),
   STORAGE_PRIVATE_BUCKET: z.string().default('private-files'),
+  AWS_ENDPOINT_URL_S3: z.string().optional().default(''),
+  AWS_ACCESS_KEY_ID: z.string().optional().default(''),
+  AWS_SECRET_ACCESS_KEY: z.string().optional().default(''),
+  AWS_REGION: z.string().default('ap-southeast-1'),
+  NEON_AUTH_BASE_URL: z.string().optional().default(''),
+  NEON_AUTH_JWKS_URL: z.string().optional().default(''),
+  NEON_DATA_API_URL: z.string().optional().default(''),
   EMAIL_PROVIDER_API_KEY: z.string().optional().default(''),
   EMAIL_FROM: z.string().optional().default(''),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent']).default('info'),
@@ -73,4 +84,7 @@ export const isTest = env.NODE_ENV === 'test';
 export const allowedOrigins = [
   ...new Set([...env.WEB_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean), ...deploymentOrigins()]),
 ];
-export const storageConfigured = Boolean(env.STORAGE_URL && env.STORAGE_SERVICE_KEY);
+export const storageConfigured = Boolean(
+  (env.AWS_ENDPOINT_URL_S3 && env.AWS_ACCESS_KEY_ID && env.AWS_SECRET_ACCESS_KEY) ||
+    (env.STORAGE_URL && env.STORAGE_SERVICE_KEY),
+);

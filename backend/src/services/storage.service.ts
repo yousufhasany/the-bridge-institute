@@ -1,4 +1,6 @@
 import { randomUUID } from 'node:crypto';
+import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { env, storageConfigured } from '../config/env.js';
 import { ApiError } from '../utils/http.js';
 
@@ -30,11 +32,40 @@ function assertConfigured() {
 const base = () => env.STORAGE_URL.replace(/\/+$/, '');
 const headers = () => ({ Authorization: `Bearer ${env.STORAGE_SERVICE_KEY}`, apikey: env.STORAGE_SERVICE_KEY });
 
-/** Uploads to Supabase Storage. The service key never leaves the server. */
+const useS3 = () => Boolean(env.AWS_ENDPOINT_URL_S3 && env.AWS_ACCESS_KEY_ID && env.AWS_SECRET_ACCESS_KEY);
+
+let s3Client: S3Client | undefined;
+
+function s3() {
+  if (!s3Client) {
+    s3Client = new S3Client({
+      region: env.AWS_REGION,
+      endpoint: env.AWS_ENDPOINT_URL_S3,
+      forcePathStyle: true,
+      credentials: {
+        accessKeyId: env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+      },
+    });
+  }
+  return s3Client;
+}
+
+function objectUrl(bucket: string, objectKey: string) {
+  const endpoint = env.AWS_ENDPOINT_URL_S3.replace(/\/+$/, '');
+  const key = objectKey.split('/').map(encodeURIComponent).join('/');
+  return `${endpoint}/${encodeURIComponent(bucket)}/${key}`;
+}
+
+/** Uploads a file. The storage secret never leaves the server. */
 export async function putObject(visibility: 'PUBLIC' | 'PRIVATE', folder: string, ext: string, mime: string, data: Buffer) {
   assertConfigured();
   const bucket = visibility === 'PUBLIC' ? env.STORAGE_PUBLIC_BUCKET : env.STORAGE_PRIVATE_BUCKET;
   const objectKey = `${folder}/${new Date().toISOString().slice(0, 7)}/${randomUUID()}.${ext}`;
+  if (useS3()) {
+    await s3().send(new PutObjectCommand({ Bucket: bucket, Key: objectKey, Body: data, ContentType: mime }));
+    return { bucket, objectKey };
+  }
   const response = await fetch(`${base()}/storage/v1/object/${bucket}/${objectKey}`, {
     method: 'POST',
     headers: { ...headers(), 'Content-Type': mime, 'x-upsert': 'false' },
@@ -46,12 +77,16 @@ export async function putObject(visibility: 'PUBLIC' | 'PRIVATE', folder: string
 
 export function publicUrl(bucket: string, objectKey: string) {
   if (!storageConfigured) return null;
+  if (useS3()) return objectUrl(bucket, objectKey);
   return `${base()}/storage/v1/object/public/${bucket}/${objectKey}`;
 }
 
 /** Short-lived signed URL for private objects. Callers must check authorisation first. */
 export async function signedUrl(bucket: string, objectKey: string, expiresIn = 300) {
   assertConfigured();
+  if (useS3()) {
+    return getSignedUrl(s3(), new GetObjectCommand({ Bucket: bucket, Key: objectKey }), { expiresIn });
+  }
   const response = await fetch(`${base()}/storage/v1/object/sign/${bucket}/${objectKey}`, {
     method: 'POST',
     headers: { ...headers(), 'Content-Type': 'application/json' },

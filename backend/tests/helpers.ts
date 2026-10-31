@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import request from 'supertest';
-import { createApp } from '../src/app.js';
+import { createApp } from '../src/http-app.js';
 import { prisma } from '../src/lib/prisma.js';
 import { hashPassword } from '../src/services/auth.service.js';
 

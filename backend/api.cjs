@@ -6455,7 +6455,7 @@ __export(server_exports, {
 });
 module.exports = __toCommonJS(server_exports);
 
-// src/app.ts
+// src/http-app.ts
 var import_cookie_parser = __toESM(require("cookie-parser"), 1);
 var import_cors = __toESM(require("cors"), 1);
 var import_express10 = __toESM(require("express"), 1);
@@ -6463,7 +6463,9 @@ var import_helmet = __toESM(require("helmet"), 1);
 var import_pino_http = require("pino-http");
 
 // src/config/env.ts
+var import_dotenv = require("dotenv");
 var import_zod = require("zod");
+if (process.env.NODE_ENV !== "test") (0, import_dotenv.config)();
 function deploymentOrigins() {
   const hosts = [process.env.VERCEL_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL].filter(
     (host) => Boolean(host)
@@ -6496,6 +6498,13 @@ var schema = import_zod.z.object({
   STORAGE_SERVICE_KEY: import_zod.z.string().optional().default(""),
   STORAGE_PUBLIC_BUCKET: import_zod.z.string().default("public-media"),
   STORAGE_PRIVATE_BUCKET: import_zod.z.string().default("private-files"),
+  AWS_ENDPOINT_URL_S3: import_zod.z.string().optional().default(""),
+  AWS_ACCESS_KEY_ID: import_zod.z.string().optional().default(""),
+  AWS_SECRET_ACCESS_KEY: import_zod.z.string().optional().default(""),
+  AWS_REGION: import_zod.z.string().default("ap-southeast-1"),
+  NEON_AUTH_BASE_URL: import_zod.z.string().optional().default(""),
+  NEON_AUTH_JWKS_URL: import_zod.z.string().optional().default(""),
+  NEON_DATA_API_URL: import_zod.z.string().optional().default(""),
   EMAIL_PROVIDER_API_KEY: import_zod.z.string().optional().default(""),
   EMAIL_FROM: import_zod.z.string().optional().default(""),
   LOG_LEVEL: import_zod.z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info")
@@ -6520,7 +6529,9 @@ var isTest = env.NODE_ENV === "test";
 var allowedOrigins = [
   .../* @__PURE__ */ new Set([...env.WEB_ORIGIN.split(",").map((o) => o.trim()).filter(Boolean), ...deploymentOrigins()])
 ];
-var storageConfigured = Boolean(env.STORAGE_URL && env.STORAGE_SERVICE_KEY);
+var storageConfigured = Boolean(
+  env.AWS_ENDPOINT_URL_S3 && env.AWS_ACCESS_KEY_ID && env.AWS_SECRET_ACCESS_KEY || env.STORAGE_URL && env.STORAGE_SERVICE_KEY
+);
 
 // src/lib/logger.ts
 var import_pino = __toESM(require("pino"), 1);
@@ -8348,6 +8359,8 @@ var import_zod8 = require("zod");
 
 // src/services/storage.service.ts
 var import_node_crypto3 = require("node:crypto");
+var import_client_s3 = require("@aws-sdk/client-s3");
+var import_s3_request_presigner = require("@aws-sdk/s3-request-presigner");
 var SIGNATURES = [
   { mime: "image/jpeg", ext: "jpg", test: (b) => b[0] === 255 && b[1] === 216 && b[2] === 255 },
   { mime: "image/png", ext: "png", test: (b) => b.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) },
@@ -8368,10 +8381,35 @@ function assertConfigured() {
 }
 var base = () => env.STORAGE_URL.replace(/\/+$/, "");
 var headers = () => ({ Authorization: `Bearer ${env.STORAGE_SERVICE_KEY}`, apikey: env.STORAGE_SERVICE_KEY });
+var useS3 = () => Boolean(env.AWS_ENDPOINT_URL_S3 && env.AWS_ACCESS_KEY_ID && env.AWS_SECRET_ACCESS_KEY);
+var s3Client;
+function s3() {
+  if (!s3Client) {
+    s3Client = new import_client_s3.S3Client({
+      region: env.AWS_REGION,
+      endpoint: env.AWS_ENDPOINT_URL_S3,
+      forcePathStyle: true,
+      credentials: {
+        accessKeyId: env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: env.AWS_SECRET_ACCESS_KEY
+      }
+    });
+  }
+  return s3Client;
+}
+function objectUrl(bucket, objectKey) {
+  const endpoint = env.AWS_ENDPOINT_URL_S3.replace(/\/+$/, "");
+  const key = objectKey.split("/").map(encodeURIComponent).join("/");
+  return `${endpoint}/${encodeURIComponent(bucket)}/${key}`;
+}
 async function putObject(visibility, folder, ext, mime, data) {
   assertConfigured();
   const bucket = visibility === "PUBLIC" ? env.STORAGE_PUBLIC_BUCKET : env.STORAGE_PRIVATE_BUCKET;
   const objectKey = `${folder}/${(/* @__PURE__ */ new Date()).toISOString().slice(0, 7)}/${(0, import_node_crypto3.randomUUID)()}.${ext}`;
+  if (useS3()) {
+    await s3().send(new import_client_s3.PutObjectCommand({ Bucket: bucket, Key: objectKey, Body: data, ContentType: mime }));
+    return { bucket, objectKey };
+  }
   const response = await fetch(`${base()}/storage/v1/object/${bucket}/${objectKey}`, {
     method: "POST",
     headers: { ...headers(), "Content-Type": mime, "x-upsert": "false" },
@@ -8382,10 +8420,14 @@ async function putObject(visibility, folder, ext, mime, data) {
 }
 function publicUrl(bucket, objectKey) {
   if (!storageConfigured) return null;
+  if (useS3()) return objectUrl(bucket, objectKey);
   return `${base()}/storage/v1/object/public/${bucket}/${objectKey}`;
 }
 async function signedUrl(bucket, objectKey, expiresIn = 300) {
   assertConfigured();
+  if (useS3()) {
+    return (0, import_s3_request_presigner.getSignedUrl)(s3(), new import_client_s3.GetObjectCommand({ Bucket: bucket, Key: objectKey }), { expiresIn });
+  }
   const response = await fetch(`${base()}/storage/v1/object/sign/${bucket}/${objectKey}`, {
     method: "POST",
     headers: { ...headers(), "Content-Type": "application/json" },
@@ -9891,7 +9933,7 @@ apiRouter.use("/settings", settingsRoutes);
 apiRouter.use("/audit-logs", auditRoutes);
 apiRouter.use("/media", mediaRoutes);
 
-// src/app.ts
+// src/http-app.ts
 function createApp() {
   const app = (0, import_express10.default)();
   app.disable("x-powered-by");
@@ -9944,12 +9986,12 @@ function configurationErrorApp(message) {
   });
   return app;
 }
-var app_default = envError ? configurationErrorApp(envError) : createApp();
+var http_app_default = envError ? configurationErrorApp(envError) : createApp();
 
 // src/server.ts
-var server_default = app_default;
+var server_default = http_app_default;
 if (!process.env.VERCEL) {
-  const server = app_default.listen(env.PORT, () => {
+  const server = http_app_default.listen(env.PORT, () => {
     logger.info(`The Bridge Institute API listening on http://localhost:${env.PORT}/api/v1`);
   });
   const shutdown = async (signal) => {
