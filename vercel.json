@@ -4,7 +4,15 @@
     "backend": {
       "root": "backend",
       "framework": "express",
-      "entrypoint": "app.js"
+      "entrypoint": "src/server.js",
+      "functions": {
+        "src/server.js": {
+          "includeFiles": "{query-engine,generated/prisma}/**"
+        },
+        "app.js": {
+          "includeFiles": "{query-engine,generated/prisma}/**"
+        }
+      }
     },
     "frontend": {
       "root": "frontend",

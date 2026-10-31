@@ -2,7 +2,6 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import { pinoHttp } from 'pino-http';
 import { allowedOrigins, env, envError } from './config/env.js';
 import { logger } from './lib/logger.js';
 import { loadSession } from './middleware/auth.js';
@@ -19,17 +18,16 @@ export function createApp() {
   app.set('trust proxy', env.TRUST_PROXY);
 
   app.use(requestId);
-  app.use(
-    pinoHttp({
-      logger,
-      genReqId: (req) => (req as express.Request).id,
-      customLogLevel: (_req, res, err) => (err || res.statusCode >= 500 ? 'error' : res.statusCode >= 400 ? 'warn' : 'info'),
-      serializers: {
-        req: (req) => ({ id: req.id, method: req.method, url: req.url }),
-        res: (res) => ({ statusCode: res.statusCode }),
-      },
-    }),
-  );
+  app.use((req, res, next) => {
+    const started = Date.now();
+    res.on('finish', () => {
+      const fields = { id: req.id, method: req.method, url: req.originalUrl, statusCode: res.statusCode, ms: Date.now() - started };
+      if (res.statusCode >= 500) logger.error(fields, 'request');
+      else if (res.statusCode >= 400) logger.warn(fields, 'request');
+      else logger.info(fields, 'request');
+    });
+    next();
+  });
   app.use(
     helmet({
       // The API only serves JSON; a locked-down CSP is safe.

@@ -1,15 +1,15 @@
 import { build } from 'esbuild';
 
-// Vercel loads the entry with the CommonJS loader. The small app.cjs wrapper
-// requires this bundle and turns a startup crash into a JSON response.
+// One CommonJS file with npm dependencies inlined. Vercel’s file tracer was
+// leaving cookie-parser (and would leave the next package) out of the function.
+// pino is not imported: bundling it looks for thread-stream’s lib/worker.js.
 await build({
-  entryPoints: ['src/server.ts'],
+  entryPoints: ['src/boot.ts'],
   bundle: true,
   platform: 'node',
   format: 'cjs',
   target: 'node20',
-  outfile: 'api.cjs',
-  packages: 'external',
+  outfile: 'src/api.cjs',
   logLevel: 'info',
   footer: {
     js: 'module.exports = module.exports.default ?? module.exports;\n',

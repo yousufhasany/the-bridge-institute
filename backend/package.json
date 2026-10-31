@@ -4,9 +4,9 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "tsx watch --env-file-if-exists=.env src/server.ts",
-    "build": "tsc -p tsconfig.build.json",
-    "start": "node --env-file-if-exists=.env dist/server.js",
+    "dev": "tsx watch --env-file-if-exists=.env src/boot.ts",
+    "build": "node scripts/bundle-vercel.mjs && tsc -p tsconfig.build.json",
+    "start": "node --env-file-if-exists=.env dist/boot.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests",
     "test": "vitest run",
