@@ -1,0 +1,830 @@
+// The Bridge Institute - database schema (Neon Lakebase Postgres via Prisma)
+// Schema, migrations and seed live in database/prisma. The client is generated
+// into backend/generated/prisma so the backend can import it directly.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../backend/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ApplicationStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  SHORTLISTED
+  ACCEPTED
+  REJECTED
+  WAITLISTED
+}
+
+enum StudentStatus {
+  ACTIVE
+  INACTIVE
+  GRADUATED
+  WITHDRAWN
+}
+
+enum BatchStatus {
+  PLANNED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  WITHDRAWN
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}
+
+enum CertificateStatus {
+  PENDING
+  APPROVED
+  ISSUED
+  REVOKED
+}
+
+enum CompanyStatus {
+  PROSPECT
+  ACTIVE
+  INACTIVE
+}
+
+enum InquiryStatus {
+  NEW
+  IN_REVIEW
+  CONTACTED
+  CLOSED
+}
+
+enum OpportunityType {
+  INTERNSHIP
+  JOB
+  TRAINING
+  PROJECT
+  MENTORING
+  OTHER
+}
+
+enum OpportunityAudience {
+  STUDENTS
+  ALUMNI
+  ALL
+}
+
+enum OpportunityStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AlumniVerification {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum PublicationStatus {
+  NOT_SUBMITTED
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum StoryStatus {
+  SUBMITTED
+  PUBLISHED
+  REJECTED
+  ARCHIVED
+}
+
+enum AssetVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+// ---------------------------------------------------------------------------
+// Authentication and access control
+// ---------------------------------------------------------------------------
+
+model User {
+  id              String    @id @default(uuid()) @db.Uuid
+  email           String    @unique
+  passwordHash    String?
+  fullName        String
+  phone           String?
+  preferredLocale String    @default("en")
+  isActive        Boolean   @default(true)
+  lastLoginAt     DateTime? @db.Timestamptz(3)
+  createdAt       DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime  @updatedAt @db.Timestamptz(3)
+
+  roles               UserRole[]
+  sessions            Session[]
+  passwordResetTokens PasswordResetToken[]
+  studentProfile      StudentProfile?
+  alumniProfile       AlumniProfile?
+  alumniRequests      AlumniRegistrationRequest[]  @relation("AlumniRequestUser")
+  reviewedAlumni      AlumniRegistrationRequest[]  @relation("AlumniRequestReviewer")
+  applications        StudentApplication[]
+  statusChanges       ApplicationStatusHistory[]
+  applicationNotes    ApplicationInternalNote[]
+  teachingBatches     BatchTeacher[]
+  auditLogs           AuditLog[]
+  notifications       Notification[]
+  mediaAssets         MediaAsset[]
+  interactions        PartnershipInteraction[]
+  contactMessages     ContactMessage[]
+  approvedCertificates Certificate[]
+
+  @@index([createdAt])
+}
+
+model Role {
+  id          String           @id @default(uuid()) @db.Uuid
+  key         String           @unique
+  name        String
+  description String?
+  isSystem    Boolean          @default(true)
+  createdAt   DateTime         @default(now()) @db.Timestamptz(3)
+  users       UserRole[]
+  permissions RolePermission[]
+}
+
+model Permission {
+  id          String           @id @default(uuid()) @db.Uuid
+  key         String           @unique
+  description String?
+  roles       RolePermission[]
+}
+
+model UserRole {
+  userId     String   @db.Uuid
+  roleId     String   @db.Uuid
+  assignedAt DateTime @default(now()) @db.Timestamptz(3)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role       Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@index([roleId])
+}
+
+model RolePermission {
+  roleId       String     @db.Uuid
+  permissionId String     @db.Uuid
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+}
+
+model Session {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @db.Uuid
+  tokenHash  String    @unique
+  expiresAt  DateTime  @db.Timestamptz(3)
+  revokedAt  DateTime? @db.Timestamptz(3)
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime  @default(now()) @db.Timestamptz(3)
+  lastSeenAt DateTime  @default(now()) @db.Timestamptz(3)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @db.Uuid
+  tokenHash String    @unique
+  purpose   String    @default("reset")
+  expiresAt DateTime  @db.Timestamptz(3)
+  usedAt    DateTime? @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ---------------------------------------------------------------------------
+// Courses and training
+// ---------------------------------------------------------------------------
+
+model CourseCategory {
+  id        String   @id @default(uuid()) @db.Uuid
+  slug      String   @unique
+  nameEn    String
+  nameBn    String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  courses   Course[]
+}
+
+model Course {
+  id           String              @id @default(uuid()) @db.Uuid
+  slug         String              @unique
+  icon         String              @default("book-open")
+  status       ContentStatus       @default(DRAFT)
+  sortOrder    Int                 @default(0)
+  categoryId   String?             @db.Uuid
+  publishedAt  DateTime?           @db.Timestamptz(3)
+  createdAt    DateTime            @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime            @updatedAt @db.Timestamptz(3)
+  category     CourseCategory?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  translations CourseTranslation[]
+  topics       CourseTopic[]
+  outcomes     LearningOutcome[]
+  batches      TrainingBatch[]
+  materials    LearningMaterial[]
+  cohorts      AlumniCohort[]
+  alumni       AlumniProfile[]
+
+  @@index([status, sortOrder])
+}
+
+/// One row per language so editing English never overwrites Bangla (and vice versa).
+model CourseTranslation {
+  id          String   @id @default(uuid()) @db.Uuid
+  courseId    String   @db.Uuid
+  locale      String
+  title       String
+  summary     String
+  description String
+  duration    String?
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, locale])
+}
+
+model CourseTopic {
+  id        String @id @default(uuid()) @db.Uuid
+  courseId  String @db.Uuid
+  sortOrder Int    @default(0)
+  textEn    String
+  textBn    String?
+  course    Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId, sortOrder])
+}
+
+model LearningOutcome {
+  id        String @id @default(uuid()) @db.Uuid
+  courseId  String @db.Uuid
+  sortOrder Int    @default(0)
+  textEn    String
+  textBn    String?
+  course    Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId, sortOrder])
+}
+
+model TrainingBatch {
+  id          String         @id @default(uuid()) @db.Uuid
+  code        String         @unique
+  name        String
+  courseId    String?        @db.Uuid
+  startDate   DateTime?      @db.Date
+  endDate     DateTime?      @db.Date
+  capacity    Int?
+  status      BatchStatus    @default(PLANNED)
+  createdAt   DateTime       @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime       @updatedAt @db.Timestamptz(3)
+  course      Course?        @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  teachers    BatchTeacher[]
+  enrollments Enrollment[]
+  assessments Assessment[]
+
+  @@index([status])
+}
+
+model BatchTeacher {
+  batchId String        @db.Uuid
+  userId  String        @db.Uuid
+  batch   TrainingBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([batchId, userId])
+  @@index([userId])
+}
+
+model StudentProfile {
+  id               String           @id @default(uuid()) @db.Uuid
+  userId           String           @unique @db.Uuid
+  studentCode      String           @unique
+  educationLevel   String?
+  currentStatus    String?
+  status           StudentStatus    @default(ACTIVE)
+  graduatedAt      DateTime?        @db.Timestamptz(3)
+  sourceApplicationId String?       @unique @db.Uuid
+  createdAt        DateTime         @default(now()) @db.Timestamptz(3)
+  updatedAt        DateTime         @updatedAt @db.Timestamptz(3)
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sourceApplication StudentApplication? @relation(fields: [sourceApplicationId], references: [id], onDelete: SetNull)
+  enrollments      Enrollment[]
+  alumniProfile    AlumniProfile?
+
+  @@index([status])
+}
+
+model Enrollment {
+  id          String             @id @default(uuid()) @db.Uuid
+  studentId   String             @db.Uuid
+  batchId     String             @db.Uuid
+  status      EnrollmentStatus   @default(ACTIVE)
+  progress    Int                @default(0)
+  enrolledAt  DateTime           @default(now()) @db.Timestamptz(3)
+  completedAt DateTime?          @db.Timestamptz(3)
+  student     StudentProfile     @relation(fields: [studentId], references: [id], onDelete: Restrict)
+  batch       TrainingBatch      @relation(fields: [batchId], references: [id], onDelete: Restrict)
+  attendance  Attendance[]
+  results     AssessmentResult[]
+  certificate Certificate?
+
+  @@unique([studentId, batchId])
+  @@index([batchId])
+}
+
+model Attendance {
+  id           String           @id @default(uuid()) @db.Uuid
+  enrollmentId String           @db.Uuid
+  date         DateTime         @db.Date
+  status       AttendanceStatus
+  note         String?
+  recordedById String?          @db.Uuid
+  createdAt    DateTime         @default(now()) @db.Timestamptz(3)
+  enrollment   Enrollment       @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@unique([enrollmentId, date])
+}
+
+model Assessment {
+  id        String             @id @default(uuid()) @db.Uuid
+  batchId   String             @db.Uuid
+  title     String
+  type      String             @default("assignment")
+  maxScore  Int                @default(100)
+  dueDate   DateTime?          @db.Timestamptz(3)
+  createdAt DateTime           @default(now()) @db.Timestamptz(3)
+  batch     TrainingBatch      @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  results   AssessmentResult[]
+
+  @@index([batchId])
+}
+
+model AssessmentResult {
+  id           String     @id @default(uuid()) @db.Uuid
+  assessmentId String     @db.Uuid
+  enrollmentId String     @db.Uuid
+  score        Decimal    @db.Decimal(6, 2)
+  feedback     String?
+  gradedById   String?    @db.Uuid
+  createdAt    DateTime   @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime   @updatedAt @db.Timestamptz(3)
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  enrollment   Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@unique([assessmentId, enrollmentId])
+}
+
+model LearningMaterial {
+  id          String      @id @default(uuid()) @db.Uuid
+  courseId    String      @db.Uuid
+  title       String
+  description String?
+  url         String?
+  assetId     String?     @db.Uuid
+  isPublished Boolean     @default(false)
+  sortOrder   Int         @default(0)
+  createdAt   DateTime    @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime    @updatedAt @db.Timestamptz(3)
+  course      Course      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  asset       MediaAsset? @relation(fields: [assetId], references: [id], onDelete: SetNull)
+
+  @@index([courseId])
+}
+
+/// Certificates are never issued automatically: they require explicit staff approval.
+model Certificate {
+  id            String            @id @default(uuid()) @db.Uuid
+  enrollmentId  String            @unique @db.Uuid
+  certificateNo String            @unique
+  status        CertificateStatus @default(PENDING)
+  approvedById  String?           @db.Uuid
+  approvedAt    DateTime?         @db.Timestamptz(3)
+  issuedAt      DateTime?         @db.Timestamptz(3)
+  notes         String?
+  createdAt     DateTime          @default(now()) @db.Timestamptz(3)
+  enrollment    Enrollment        @relation(fields: [enrollmentId], references: [id], onDelete: Restrict)
+  approvedBy    User?             @relation(fields: [approvedById], references: [id], onDelete: SetNull)
+}
+
+// ---------------------------------------------------------------------------
+// Admissions
+// ---------------------------------------------------------------------------
+
+model StudentApplication {
+  id               String                     @id @default(uuid()) @db.Uuid
+  referenceCode    String                     @unique
+  idempotencyKey   String?                    @unique
+  userId           String?                    @db.Uuid
+  fullName         String
+  email            String
+  phone            String
+  currentStatus    String
+  highestEducation String?
+  areaOfInterest   String
+  motivation       String
+  preferredContact String?
+  locale           String                     @default("en")
+  consentAt        DateTime                   @db.Timestamptz(3)
+  status           ApplicationStatus          @default(SUBMITTED)
+  createdAt        DateTime                   @default(now()) @db.Timestamptz(3)
+  updatedAt        DateTime                   @updatedAt @db.Timestamptz(3)
+  user             User?                      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  history          ApplicationStatusHistory[]
+  notes            ApplicationInternalNote[]
+  studentProfile   StudentProfile?
+
+  @@index([email])
+  @@index([status, createdAt])
+  @@index([userId])
+}
+
+model ApplicationStatusHistory {
+  id            String             @id @default(uuid()) @db.Uuid
+  applicationId String             @db.Uuid
+  fromStatus    ApplicationStatus?
+  toStatus      ApplicationStatus
+  changedById   String?            @db.Uuid
+  note          String?
+  createdAt     DateTime           @default(now()) @db.Timestamptz(3)
+  application   StudentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  changedBy     User?              @relation(fields: [changedById], references: [id], onDelete: SetNull)
+
+  @@index([applicationId])
+}
+
+/// Private staff notes. Never returned by applicant-facing endpoints.
+model ApplicationInternalNote {
+  id            String             @id @default(uuid()) @db.Uuid
+  applicationId String             @db.Uuid
+  authorId      String?            @db.Uuid
+  body          String
+  createdAt     DateTime           @default(now()) @db.Timestamptz(3)
+  application   StudentApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  author        User?              @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([applicationId])
+}
+
+// ---------------------------------------------------------------------------
+// Industry partnerships
+// ---------------------------------------------------------------------------
+
+model Company {
+  id           String                   @id @default(uuid()) @db.Uuid
+  name         String
+  website      String?
+  industry     String?
+  contactName  String?
+  contactEmail String?
+  phone        String?
+  notes        String?
+  status       CompanyStatus            @default(PROSPECT)
+  /// Name, industry and website may be shown on the public site. Contact details never are.
+  listedPublicly Boolean               @default(false)
+  createdAt    DateTime                 @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime                 @updatedAt @db.Timestamptz(3)
+  inquiries    PartnershipInquiry[]
+  interactions PartnershipInteraction[]
+  opportunities Opportunity[]
+
+  @@index([name])
+}
+
+model PartnershipInquiry {
+  id               String                   @id @default(uuid()) @db.Uuid
+  organizationName String
+  contactName      String
+  workEmail        String
+  phone            String?
+  website          String?
+  interest         String
+  message          String
+  consentAt        DateTime                 @db.Timestamptz(3)
+  status           InquiryStatus            @default(NEW)
+  companyId        String?                  @db.Uuid
+  createdAt        DateTime                 @default(now()) @db.Timestamptz(3)
+  updatedAt        DateTime                 @updatedAt @db.Timestamptz(3)
+  company          Company?                 @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  interactions     PartnershipInteraction[]
+
+  @@index([status, createdAt])
+}
+
+model PartnershipInteraction {
+  id         String              @id @default(uuid()) @db.Uuid
+  inquiryId  String?             @db.Uuid
+  companyId  String?             @db.Uuid
+  authorId   String?             @db.Uuid
+  type       String              @default("note")
+  note       String
+  occurredAt DateTime            @default(now()) @db.Timestamptz(3)
+  inquiry    PartnershipInquiry? @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  company    Company?            @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  author     User?               @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([inquiryId])
+  @@index([companyId])
+}
+
+model Opportunity {
+  id          String              @id @default(uuid()) @db.Uuid
+  companyId   String?             @db.Uuid
+  title       String
+  type        OpportunityType     @default(OTHER)
+  description String
+  location    String?
+  applyUrl    String?
+  deadline    DateTime?           @db.Timestamptz(3)
+  audience    OpportunityAudience @default(ALL)
+  status      OpportunityStatus   @default(DRAFT)
+  createdAt   DateTime            @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime            @updatedAt @db.Timestamptz(3)
+  company     Company?            @relation(fields: [companyId], references: [id], onDelete: SetNull)
+
+  @@index([status, audience])
+}
+
+// ---------------------------------------------------------------------------
+// Alumni
+// ---------------------------------------------------------------------------
+
+model AlumniCohort {
+  id             String          @id @default(uuid()) @db.Uuid
+  slug           String          @unique
+  name           String
+  graduationYear Int?
+  courseId       String?         @db.Uuid
+  description    String?
+  createdAt      DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime        @updatedAt @db.Timestamptz(3)
+  course         Course?         @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  profiles       AlumniProfile[]
+  requests       AlumniRegistrationRequest[]
+}
+
+/// Public directory shows a profile only when verificationStatus = VERIFIED,
+/// isPublic = true (explicit consent), publicationStatus = APPROVED and archivedAt is null.
+model AlumniProfile {
+  id                 String             @id @default(uuid()) @db.Uuid
+  userId             String             @unique @db.Uuid
+  studentProfileId   String?            @unique @db.Uuid
+  slug               String             @unique
+  displayName        String
+  cohortId           String?            @db.Uuid
+  courseId           String?            @db.Uuid
+  graduationYear     Int?
+  programName        String?
+  professionalTitle  String?
+  organization       String?
+  professionalField  String?
+  skills             String[]           @default([])
+  interests          String[]           @default([])
+  bioEn              String?
+  bioBn              String?
+  linkedinUrl        String?
+  portfolioUrl       String?
+  photoAssetId       String?            @db.Uuid
+  contactEmail       String?
+  contactPhone       String?
+  verificationStatus AlumniVerification @default(PENDING)
+  isPublic           Boolean            @default(false)
+  publicConsentAt    DateTime?          @db.Timestamptz(3)
+  publicationStatus  PublicationStatus  @default(NOT_SUBMITTED)
+  pendingChanges     Json?
+  reviewNote         String?
+  archivedAt         DateTime?          @db.Timestamptz(3)
+  createdAt          DateTime           @default(now()) @db.Timestamptz(3)
+  updatedAt          DateTime           @updatedAt @db.Timestamptz(3)
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentProfile     StudentProfile?    @relation(fields: [studentProfileId], references: [id], onDelete: SetNull)
+  cohort             AlumniCohort?      @relation(fields: [cohortId], references: [id], onDelete: SetNull)
+  course             Course?            @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  photo              MediaAsset?        @relation(fields: [photoAssetId], references: [id], onDelete: SetNull)
+  stories            AlumniStory[]
+
+  @@index([verificationStatus, isPublic, publicationStatus])
+  @@index([graduationYear])
+}
+
+model AlumniRegistrationRequest {
+  id                 String        @id @default(uuid()) @db.Uuid
+  userId             String        @db.Uuid
+  fullName           String
+  email              String
+  graduationYear     Int?
+  courseId           String?       @db.Uuid
+  cohortId           String?       @db.Uuid
+  studentCode        String?
+  message            String?
+  matchedStudentId   String?       @db.Uuid
+  status             ReviewStatus  @default(PENDING)
+  reviewNote         String?
+  reviewedById       String?       @db.Uuid
+  reviewedAt         DateTime?     @db.Timestamptz(3)
+  createdAt          DateTime      @default(now()) @db.Timestamptz(3)
+  user               User          @relation("AlumniRequestUser", fields: [userId], references: [id], onDelete: Cascade)
+  reviewedBy         User?         @relation("AlumniRequestReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+  cohort             AlumniCohort? @relation(fields: [cohortId], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt])
+  @@index([userId])
+}
+
+model AlumniStory {
+  id          String        @id @default(uuid()) @db.Uuid
+  slug        String        @unique
+  authorId    String        @db.Uuid
+  titleEn     String?
+  titleBn     String?
+  excerptEn   String?
+  excerptBn   String?
+  bodyEn      String?
+  bodyBn      String?
+  imageAssetId String?      @db.Uuid
+  status      StoryStatus   @default(SUBMITTED)
+  reviewNote  String?
+  publishedAt DateTime?     @db.Timestamptz(3)
+  createdAt   DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime      @updatedAt @db.Timestamptz(3)
+  author      AlumniProfile @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  image       MediaAsset?   @relation(fields: [imageAssetId], references: [id], onDelete: SetNull)
+
+  @@index([status, publishedAt])
+}
+
+model AlumniAnnouncement {
+  id          String        @id @default(uuid()) @db.Uuid
+  titleEn     String
+  titleBn     String?
+  bodyEn      String
+  bodyBn      String?
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?     @db.Timestamptz(3)
+  createdAt   DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime      @updatedAt @db.Timestamptz(3)
+
+  @@index([status, publishedAt])
+}
+
+// ---------------------------------------------------------------------------
+// CMS
+// ---------------------------------------------------------------------------
+
+/// Draft and published content are stored separately so editing never changes the
+/// public site until publication. One row per (key, locale).
+model WebsiteSection {
+  id               String    @id @default(uuid()) @db.Uuid
+  key              String
+  locale           String
+  draftContent     Json
+  publishedContent Json?
+  publishedAt      DateTime? @db.Timestamptz(3)
+  updatedById      String?   @db.Uuid
+  createdAt        DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt        DateTime  @updatedAt @db.Timestamptz(3)
+
+  @@unique([key, locale])
+}
+
+/// Key/value settings grouped by purpose: contact, qr, social, seo, program.
+/// isPublic controls whether the value may be returned by public endpoints.
+model WebsiteSetting {
+  id          String   @id @default(uuid()) @db.Uuid
+  key         String   @unique
+  group       String
+  value       Json
+  isPublic    Boolean  @default(false)
+  description String?
+  updatedById String?  @db.Uuid
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  @@index([group])
+}
+
+model Faq {
+  id          String   @id @default(uuid()) @db.Uuid
+  questionEn  String
+  answerEn    String
+  questionBn  String?
+  answerBn    String?
+  category    String   @default("general")
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  @@index([isPublished, sortOrder])
+}
+
+/// Metadata for objects held in external storage (Supabase Storage). Binaries are never stored here.
+model MediaAsset {
+  id           String           @id @default(uuid()) @db.Uuid
+  bucket       String
+  objectKey    String
+  fileName     String
+  mimeType     String
+  sizeBytes    Int
+  visibility   AssetVisibility  @default(PRIVATE)
+  altText      String?
+  uploadedById String?          @db.Uuid
+  createdAt    DateTime         @default(now()) @db.Timestamptz(3)
+  uploadedBy   User?            @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  materials    LearningMaterial[]
+  alumniPhotos AlumniProfile[]
+  storyImages  AlumniStory[]
+
+  @@unique([bucket, objectKey])
+}
+
+// ---------------------------------------------------------------------------
+// Communication and auditing
+// ---------------------------------------------------------------------------
+
+model ContactMessage {
+  id        String    @id @default(uuid()) @db.Uuid
+  name      String
+  email     String
+  subject   String
+  message   String
+  category  String    @default("general")
+  userId    String?   @db.Uuid
+  isRead    Boolean   @default(false)
+  readAt    DateTime? @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([isRead, createdAt])
+}
+
+model Notification {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @db.Uuid
+  title     String
+  body      String
+  link      String?
+  readAt    DateTime? @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  actorId    String?  @db.Uuid
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([actorId])
+}

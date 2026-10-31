@@ -1,0 +1,131 @@
+{
+  "brand": {
+    "name": "The Bridge Institute",
+    "short": "Bridge Institute",
+    "parent": "University of Integrated Thought (UIT)",
+    "tagline": "Partnering with Industry to Develop Employable Manpower."
+  },
+  "nav": {
+    "home": "Home",
+    "courses": "Courses",
+    "industryPartners": "Industry partners",
+    "learningJourney": "Learning Journey",
+    "alumni": "Alumni",
+    "companies": "For Companies",
+    "about": "About Us",
+    "contact": "Contact",
+    "apply": "Apply Now",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "dashboard": "My dashboard",
+    "admin": "Administration",
+    "menu": "Menu",
+    "openMenu": "Open main menu",
+    "closeMenu": "Close main menu",
+    "skipToContent": "Skip to main content",
+    "primary": "Primary"
+  },
+  "language": {
+    "label": "Language",
+    "switchTo": "বাংলা",
+    "switchToLabel": "Switch to Bangla",
+    "en": "English",
+    "bn": "বাংলা"
+  },
+  "footer": {
+    "about": "Foundational learning and professional development that bridge the gap between education and employment.",
+    "explore": "Explore",
+    "getInvolved": "Get involved",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "rights": "All rights reserved.",
+    "followUs": "Follow us",
+    "joinAlumni": "Join the Alumni Network",
+    "noSocial": "Social links will appear here once confirmed by the institute."
+  },
+  "actions": {
+    "apply": "Apply Now",
+    "learnMore": "Learn more",
+    "viewCourse": "View Course",
+    "viewAll": "View all",
+    "submit": "Submit",
+    "submitting": "Submitting…",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "edit": "Edit",
+    "delete": "Delete",
+    "retry": "Try again",
+    "search": "Search",
+    "clear": "Clear",
+    "previous": "Previous",
+    "next": "Next",
+    "goHome": "Go to homepage",
+    "contactUs": "Contact us",
+    "readMore": "Read more"
+  },
+  "states": {
+    "loading": "Loading…",
+    "error": "Something went wrong.",
+    "errorDetail": "We couldn't load this content. Please try again.",
+    "networkError": "Unable to reach the server. Please check your connection and try again.",
+    "empty": "Nothing to show yet.",
+    "notConfigured": "Not yet configured",
+    "rateLimited": "Too many attempts. Please wait a few minutes and try again."
+  },
+  "pagination": {
+    "label": "Pagination",
+    "pageOf": "Page {{page}} of {{total}}",
+    "results_one": "{{count}} result",
+    "results_other": "{{count}} results"
+  },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Enter a valid email address.",
+    "phone": "Enter a valid phone number.",
+    "url": "Enter a full web address starting with http:// or https://",
+    "min": "Must be at least {{count}} characters.",
+    "max": "Must be at most {{count}} characters.",
+    "consent": "You must agree before submitting.",
+    "passwordMin": "Password must be at least 10 characters.",
+    "passwordMatch": "Passwords do not match.",
+    "invalid": "This value is not valid."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for does not exist or may have moved.",
+    "code": "404"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "body": "An unexpected error occurred while displaying this page.",
+    "reload": "Reload page"
+  },
+  "qr": {
+    "title": "Connect for enquiries",
+    "employmentSeekers": "Employment Seekers",
+    "admissionInformation": "Admission Information",
+    "industryQueries": "Industry Queries",
+    "universityFoundationCourses": "Foundation Courses Development Support for Universities",
+    "facebook": "Facebook",
+    "open": "Open link",
+    "qrAlt": "QR code linking to {{label}}",
+    "unavailable": "Link coming soon"
+  },
+  "photos": {
+    "hero": "Illustration of young adults walking toward a city skyline and a bridge.",
+    "learning": "Illustration of adults studying together around a table.",
+    "workplace": "Illustration of colleagues looking at a laptop together.",
+    "collaborate": "Illustration of two people shaking hands in an office."
+  },
+  "misc": {
+    "optional": "optional",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or"
+  }
+}

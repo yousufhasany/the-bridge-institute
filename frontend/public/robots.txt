@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /student
+Disallow: /alumni/dashboard
+Disallow: /alumni/profile
+Disallow: /alumni/stories
+Disallow: /alumni/opportunities
+Disallow: /alumni/login
+Disallow: /alumni/join
+Disallow: /login
+Disallow: /forgot-password
+Disallow: /reset-password
+
+# Replace example.org with the production domain before deployment (see docs/DEPLOYMENT.md).
+Sitemap: https://example.org/sitemap.xml

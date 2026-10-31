@@ -1,0 +1,176 @@
+{
+  "courses": {
+    "metaTitle": "Courses",
+    "metaDescription": "Foundation courses in Critical Thinking, Basic English, Basic Mathematics, Basic ICT and Basic Python Programming.",
+    "title": "Foundation Courses",
+    "subtitle": "Everyone completes all five foundation courses: Critical Thinking, Basic English, Basic Mathematics, Basic ICT, and Basic Python Programming.",
+    "topics": "Key topics",
+    "outcomes": "Learning outcomes",
+    "duration": "Duration",
+    "durationTbc": "To be announced",
+    "empty": "Courses will be published soon."
+  },
+  "course": {
+    "back": "All courses",
+    "about": "About this course",
+    "topics": "What you will learn",
+    "outcomes": "By the end of this course you will be able to",
+    "applyTitle": "Apply for the foundation programme",
+    "applyBody": "This course is part of the five foundation courses everyone completes. Submit an application and our admissions team will contact you with next steps.",
+    "notFound": "This course could not be found.",
+    "noFeesNote": "Schedules, fees and durations are announced by the institute when confirmed."
+  },
+  "journey": {
+    "metaTitle": "Learning Journey",
+    "metaDescription": "How learning works at The Bridge Institute: practical exercises, participation, assignments and workplace preparation.",
+    "title": "Learning Journey",
+    "intro": "Learning at The Bridge Institute is practical and participatory. These stages describe how learners grow; they complement the four-year professional development roadmap and are not a fixed schedule.",
+    "stages": [
+      { "title": "Building foundational knowledge", "body": "Strengthen core knowledge in thinking, language, numbers, digital skills and programming." },
+      { "title": "Practical exercises and assignments", "body": "Learn by doing through exercises, assignments and active participation rather than rote memorization." },
+      { "title": "Critical thinking, communication and teamwork", "body": "Question, reason, communicate clearly and collaborate with peers." },
+      { "title": "Strengthening professional competencies", "body": "Develop the workplace habits and competencies employers value." },
+      { "title": "Exploring certifications and practical opportunities", "body": "Explore relevant certifications and practical opportunities when they are available and appropriate." },
+      { "title": "Continuing development", "body": "Keep growing through reskilling and upskilling throughout professional life." }
+    ],
+    "note": "Official programme durations, schedules and certification arrangements are announced by the institute when confirmed.",
+    "roadmapLink": "See the four-year roadmap",
+    "programmeTitle": "Additional training programme",
+    "programmeBody": "An additional training programme has been confirmed by the institute."
+  },
+  "about": {
+    "metaTitle": "About Us",
+    "metaDescription": "About The Bridge Institute under the University of Integrated Thought (UIT).",
+    "title": "About The Bridge Institute",
+    "intro": "The Bridge Institute, under the University of Integrated Thought (UIT), offers foundational learning and professional development to bridge the gap between education and employment.",
+    "mission": "To bridge the gap between education and employment by preparing graduates to meet the evolving needs of industry.",
+    "vision": "Independent thinkers, effective communicators and capable learners equipped with the foundational skills needed for further education and the modern workplace.",
+    "philosophy": "Moving beyond traditional rote memorization, our courses emphasize practical learning, active participation, and problem-solving.",
+    "approach": "Learners develop essential skills in critical questioning, logical reasoning, communication, teamwork, peer collaboration, and problem identification.",
+    "alignment": "We welcome partnerships with industries, companies, and organizations to develop a workforce equipped with the practical skills and professional competencies employers value.",
+    "headings": {
+      "mission": "Mission",
+      "vision": "Vision",
+      "philosophy": "Learning philosophy",
+      "approach": "Educational approach",
+      "alignment": "Industry alignment"
+    }
+  },
+  "companies": {
+    "metaTitle": "For Companies",
+    "metaDescription": "Partner with The Bridge Institute to develop skilled, job-ready manpower.",
+    "title": "How Can We Collaborate?",
+    "subtitle": "Let's work together to build a working future!",
+    "body": "Connect with The Bridge Institute to learn more about our training programmes, explore partnership opportunities, and collaborate with us to develop skilled, job-ready manpower.",
+    "partnerTitle": "Who Do We Partner With?",
+    "partnerLead": "Industries seeking skilled and job-ready talent",
+    "partnerBody": "We welcome partnerships with industries, companies, and organizations seeking skilled, competent, and employable manpower. Together, we can bridge the gap between education and industry needs by developing a workforce equipped with the practical skills and professional competencies employers value.",
+    "partnersTitle": "Our industry partners",
+    "partnersLead": "Organizations currently partnering with The Bridge Institute.",
+    "industryTitle": "Industry partners",
+    "industrySubtitle": "Companies currently partnering with The Bridge Institute.",
+    "industryEmpty": "No industry partners are listed yet.",
+    "industryLabel": "Industry",
+    "websiteLabel": "Website",
+    "noWebsite": "No website listed yet.",
+    "visitWebsite": "Visit website",
+    "areasTitle": "Areas of collaboration",
+    "areas": [
+      "Industry skill requirements",
+      "Training collaboration",
+      "Guest sessions and mentoring",
+      "Practical projects",
+      "Workplace learning",
+      "Internship opportunities, where available",
+      "Employment opportunities, where available",
+      "Reskilling and upskilling discussions"
+    ],
+    "formTitle": "Partnership inquiry",
+    "formIntro": "Tell us about your organization and how you would like to collaborate. Our team will get in touch.",
+    "success": "Thank you. Your inquiry has been received and our team will contact you.",
+    "fields": {
+      "organizationName": "Organization name",
+      "contactName": "Contact person's name",
+      "workEmail": "Work email",
+      "phone": "Phone",
+      "website": "Website",
+      "interest": "Partnership interest",
+      "message": "Message",
+      "consent": "I agree that The Bridge Institute may contact me about this inquiry."
+    },
+    "interests": {
+      "skill_requirements": "Industry skill requirements",
+      "training_collaboration": "Training collaboration",
+      "guest_sessions_mentoring": "Guest sessions and mentoring",
+      "practical_projects": "Practical projects",
+      "workplace_learning": "Workplace learning",
+      "internships": "Internship opportunities",
+      "employment": "Employment opportunities",
+      "reskilling_upskilling": "Reskilling and upskilling",
+      "other": "Other"
+    },
+    "selectInterest": "Select an area"
+  },
+  "apply": {
+    "metaTitle": "Apply",
+    "metaDescription": "Apply to The Bridge Institute. Graduates seeking employment and HSC-qualified individuals are welcome.",
+    "title": "Apply to The Bridge Institute",
+    "intro": "Complete the form below. Submitting an application does not confirm admission or enrolment; our admissions team will review it and contact you.",
+    "whoTitle": "Who can apply?",
+    "successTitle": "Application received",
+    "successBody": "Thank you for applying. Please keep your reference number for future communication.",
+    "reference": "Reference number",
+    "another": "Submit another application",
+    "signedInNote": "You are signed in, so you can follow this application from your dashboard.",
+    "signInHint": "Have an account? Sign in before applying to track your application status online.",
+    "duplicate": "An application with this email was already submitted recently and is awaiting review.",
+    "fields": {
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "currentStatus": "Current educational or professional status",
+      "highestEducation": "Highest completed education",
+      "areaOfInterest": "Area of interest",
+      "motivation": "Why do you want to join?",
+      "motivationHint": "Tell us about your goals (at least 20 characters).",
+      "preferredContact": "Preferred contact method",
+      "privacyConsent": "I agree that my information will be used to process my application, as described in the Privacy Policy."
+    },
+    "statuses": {
+      "graduate_seeking_employment": "Graduate seeking employment",
+      "hsc_qualified": "HSC-qualified",
+      "student": "Currently studying",
+      "employed": "Employed",
+      "other": "Other"
+    },
+    "contactMethods": { "email": "Email", "phone": "Phone", "either": "Either" },
+    "selectStatus": "Select your status",
+    "programmeTitle": "Your courses",
+    "programmeBody": "Everyone completes all five foundation courses: Critical Thinking, Basic English, Basic Mathematics, Basic ICT, and Basic Python Programming."
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Contact The Bridge Institute.",
+    "title": "Let's Connect",
+    "intro": "Send us a message and we will get back to you. For admission, use the application form; for partnerships, use the partnership inquiry form.",
+    "detailsTitle": "Contact details",
+    "general": "General inquiries",
+    "admission": "Admission inquiries",
+    "partnership": "Partnership inquiries",
+    "phone": "Phone",
+    "address": "Office address",
+    "success": "Thank you. Your message has been received.",
+    "fields": { "name": "Name", "email": "Email", "subject": "Subject", "message": "Message", "category": "Topic" },
+    "categories": { "general": "General", "admission": "Admission", "partnership": "Partnership" }
+  },
+  "privacy": {
+    "metaTitle": "Privacy Policy",
+    "title": "Privacy Policy",
+    "body": "This policy explains how The Bridge Institute handles personal information submitted through this website.\n\n## Information we collect\nWe collect the information you provide in application, contact, partnership and alumni forms, and account details when you sign in. We do not ask for identity documents through this website.\n\n## How we use it\nWe use your information only to process applications, respond to inquiries, manage learning records and, where you consent, to show an alumni profile publicly.\n\n## Alumni profiles\nAlumni profiles are private by default. A profile is only published after you give explicit consent and staff approve it. You can withdraw consent at any time from your alumni dashboard and the profile is hidden immediately. Contact details are never shown publicly.\n\n## Security\nPasswords are stored only as secure hashes, access to records is restricted by role, and sensitive changes are logged.\n\n## Your choices\nTo access, correct or delete your information, contact us using the details on the Contact page.\n\nThis policy may be updated by the institute. The current version is always available on this page."
+  },
+  "terms": {
+    "metaTitle": "Terms of Use",
+    "title": "Terms of Use",
+    "body": "By using this website you agree to these terms.\n\n## Use of the website\nUse the website lawfully and provide accurate information in forms. Do not attempt to access accounts or records that are not yours.\n\n## No guarantees\nThe Bridge Institute describes a professional development pathway. Submitting an application does not guarantee admission. Completing courses does not guarantee certification, internships or employment, which depend on available programmes, eligibility and employer requirements.\n\n## Content\nCourse details, schedules and other information may change and are confirmed by the institute.\n\n## Accounts\nYou are responsible for keeping your password confidential. Accounts may be suspended if these terms are breached.\n\nThese terms may be updated by the institute. Contact us with any questions."
+  }
+}

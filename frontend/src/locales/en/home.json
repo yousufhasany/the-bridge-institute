@@ -1,0 +1,127 @@
+{
+  "hero": {
+    "eyebrow": "The Bridge Institute",
+    "titleBefore": "Building Skills for an",
+    "titleHighlight": "Industry-Ready",
+    "titleAfter": "Workforce",
+    "description": "The Bridge Institute offers foundational learning and professional development designed to help individuals build practical skills, strengthen workplace competencies, and prepare for the evolving needs of industry.",
+    "tagline": "Partnering with Industry to Develop Employable Manpower.",
+    "ctaCourses": "Explore Our Courses",
+    "ctaIndustryPartners": "Industry partners",
+    "ctaPartner": "Partner With Us",
+    "ctaAdmission": "Admission Information",
+    "parent": "University of Integrated Thought (UIT)"
+  },
+  "intro": {
+    "title": "What Is The Bridge Institute?",
+    "lead": "The Bridge Institute offers foundational courses in Critical Thinking, Basic English, Basic Mathematics, Basic ICT, and Basic Python Programming.",
+    "body": "Moving beyond traditional rote memorization, our courses emphasize practical learning, active participation, and problem-solving.",
+    "skillsTitle": "Learners develop",
+    "skills": [
+      "Critical questioning",
+      "Logical reasoning",
+      "Communication",
+      "Teamwork",
+      "Peer collaboration",
+      "Problem identification",
+      "Independent thinking",
+      "Practical learning habits"
+    ],
+    "goalStatement": "Our goal is to develop independent thinkers, effective communicators, and capable learners equipped with the foundational skills needed for further education and the modern workplace."
+  },
+  "goal": {
+    "title": "Our Goal",
+    "statement": "To bridge the gap between education and employment by preparing graduates to meet the evolving needs of industry.",
+    "objectives": [
+      "Develop foundational skills",
+      "Strengthen professional competencies",
+      "Apply knowledge through practical learning",
+      "Connect learning with industry needs and relevant opportunities"
+    ]
+  },
+  "why": {
+    "title": "Why The Bridge Institute?",
+    "subtitle": "Building Skills. Bridging Gaps. Creating Employability.",
+    "description": "The Bridge Institute is committed to developing skilled, confident, and job-ready individuals who can meet the evolving needs of employers. Through practical, skills-based learning, critical thinking, communication, teamwork, and problem-solving, we bridge the gap between academic learning and workplace expectations.",
+    "features": [
+      { "title": "Practical, Skills-Based Learning", "body": "Focus on exercises, assignments, participation, and practical application." },
+      { "title": "Critical Thinking and Problem-Solving", "body": "Develop questioning, reasoning, analysis, and problem identification." },
+      { "title": "Communication and Teamwork", "body": "Encourage communication, collaboration, and professional interaction." },
+      { "title": "Workplace Preparation", "body": "Develop relevant foundational and professional competencies." },
+      { "title": "Industry Alignment", "body": "Help learners understand industry needs and workplace expectations." },
+      { "title": "Continued Development", "body": "Introduce the importance of reskilling and upskilling throughout professional life." }
+    ]
+  },
+  "courses": {
+    "title": "Foundation Courses",
+    "subtitle": "Everyone completes all five foundation courses: Critical Thinking, Basic English, Basic Mathematics, Basic ICT, and Basic Python Programming.",
+    "viewAll": "View all courses"
+  },
+  "roadmap": {
+    "title": "How Does It Work?",
+    "subtitle": "A Four-Year Roadmap to Professional Development",
+    "intro": "The roadmap describes a professional development pathway. Certifications, practical opportunities and career outcomes depend on available programmes, eligibility and employer requirements.",
+    "years": [
+      {
+        "label": "Year 1",
+        "title": "Discover & Build",
+        "body": "Students identify their life goals, explore career pathways, and develop essential foundational skills.",
+        "highlights": ["Life goals", "Career exploration", "Foundational learning", "Personal development"]
+      },
+      {
+        "label": "Year 2",
+        "title": "Develop & Certify",
+        "body": "Students focus on professional development, strengthen their workplace competencies, and work toward relevant industry certifications.",
+        "highlights": ["Professional development", "Workplace competencies", "Relevant certifications"]
+      },
+      {
+        "label": "Year 3",
+        "title": "Experience & Apply",
+        "body": "Students gain practical experience through training and available opportunities, applying their knowledge in real workplace environments.",
+        "highlights": ["Practical experience", "Workplace learning", "Applying knowledge", "Professional development"]
+      },
+      {
+        "label": "Year 4",
+        "title": "Solve & Advance",
+        "body": "Students work on real-world industry problems while accessing reskilling and upskilling opportunities to enhance their expertise and career readiness.",
+        "highlights": ["Industry problem-solving", "Practical application", "Reskilling", "Upskilling", "Career readiness"]
+      }
+    ]
+  },
+  "pathway": {
+    "title": "From Education to Employment",
+    "subtitle": "A development pathway that connects learning with industry.",
+    "steps": [
+      { "title": "Foundational Skills", "body": "Learners develop the knowledge, habits, and essential competencies needed for further development." },
+      { "title": "Certification", "body": "Learners may pursue relevant certifications when appropriate programmes and providers are available." },
+      { "title": "Internship", "body": "Learners may explore practical experience and internships when opportunities are available and they meet the relevant requirements." },
+      { "title": "Careers", "body": "Learners prepare to pursue suitable employment opportunities based on their skills, qualifications, and employer requirements." }
+    ],
+    "partnersTitle": "Industry Partners",
+    "partnersBody": "Industry collaboration connects the internship and employment stages with real workplace needs.",
+    "disclaimer": "This is a development pathway, not a guarantee of certification, internship, or employment."
+  },
+  "eligibility": {
+    "title": "Who Can Apply?",
+    "statement": "The Bridge Institute welcomes graduates seeking employment and HSC-qualified individuals who are eager to develop essential skills, enhance their employability, and prepare for successful careers.",
+    "groups": [
+      { "title": "Graduates", "body": "For graduates who want to strengthen practical skills, professional competencies, and workplace readiness." },
+      { "title": "HSC-Qualified Individuals", "body": "For individuals who have completed Higher Secondary Certificate education and want to develop foundational skills and explore career pathways." }
+    ],
+    "cta": "Apply Now"
+  },
+  "partners": {
+    "title": "How Can We Collaborate?",
+    "subtitle": "Let's work together to build a working future!",
+    "body": "Connect with The Bridge Institute to learn more about our training programmes, explore partnership opportunities, and collaborate with us to develop skilled, job-ready manpower.",
+    "cta": "Explore partnership"
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "body": "Questions about admission, courses or partnerships? We would be glad to hear from you.",
+    "emailLabel": "Email",
+    "admissionLink": "Admission information",
+    "partnershipLink": "Partnership inquiries",
+    "contactLink": "Send us a message"
+  }
+}
