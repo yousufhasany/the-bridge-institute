@@ -1,5 +1,23 @@
 import { z } from 'zod';
 
+function deploymentOrigins() {
+  const hosts = [process.env.VERCEL_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL].filter(
+    (host): host is string => Boolean(host),
+  );
+  return [...new Set(hosts.map((host) => `https://${host}`))];
+}
+
+const origins = deploymentOrigins();
+if (origins.length > 0) {
+  const primary =
+    process.env.VERCEL_ENV === 'production' && process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : origins[0];
+  if (!process.env.WEB_ORIGIN) process.env.WEB_ORIGIN = primary;
+  if (!process.env.APP_URL) process.env.APP_URL = primary;
+  if (!process.env.TRUST_PROXY) process.env.TRUST_PROXY = '1';
+}
+
 const schema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(5000),
@@ -30,5 +48,7 @@ if (!parsed.success) {
 export const env = parsed.data;
 export const isProduction = env.NODE_ENV === 'production';
 export const isTest = env.NODE_ENV === 'test';
-export const allowedOrigins = env.WEB_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean);
+export const allowedOrigins = [
+  ...new Set([...env.WEB_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean), ...deploymentOrigins()]),
+];
 export const storageConfigured = Boolean(env.STORAGE_URL && env.STORAGE_SERVICE_KEY);

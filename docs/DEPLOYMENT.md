@@ -84,28 +84,22 @@ npm ci --prefix frontend
 npm run build --prefix frontend   # outputs frontend/dist
 ```
 
-Host `frontend/dist` with a fallback of every unknown path to `index.html` (single-page app). The repository root `vercel.json` already does this for Vercel. Other hosts:
+Host `frontend/dist` with a fallback of every unknown path to `index.html` (single-page app). Other hosts:
 
 - **Netlify**: `_redirects` → `/*  /index.html  200`
 - **Firebase Hosting**: `"rewrites": [{ "source": "**", "destination": "/index.html" }]`
 - **Nginx**: `try_files $uri /index.html;`
 
-### Vercel (frontend only)
+### Vercel (frontend and API together)
 
-Import the GitHub repository in Vercel and leave the root directory as the repository root. `vercel.json` installs and builds only `frontend/`, publishes `frontend/dist`, and rewrites unknown paths to `index.html`.
+Import the GitHub repository and leave the project root as the repository root. `vercel.json` defines two services:
 
-In **Project → Settings → Environment Variables**, set these public build values and nothing else:
+- `frontend` (`frontend/`, Vite). Public on every path except `/api`. Unknown paths inside that service fall back to `index.html`.
+- `backend` (`backend/`, Express). Public on `/api`, which is the path the app already uses (`/api/v1/...`).
 
-| Name | Example |
-| --- | --- |
-| `VITE_API_BASE_URL` | `https://api.<domain>/api/v1` |
-| `VITE_SITE_URL` | `https://www.<domain>` |
+The browser calls `/api/v1` on the same host, so session cookies stay first-party with `COOKIE_SAMESITE=lax`. Do not set `VITE_API_BASE_URL` for this project unless the API is on a different origin. `VITE_SITE_URL` is optional and public.
 
-The Vercel build fails if `VITE_API_BASE_URL` is missing, so a deploy cannot silently call `localhost`. Do **not** add `DATABASE_URL`, `DIRECT_URL`, `SESSION_SECRET`, `STORAGE_SERVICE_KEY`, or `EMAIL_PROVIDER_API_KEY` to Vercel. Those belong only on the API host. `VITE_` variables are embedded in the browser bundle.
-
-Use one site for the pages (`www.<domain>`) and the API (`api.<domain>`) so session cookies keep working with `COOKIE_SAMESITE=lax`. A `*.vercel.app` address and an API on a different site are cross-site; sign-in cookies will not be stored unless `COOKIE_SAMESITE=none` and both sides use HTTPS.
-
-The Express API is a long-lived Node process. Deploy it with the backend steps above (Render, Railway, Fly.io, or a VM), not as this Vercel project. Point `WEB_ORIGIN` and `APP_URL` at the Vercel domain, including the `https://<project>.vercel.app` preview origin only if you intentionally want that host to call the API.
+The Express service needs the API environment at runtime: `DATABASE_URL`, `DIRECT_URL`, and `SESSION_SECRET`, plus email and storage variables when you use those features. Names that start with `VITE_` are embedded in the browser bundle; the database URL and session secret are not, as long as they are not given a `VITE_` name. On Vercel, `WEB_ORIGIN`, `APP_URL`, and `TRUST_PROXY` default from the deployment URL when you leave them unset. `npm run dev` is unchanged and still listens on port 5000.
 
 Cache `assets/*` (hashed file names) for a long time and `index.html` for a short time.
 
@@ -114,7 +108,7 @@ Before the first production build, replace `https://example.org` with the real d
 Recommended security headers on the static host:
 
 ```
-Content-Security-Policy: default-src 'self'; img-src 'self' data: https://<project>.supabase.co; connect-src 'self' https://api.<domain>; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+Content-Security-Policy: default-src 'self'; img-src 'self' data: blob: https:; connect-src 'self' https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
 Referrer-Policy: strict-origin-when-cross-origin
 X-Content-Type-Options: nosniff
 Permissions-Policy: camera=(), microphone=(), geolocation=()
