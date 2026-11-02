@@ -1,11 +1,15 @@
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
 import { prisma } from '../src/lib/prisma.js';
-import { API, PASSWORD, app, client, signedIn } from './helpers.js';
+import { API, PASSWORD, app, client, createUser, signedIn } from './helpers.js';
 
 async function joinAsAlumnus(email: string) {
+  await createUser([], { email, fullName: 'Alumna Example' });
   const c = await client();
-  const res = await c.post('/alumni/register', { fullName: 'Alumna Example', email, password: PASSWORD, graduationYear: 2027, message: 'Graduated from the foundation courses.' }).expect(201);
+  await c.post('/auth/login', { email, password: PASSWORD }).expect(200);
+  const res = await c
+    .post('/alumni/register', { fullName: 'Alumna Example', email, graduationYear: 2027, message: 'Graduated from the foundation courses.' })
+    .expect(201);
   return { c, requestId: res.body.data.id as string };
 }
 
@@ -18,6 +22,13 @@ async function verifiedAlumnus(email: string) {
 }
 
 describe('alumni registration and verification', () => {
+  it('rejects anonymous alumni registration requests', async () => {
+    const c = await client();
+    await c
+      .post('/alumni/register', { fullName: 'Visitor', email: 'visitor@test.example', password: PASSWORD, graduationYear: 2027 })
+      .expect(403);
+  });
+
   it('registration creates a pending request without granting alumni status', async () => {
     const { c, requestId } = await joinAsAlumnus('alumni-pending@test.example');
     const me = await c.get('/auth/me').expect(200);
@@ -27,7 +38,7 @@ describe('alumni registration and verification', () => {
     expect(status.body.data.requests[0]).toMatchObject({ id: requestId, status: 'PENDING' });
     expect(JSON.stringify(status.body)).not.toContain('reviewNote');
     await c.patch('/alumni/me', { bioEn: 'x' }).expect(403);
-    await c.post('/alumni/register', { fullName: 'Alumna Example', email: 'alumni-pending@test.example' }).expect(409);
+    await c.post('/alumni/register', { fullName: 'Alumna Example', email: 'alumni-pending@test.example', graduationYear: 2027 }).expect(409);
   });
 
   it('staff approval verifies the alumnus and grants the alumni role', async () => {

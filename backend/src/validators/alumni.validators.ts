@@ -7,7 +7,7 @@ const optionalUuid = z.string().uuid().optional().nullable().transform((v) => v 
 const tagList = z.array(z.string().trim().min(1).max(40)).max(20);
 
 export const directoryQuerySchema = z.object({
-  page: z.coerce.number().int().min(1).max(10_000).default(1),
+  page: z.coerce.number().int().min(1).max(500).default(1),
   pageSize: z.coerce.number().int().min(1).max(48).default(12),
   q: z.string().trim().max(100).optional(),
   cohort: z.string().max(80).optional(),

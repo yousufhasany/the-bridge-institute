@@ -8,6 +8,7 @@ import { LanguageSwitcher } from '../components/navigation/LanguageSwitcher';
 import { ADMIN_NAV } from '../features/admin/adminNav';
 import { useAuth } from '../features/auth/AuthProvider';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { STAFF_LOGIN_PATH } from '../lib/authPaths';
 import { cn } from '../lib/cn';
 import { SkipLink } from './PublicLayout';
 
@@ -90,7 +91,7 @@ export function AdminLayout() {
             <button
               type="button"
               onClick={() => {
-                void logout().finally(() => navigate('/login', { replace: true }));
+                void logout().finally(() => navigate(STAFF_LOGIN_PATH, { replace: true }));
               }}
               className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-navy-900 hover:bg-mist-50"
             >

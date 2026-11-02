@@ -28,7 +28,6 @@ export function Footer() {
   const involved = [
     ['/apply', 'nav.apply'],
     ['/companies', 'nav.companies'],
-    ['/alumni/join', 'footer.joinAlumni'],
     ['/contact', 'nav.contact'],
   ] as const;
 

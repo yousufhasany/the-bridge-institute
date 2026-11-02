@@ -66,11 +66,8 @@ export function AlumniPage() {
   return (
     <>
       <PageHeader title={intro.title} subtitle={intro.description} image={photos.alumni}>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink to="/alumni/join">{t('public.join')}</ButtonLink>
-          <ButtonLink to="/alumni/login" variant="light">
-            {t('public.signIn')}
-          </ButtonLink>
+        <div className="mt-8">
+          <ButtonLink to="/contact">{t('public.contactForAccess')}</ButtonLink>
         </div>
       </PageHeader>
 

@@ -4,7 +4,6 @@ import { CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
 import { z } from 'zod';
 import { Button, ButtonLink } from '../../components/common/Button';
 import { PageHeader, Section } from '../../components/common/Section';
@@ -21,20 +20,17 @@ interface Options {
   courses: { id: string; translations: { locale: string; title: string }[] }[];
 }
 
-const base = {
+const schema = z.object({
   fullName: v.text(120).min(2, 'validation.min:2'),
   email: v.email(),
   graduationYear: z.union([z.literal(''), z.string().regex(/^(20\d{2}|2100)$/, 'validation.invalid')]),
   cohortId: z.string(),
   studentCode: v.optionalText(40),
   message: v.optionalText(2000),
-};
-const guestSchema = z
-  .object({ ...base, password: v.password(), confirmPassword: z.string() })
-  .refine((d) => d.password === d.confirmPassword, { path: ['confirmPassword'], message: 'validation.passwordMatch' });
-const memberSchema = z.object({ ...base, password: z.string().optional(), confirmPassword: z.string().optional() });
-type FormValues = z.infer<typeof memberSchema>;
+});
+type FormValues = z.infer<typeof schema>;
 
+/** Signed-in alumni submit a verification request (accounts are created by staff). */
 export function AlumniJoinPage() {
   const { t } = useTranslation('alumni');
   const { user } = useAuth();
@@ -46,8 +42,8 @@ export function AlumniJoinPage() {
 
   const options = useQuery({ queryKey: ['alumni', 'registration-options'], queryFn: () => api.get<Options>('/alumni/registration-options') });
   const { register, handleSubmit, formState, setError } = useForm<FormValues>({
-    resolver: zodResolver(user ? memberSchema : guestSchema),
-    values: { fullName: user?.fullName ?? '', email: user?.email ?? '', graduationYear: '', cohortId: '', studentCode: '', message: '', password: '', confirmPassword: '' },
+    resolver: zodResolver(schema),
+    values: { fullName: user?.fullName ?? '', email: user?.email ?? '', graduationYear: '', cohortId: '', studentCode: '', message: '' },
     resetOptions: { keepDirtyValues: true },
   });
   const errors = formState.errors;
@@ -58,13 +54,11 @@ export function AlumniJoinPage() {
       await api.post('/alumni/register', {
         fullName: values.fullName,
         email: values.email,
-        ...(user ? {} : { password: values.password }),
         graduationYear: values.graduationYear ? Number(values.graduationYear) : null,
         cohortId: values.cohortId || null,
         studentCode: values.studentCode || null,
         message: values.message || null,
       });
-      // A new account may have been created and signed in.
       await queryClient.invalidateQueries({ queryKey: ME_QUERY_KEY });
       await queryClient.invalidateQueries({ queryKey: ALUMNI_ME_KEY });
       setDone(true);
@@ -86,25 +80,10 @@ export function AlumniJoinPage() {
             </div>
           ) : (
             <form onSubmit={onSubmit} noValidate className="card space-y-5 p-6 sm:p-8">
-              {user ? (
-                <Alert>{t('join.signedInAs', { email: user.email })}</Alert>
-              ) : (
-                <p className="text-sm">
-                  {t('join.haveAccount')}{' '}
-                  <Link to="/alumni/login" state={{ from: '/alumni/join' }} className="font-semibold text-royal-700 hover:underline">
-                    {t('public.signIn')}
-                  </Link>
-                </p>
-              )}
+              <Alert>{t('join.signedInAs', { email: user?.email ?? '' })}</Alert>
               <div className="grid gap-5 sm:grid-cols-2">
                 <TextField label={t('join.fields.fullName')} required autoComplete="name" error={errors.fullName} {...register('fullName')} />
-                <TextField label={t('join.fields.email')} required type="email" autoComplete="email" readOnly={Boolean(user)} error={errors.email} {...register('email')} />
-                {!user && (
-                  <>
-                    <TextField label={t('join.fields.password')} required type="password" autoComplete="new-password" hint={t('common:validation.passwordMin')} error={errors.password} {...register('password')} />
-                    <TextField label={t('join.fields.confirmPassword')} required type="password" autoComplete="new-password" error={errors.confirmPassword} {...register('confirmPassword')} />
-                  </>
-                )}
+                <TextField label={t('join.fields.email')} required type="email" autoComplete="email" readOnly error={errors.email} {...register('email')} />
                 <TextField label={t('join.fields.graduationYear')} inputMode="numeric" placeholder="2027" error={errors.graduationYear} {...register('graduationYear')} />
                 <TextField label={t('join.fields.studentCode')} error={errors.studentCode} {...register('studentCode')} />
                 {(options.data?.cohorts.length ?? 0) > 0 && (

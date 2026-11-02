@@ -12,8 +12,18 @@ describe('health and security basics', () => {
   });
 
   it('rejects state-changing requests without a CSRF token', async () => {
-    const res = await request(app).post(`${API}/contact`).send({}).expect(403);
+    const res = await request(app)
+      .post(`${API}/contact`)
+      .set('Origin', 'http://localhost:5173')
+      .send({})
+      .expect(403);
     expect(res.body.error.code).toBe('CSRF_INVALID');
+  });
+
+  it('rejects state-changing requests with no Origin or Referer', async () => {
+    const c = await client();
+    const res = await c.agent.post(`${API}/contact`).set('X-CSRF-Token', c.csrf).send({}).expect(403);
+    expect(res.body.error.code).toBe('CSRF_ORIGIN');
   });
 
   it('rejects requests from origins that are not allow-listed', async () => {
@@ -32,6 +42,7 @@ describe('health and security basics', () => {
     const res = await c.agent
       .post(`${API}/contact`)
       .set('X-CSRF-Token', c.csrf)
+      .set('Origin', 'http://localhost:5173')
       .set('Content-Type', 'application/json')
       .send('{"name": ')
       .expect(400);

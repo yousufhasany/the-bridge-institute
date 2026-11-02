@@ -21,7 +21,6 @@ import {
   changePasswordSchema,
   forgotPasswordSchema,
   loginSchema,
-  registerSchema,
   resetPasswordSchema,
   updateMeSchema,
 } from '../validators/auth.validators.js';
@@ -66,23 +65,9 @@ export async function me(req: Request, res: Response) {
   ok(res, await buildMe(req.auth));
 }
 
-/** Public sign-up creates a basic account with no roles. Privileged roles are only granted by staff. */
-export async function register(req: Request, res: Response) {
-  const input = body(req, registerSchema);
-  const existing = await prisma.user.findUnique({ where: { email: input.email } });
-  if (existing) throw ApiError.conflict('An account with this email already exists. Please sign in instead.', 'EMAIL_IN_USE');
-  const user = await prisma.user.create({
-    data: {
-      email: input.email,
-      fullName: input.fullName,
-      phone: input.phone,
-      preferredLocale: input.preferredLocale,
-      passwordHash: await hashPassword(input.password),
-    },
-  });
-  await audit(req, { action: 'auth.register', entityType: 'User', entityId: user.id });
-  const auth = await startSession(req, res, user.id);
-  ok(res, await buildMe(auth), undefined, 201);
+/** Public self-registration is disabled; administrators create accounts in Admin → Users. */
+export function register(_req: Request, _res: Response) {
+  throw ApiError.forbidden('Public registration is disabled. Contact The Bridge Institute for an account.');
 }
 
 /** Always responds identically so the endpoint cannot be used to discover accounts. */

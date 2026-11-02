@@ -10,6 +10,7 @@ import { TextField } from '../../components/forms/Field';
 import { v } from '../../components/forms/formUtils';
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { api } from '../../lib/api';
+import { STAFF_LOGIN_PATH } from '../../lib/authPaths';
 import { AuthCard } from './AuthCard';
 
 const schema = z.object({ email: v.email() });
@@ -37,7 +38,7 @@ export function ForgotPasswordPage() {
       title={t('auth.forgotTitle')}
       intro={t('auth.forgotIntro')}
       footer={
-        <Link to="/login" className="font-semibold text-royal-700 hover:underline">
+        <Link to={STAFF_LOGIN_PATH} className="font-semibold text-royal-700 hover:underline">
           {t('auth.backToLogin')}
         </Link>
       }

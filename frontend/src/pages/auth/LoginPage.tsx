@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { z } from 'zod';
-import { Button, ButtonLink } from '../../components/common/Button';
+import { Button } from '../../components/common/Button';
 import { Logo } from '../../components/common/Logo';
 import { Alert, useErrorMessage } from '../../components/common/States';
 import { LanguageSwitcher } from '../../components/navigation/LanguageSwitcher';
@@ -19,7 +19,7 @@ import { AuthScene } from './AuthScene';
 const schema = z.object({ email: v.email(), password: z.string().min(1, 'validation.required').max(128) });
 type FormValues = z.infer<typeof schema>;
 
-function Login({ variant }: { variant: 'default' | 'alumni' }) {
+export function LoginPage() {
   const { t } = useTranslation('portal');
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -27,8 +27,7 @@ function Login({ variant }: { variant: 'default' | 'alumni' }) {
   const errorMessage = useErrorMessage();
   const [formError, setFormError] = useState<string | null>(null);
   const from = (location.state as { from?: string } | null)?.from;
-  const title = variant === 'alumni' ? t('auth.alumniLoginTitle') : t('auth.loginTitle');
-  usePageMeta({ title, noIndex: true });
+  usePageMeta({ title: t('auth.loginTitle'), noIndex: true });
 
   const [boost, setBoost] = useState(false);
   const { register, handleSubmit, formState } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { email: '', password: '' } });
@@ -37,9 +36,8 @@ function Login({ variant }: { variant: 'default' | 'alumni' }) {
     setFormError(null);
     try {
       const user = await login(email, password);
-      // Only follow same-site relative paths to avoid open redirects.
       const safeFrom = from && from.startsWith('/') && !from.startsWith('//') ? from : null;
-      navigate(safeFrom ?? (variant === 'alumni' ? '/alumni/dashboard' : homeFor(user)), { replace: true });
+      navigate(safeFrom ?? homeFor(user), { replace: true });
     } catch (error) {
       setFormError(error instanceof ApiError && error.status === 401 ? t('auth.invalid') : errorMessage(error));
     }
@@ -54,16 +52,17 @@ function Login({ variant }: { variant: 'default' | 'alumni' }) {
             <Logo tone="light" />
           </Link>
           <div className="flex items-center gap-2">
-            <ButtonLink to="/" variant="light" size="sm" icon={<ArrowLeft className="size-4" aria-hidden />}>
+            <Link to="/" className="inline-flex h-9 items-center gap-2 rounded-full px-3 text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/10">
+              <ArrowLeft className="size-4" aria-hidden />
               {t('auth.backToWebsite')}
-            </ButtonLink>
+            </Link>
             <LanguageSwitcher tone="light" />
           </div>
         </div>
         <div className="auth-sci-enter flex flex-1 flex-col justify-center py-10">
           <p className="text-xs font-semibold tracking-[0.22em] text-sky-300 uppercase">{t('common:brand.name')}</p>
-          <h1 className="mt-4 text-4xl text-white sm:text-5xl">{title}</h1>
-          <p className="mt-3 max-w-md text-sm leading-6 text-white/70">{variant === 'alumni' ? t('auth.alumniLoginIntro') : t('auth.loginIntro')}</p>
+          <h1 className="mt-4 text-4xl text-white sm:text-5xl">{t('auth.loginTitle')}</h1>
+          <p className="mt-3 max-w-md text-sm leading-6 text-white/70">{t('auth.staffLoginIntro')}</p>
           <form
             onSubmit={onSubmit}
             noValidate
@@ -98,33 +97,16 @@ function Login({ variant }: { variant: 'default' | 'alumni' }) {
               {...register('password')}
             />
             <p className="-mt-1 text-right text-sm">
-              <Link to="/forgot-password">{t('auth.forgot')}</Link>
+              <Link to="/staff/forgot-password">{t('auth.forgot')}</Link>
             </p>
             {formError && <Alert kind="error">{formError}</Alert>}
             <Button type="submit" variant="navy" className="auth-submit w-full" loading={formState.isSubmitting}>
               {formState.isSubmitting ? t('auth.signingIn') : t('auth.signIn')}
             </Button>
           </form>
-          <div className="auth-sci-links mt-6 max-w-md text-sm text-white/70">
-            {variant === 'alumni' ? (
-              <>
-                {t('auth.noAccount')}{' '}
-                <Link to="/alumni/join">{t('alumni:public.join')}</Link>
-              </>
-            ) : (
-              <>
-                {t('auth.noAccount')} <Link to="/apply">{t('common:nav.apply')}</Link>
-                <span className="mt-2 block">
-                  <Link to="/alumni/login">{t('alumni:public.signIn')}</Link>
-                </span>
-              </>
-            )}
-          </div>
+          <p className="auth-sci-links mt-6 max-w-md text-sm text-white/70">{t('auth.staffLoginHelp')}</p>
         </div>
       </div>
     </div>
   );
 }
-
-export const LoginPage = () => <Login variant="default" />;
-export const AlumniLoginPage = () => <Login variant="alumni" />;

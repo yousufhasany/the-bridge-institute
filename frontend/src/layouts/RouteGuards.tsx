@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation } from 'react-router';
 import { Spinner } from '../components/common/States';
 import { useAuth } from '../features/auth/AuthProvider';
+import { STAFF_LOGIN_PATH } from '../lib/authPaths';
 
 /** Requires a signed-in user; optionally one holding any of `permissions`. The API enforces the same rules. */
-export function RequireAuth({ children, permissions, loginPath = '/login' }: { children: ReactNode; permissions?: string[]; loginPath?: string }) {
+export function RequireAuth({ children, permissions, loginPath = STAFF_LOGIN_PATH }: { children: ReactNode; permissions?: string[]; loginPath?: string }) {
   const { user, isLoading, can } = useAuth();
   const location = useLocation();
   const { t } = useTranslation('admin');

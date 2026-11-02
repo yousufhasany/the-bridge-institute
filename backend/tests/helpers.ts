@@ -13,7 +13,8 @@ export async function client() {
   const agent = request.agent(app);
   const res = await agent.get(`${API}/auth/csrf`).expect(200);
   const csrf: string = res.body.data.csrfToken;
-  const withCsrf = (r: request.Test) => r.set('X-CSRF-Token', csrf);
+  const origin = process.env.WEB_ORIGIN?.split(',')[0]?.trim() || 'http://localhost:5173';
+  const withCsrf = (r: request.Test) => r.set('X-CSRF-Token', csrf).set('Origin', origin);
   return {
     agent,
     csrf,

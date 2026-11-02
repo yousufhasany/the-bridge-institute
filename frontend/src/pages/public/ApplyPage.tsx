@@ -104,14 +104,6 @@ export function ApplyPage() {
       <Section tone="mist">
         <div className="grid gap-10 lg:grid-cols-[1fr_20rem]">
           <form onSubmit={onSubmit} noValidate className="card space-y-5 p-6 sm:p-8" aria-describedby={formError ? 'apply-error' : undefined}>
-            {!user && (
-              <Alert>
-                {t('apply.signInHint')}{' '}
-                <Link to="/login" state={{ from: '/apply' }} className="font-semibold text-royal-700 underline">
-                  {t('common:nav.login')}
-                </Link>
-              </Alert>
-            )}
             <div className="grid gap-5 sm:grid-cols-2">
               <TextField label={t('apply.fields.fullName')} required autoComplete="name" error={errors.fullName} {...register('fullName')} />
               <TextField label={t('apply.fields.email')} required type="email" autoComplete="email" error={errors.email} {...register('email')} />

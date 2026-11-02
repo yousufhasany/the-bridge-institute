@@ -10,6 +10,7 @@ import { TextField } from '../../components/forms/Field';
 import { applyServerErrors, v } from '../../components/forms/formUtils';
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { api } from '../../lib/api';
+import { STAFF_FORGOT_PASSWORD_PATH, STAFF_LOGIN_PATH } from '../../lib/authPaths';
 import { AuthCard } from './AuthCard';
 
 const schema = z
@@ -45,7 +46,7 @@ export function ResetPasswordPage() {
     <AuthCard
       title={title}
       footer={
-        <Link to="/login" className="font-semibold text-royal-700 hover:underline">
+        <Link to={STAFF_LOGIN_PATH} className="font-semibold text-royal-700 hover:underline">
           {t('auth.backToLogin')}
         </Link>
       }
@@ -53,14 +54,14 @@ export function ResetPasswordPage() {
       {!token ? (
         <Alert kind="error">
           {t('auth.resetMissing')}{' '}
-          <Link to="/forgot-password" className="font-semibold underline">
+          <Link to={STAFF_FORGOT_PASSWORD_PATH} className="font-semibold underline">
             {t('auth.forgotTitle')}
           </Link>
         </Alert>
       ) : done ? (
         <div className="space-y-5">
           <Alert kind="success">{t('auth.resetDone')}</Alert>
-          <ButtonLink to="/login" variant="navy" className="auth-submit w-full">
+          <ButtonLink to={STAFF_LOGIN_PATH} variant="navy" className="auth-submit w-full">
             {t('auth.signIn')}
           </ButtonLink>
         </div>

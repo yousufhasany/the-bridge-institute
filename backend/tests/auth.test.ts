@@ -38,14 +38,11 @@ describe('authentication', () => {
     await c.post('/auth/login', { email: user.email, password: PASSWORD }).expect(401);
   });
 
-  it('public registration never grants roles, even if requested', async () => {
+  it('rejects public self-registration', async () => {
     const c = await client();
-    const res = await c
-      .post('/auth/register', { fullName: 'New Person', email: 'newperson@test.example', password: 'a-strong-password', roleKeys: ['SUPER_ADMIN'], roles: ['SUPER_ADMIN'] })
-      .expect(201);
-    expect(res.body.data.roles).toEqual([]);
-    expect(res.body.data.permissions).toEqual([]);
-    await c.get('/users').expect(403);
+    await c
+      .post('/auth/register', { fullName: 'New Person', email: 'newperson@test.example', password: 'a-strong-password' })
+      .expect(403);
   });
 
   it('resets a password with a single-use token and revokes sessions', async () => {

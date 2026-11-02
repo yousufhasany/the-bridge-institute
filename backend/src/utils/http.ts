@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import { z } from 'zod';
+import { isPublicHttpUrl } from './urls.js';
 
 export class ApiError extends Error {
   constructor(
@@ -73,7 +74,7 @@ export const idParam = (req: Request) => {
 // Pagination
 // ---------------------------------------------------------------------------
 export const paginationSchema = z.object({
-  page: z.coerce.number().int().min(1).max(10_000).default(1),
+  page: z.coerce.number().int().min(1).max(500).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
   q: z.string().trim().max(200).optional(),
   sort: z.string().max(50).optional(),
@@ -113,7 +114,12 @@ export const optionalUrl = z
   .max(500)
   .optional()
   .nullable()
-  .refine((v) => !v || /^https?:\/\//i.test(v), 'Must be an http(s) URL')
+  .refine((v) => !v || isPublicHttpUrl(v), 'Must be an http(s) URL')
   .transform((v) => (v ? v : null));
+
+export const httpUrlOrEmpty = z.union([
+  z.literal(''),
+  z.string().trim().max(500).refine(isPublicHttpUrl, 'Must be an http(s) URL'),
+]);
 
 export const email = z.string().trim().toLowerCase().email().max(254);

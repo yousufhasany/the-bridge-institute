@@ -28,7 +28,7 @@ export function useScrollToTop() {
   }, [pathname, hash]);
 }
 
-const AUTH_PATHS = new Set(['/login', '/alumni/login', '/forgot-password', '/reset-password']);
+const AUTH_PATHS = new Set(['/staff/login', '/staff/forgot-password', '/reset-password', '/login', '/alumni/login', '/forgot-password']);
 
 export function PublicLayout() {
   useScrollToTop();

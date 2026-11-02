@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { z } from 'zod';
 import { prisma, Prisma } from '../lib/prisma.js';
-import { SESSION_COOKIE, currentUser, sessionCookieOptions } from '../middleware/auth.js';
+import { currentUser } from '../middleware/auth.js';
 import {
   PUBLIC_PROFILE_WHERE,
   directoryFilters,
@@ -11,7 +11,6 @@ import {
   toPublicStory,
 } from '../services/alumni.service.js';
 import { audit } from '../services/audit.service.js';
-import { createSession, hashPassword } from '../services/auth.service.js';
 import { ApiError, body, created, idParam, ok, pageMeta, parse } from '../utils/http.js';
 import { uniqueSlug } from '../utils/slug.js';
 import {
@@ -127,20 +126,11 @@ export async function cohortsAndCourses(_req: Request, res: Response) {
 // Registration (never grants verified status automatically)
 // ---------------------------------------------------------------------------
 export async function register(req: Request, res: Response) {
-  const input = body(req, alumniJoinSchema);
-  let userId = req.auth?.id;
-
-  if (!userId) {
-    if (!input.password) throw ApiError.badRequest('A password is required to create your account');
-    const existing = await prisma.user.findUnique({ where: { email: input.email } });
-    if (existing) throw ApiError.conflict('An account with this email already exists. Please sign in and submit the request again.', 'EMAIL_IN_USE');
-    const user = await prisma.user.create({
-      data: { email: input.email, fullName: input.fullName, passwordHash: await hashPassword(input.password) },
-    });
-    userId = user.id;
-    const { token } = await createSession(user.id, { ip: req.ip, userAgent: req.get('user-agent') });
-    res.cookie(SESSION_COOKIE, token, sessionCookieOptions());
+  if (!req.auth) {
+    throw ApiError.forbidden('An institute account is required. Contact The Bridge Institute to be invited before submitting an alumni request.');
   }
+  const input = body(req, alumniJoinSchema);
+  const userId = req.auth.id;
 
   const [profile, pending] = await Promise.all([
     prisma.alumniProfile.findUnique({ where: { userId } }),

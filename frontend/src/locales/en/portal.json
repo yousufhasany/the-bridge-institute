@@ -2,6 +2,8 @@
   "auth": {
     "loginTitle": "Welcome back",
     "loginIntro": "Enter your email and password to access your account.",
+    "staffLoginIntro": "For institute staff and invited students or alumni only. Accounts are created by an administrator.",
+    "staffLoginHelp": "If you do not have an account, contact The Bridge Institute. Public self-registration is not available on this website.",
     "emailPlaceholder": "Enter your email",
     "passwordPlaceholder": "Enter your password",
     "alumniLoginTitle": "Alumni sign in",

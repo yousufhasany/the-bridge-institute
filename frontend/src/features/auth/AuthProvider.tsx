@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { api, setUnauthorizedHandler } from '../../lib/api';
+import { STAFF_LOGIN_PATH } from '../../lib/authPaths';
 import type { Me } from '../../types/api';
 
 interface AuthContextValue {
@@ -82,7 +83,7 @@ export function useAuth() {
 
 /** Where a signed-in user should land by default. */
 export function homeFor(user: Me | null) {
-  if (!user) return '/login';
+  if (!user) return STAFF_LOGIN_PATH;
   if (user.permissions.includes('dashboard.view')) return '/admin';
   if (user.permissions.includes('alumni.self') || user.latestAlumniRequest) return '/alumni/dashboard';
   return '/student/dashboard';

@@ -4,7 +4,7 @@ import { prisma, Prisma } from '../lib/prisma.js';
 import { P } from '../config/permissions.js';
 import { currentUser, hasPermission } from '../middleware/auth.js';
 import { audit } from '../services/audit.service.js';
-import { ApiError, body, ok, orderBy, pageArgs, pageMeta, paginationSchema, parse } from '../utils/http.js';
+import { ApiError, body, httpUrlOrEmpty, ok, orderBy, pageArgs, pageMeta, paginationSchema, parse } from '../utils/http.js';
 import { auditFilterSchema, sectionContentSchema, sectionKey } from '../validators/admin.validators.js';
 
 const locale = z.enum(['en', 'bn']);
@@ -100,7 +100,7 @@ export async function publicFaqs(req: Request, res: Response) {
 // Settings. Only pre-defined keys exist; each has a value rule.
 // ---------------------------------------------------------------------------
 const emailOrEmpty = z.union([z.literal(''), z.string().trim().toLowerCase().email().max(254)]);
-const urlOrEmpty = z.union([z.literal(''), z.string().trim().max(500).regex(/^https?:\/\/[^\s]+$/i, 'Must be an http(s) URL')]);
+const urlOrEmpty = httpUrlOrEmpty;
 
 function settingRule(key: string): z.ZodTypeAny {
   if (/^contact\.[a-zA-Z]+Email$/.test(key)) return emailOrEmpty;

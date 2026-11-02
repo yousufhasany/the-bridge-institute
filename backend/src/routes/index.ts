@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { isProduction } from '../config/env.js';
 import { prisma } from '../lib/prisma.js';
 import { auditRoutes, dashboardRoutes, roleRoutes, userRoutes } from './admin.routes.js';
 import {
@@ -27,7 +28,13 @@ apiRouter.get('/health', async (_req, res) => {
   } catch (error) {
     const message = error instanceof Error ? error.message : 'unreachable';
     const detail = message.replace(/postgres(?:ql)?:\/\/\S+/gi, 'postgresql://redacted').slice(0, 240);
-    res.status(503).json({ data: { status: 'degraded', database: 'unreachable', detail } });
+    res.status(503).json({
+      data: {
+        status: 'degraded',
+        database: 'unreachable',
+        ...(!isProduction ? { detail } : {}),
+      },
+    });
   }
 });
 

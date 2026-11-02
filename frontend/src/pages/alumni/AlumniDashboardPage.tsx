@@ -37,7 +37,7 @@ export function AlumniDashboardPage() {
           {!latest ? (
             <>
               <p>{t('portal.noRequest')}</p>
-              <ButtonLink to="/alumni/join">{t('portal.requestCta')}</ButtonLink>
+              <ButtonLink to="/alumni/request">{t('portal.requestCta')}</ButtonLink>
             </>
           ) : (
             <>
@@ -53,7 +53,7 @@ export function AlumniDashboardPage() {
                     <ButtonLink to="/contact" variant="outline">
                       {t('common:actions.contactUs')}
                     </ButtonLink>
-                    <ButtonLink to="/alumni/join">{t('portal.requestCta')}</ButtonLink>
+                    <ButtonLink to="/alumni/request">{t('portal.requestCta')}</ButtonLink>
                   </div>
                 </>
               )}

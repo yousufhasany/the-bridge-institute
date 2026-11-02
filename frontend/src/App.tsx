@@ -9,6 +9,7 @@ import { AdminLayout } from './layouts/AdminLayout';
 import { PortalLayout } from './layouts/PortalLayout';
 import { PublicLayout } from './layouts/PublicLayout';
 import { GuestOnly, RequireAuth } from './layouts/RouteGuards';
+import { STAFF_FORGOT_PASSWORD_PATH, STAFF_LOGIN_PATH } from './lib/authPaths';
 import { queryClient } from './lib/queryClient';
 import { HomePage } from './pages/public/HomePage';
 
@@ -33,7 +34,6 @@ const TermsPage = page(() => import('./pages/public/PolicyPage'), 'TermsPage');
 const NotFoundPage = page(() => import('./pages/public/NotFoundPage'), 'NotFoundPage');
 
 const LoginPage = page(() => import('./pages/auth/LoginPage'), 'LoginPage');
-const AlumniLoginPage = page(() => import('./pages/auth/LoginPage'), 'AlumniLoginPage');
 const ForgotPasswordPage = page(() => import('./pages/auth/ForgotPasswordPage'), 'ForgotPasswordPage');
 const ResetPasswordPage = page(() => import('./pages/auth/ResetPasswordPage'), 'ResetPasswordPage');
 
@@ -41,8 +41,8 @@ const StudentDashboardPage = page(() => import('./pages/student/StudentDashboard
 const StudentApplicationsPage = page(() => import('./pages/student/StudentApplicationsPage'), 'StudentApplicationsPage');
 const StudentProfilePage = page(() => import('./pages/student/StudentProfilePage'), 'StudentProfilePage');
 
-const AlumniJoinPage = page(() => import('./pages/alumni/AlumniJoinPage'), 'AlumniJoinPage');
 const AlumniDashboardPage = page(() => import('./pages/alumni/AlumniDashboardPage'), 'AlumniDashboardPage');
+const AlumniRequestPage = page(() => import('./pages/alumni/AlumniJoinPage'), 'AlumniJoinPage');
 const AlumniEditProfilePage = page(() => import('./pages/alumni/AlumniEditProfilePage'), 'AlumniEditProfilePage');
 const AlumniMyStoriesPage = page(() => import('./pages/alumni/AlumniMyStoriesPage'), 'AlumniMyStoriesPage');
 const AlumniOpportunitiesPage = page(() => import('./pages/alumni/AlumniOpportunitiesPage'), 'AlumniOpportunitiesPage');
@@ -96,7 +96,7 @@ function StudentPortal() {
 function AlumniPortal() {
   const { t } = useTranslation('alumni');
   return (
-    <RequireAuth loginPath="/alumni/login">
+    <RequireAuth loginPath={STAFF_LOGIN_PATH}>
       <PortalLayout
         title={t('portal.title')}
         nav={[
@@ -131,28 +131,23 @@ export function AppRoutes() {
         <Route path="apply" element={<ApplyPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="alumni" element={<AlumniPage />} />
-        <Route path="alumni/join" element={<AlumniJoinPage />} />
+        <Route path="alumni/join" element={<Navigate to="/contact" replace />} />
         <Route path="alumni/story/:slug" element={<AlumniStoryPage />} />
         <Route path="alumni/:slug" element={<AlumniProfilePage />} />
         <Route path="privacy" element={<PrivacyPage />} />
         <Route path="terms" element={<TermsPage />} />
+        <Route path="login" element={<Navigate to={STAFF_LOGIN_PATH} replace />} />
+        <Route path="alumni/login" element={<Navigate to={STAFF_LOGIN_PATH} replace />} />
+        <Route path="forgot-password" element={<Navigate to={STAFF_FORGOT_PASSWORD_PATH} replace />} />
         <Route
-          path="login"
+          path="staff/login"
           element={
             <GuestOnly to="/account">
               <LoginPage />
             </GuestOnly>
           }
         />
-        <Route
-          path="alumni/login"
-          element={
-            <GuestOnly to="/alumni/dashboard">
-              <AlumniLoginPage />
-            </GuestOnly>
-          }
-        />
-        <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="staff/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="account" element={<AccountRedirect />} />
         <Route path="*" element={<NotFoundPage />} />
@@ -167,6 +162,7 @@ export function AppRoutes() {
 
       <Route element={<AlumniPortal />}>
         <Route path="alumni/dashboard" element={<AlumniDashboardPage />} />
+        <Route path="alumni/request" element={<AlumniRequestPage />} />
         <Route path="alumni/profile" element={<AlumniEditProfilePage />} />
         <Route path="alumni/stories" element={<AlumniMyStoriesPage />} />
         <Route path="alumni/opportunities" element={<AlumniOpportunitiesPage />} />

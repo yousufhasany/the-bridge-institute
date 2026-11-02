@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink, useLocation } from 'react-router';
 import { homeFor, useAuth } from '../../features/auth/AuthProvider';
+import { STAFF_LOGIN_PATH } from '../../lib/authPaths';
 import { cn } from '../../lib/cn';
 import { Logo } from '../common/Logo';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -46,8 +47,8 @@ export function Header() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
-  const accountTo = user ? homeFor(user) : '/login';
-  const accountLabel = user ? t('nav.dashboard') : t('nav.login');
+  const accountTo = user ? homeFor(user) : null;
+  const accountLabel = t('nav.dashboard');
 
   return (
     <header className="sticky top-0 z-40 border-b border-mist-200/80 bg-white/95 shadow-[0_10px_30px_-24px_rgb(9_43_76/0.65)] backdrop-blur-md">
@@ -91,10 +92,16 @@ export function Header() {
         <div className="header-actions ml-auto hidden shrink-0 items-center gap-2 xl:flex">
           <LanguageSwitcher />
           <span aria-hidden className="mx-0.5 h-5 w-px bg-mist-200" />
-          <Link to={accountTo} className={cn(quietAction, user && 'header-account')} aria-label={accountLabel}>
-            {user ? <LayoutDashboard className="size-4" aria-hidden /> : null}
-            <span className={user ? 'header-account-label' : undefined}>{accountLabel}</span>
-          </Link>
+          {accountTo ? (
+            <Link to={accountTo} className={cn(quietAction, 'header-account')} aria-label={accountLabel}>
+              <LayoutDashboard className="size-4" aria-hidden />
+              <span className="header-account-label">{accountLabel}</span>
+            </Link>
+          ) : (
+            <Link to={STAFF_LOGIN_PATH} className={quietAction}>
+              {t('nav.login')}
+            </Link>
+          )}
           <Link to="/apply" className={applyAction}>
             {t('nav.apply')}
           </Link>
@@ -144,9 +151,15 @@ export function Header() {
             <div className="mt-4 flex flex-col gap-3 rounded-2xl bg-mist-50 p-3 ring-1 ring-mist-200 sm:flex-row sm:items-center">
               <LanguageSwitcher className="self-start" />
               <div className="flex flex-wrap gap-2 sm:ml-auto">
-                <Link to={accountTo} className={quietAction}>
-                  {accountLabel}
-                </Link>
+                {accountTo ? (
+                  <Link to={accountTo} className={quietAction}>
+                    {accountLabel}
+                  </Link>
+                ) : (
+                  <Link to={STAFF_LOGIN_PATH} className={quietAction}>
+                    {t('nav.login')}
+                  </Link>
+                )}
                 <Link to="/apply" className={applyAction}>
                   {t('nav.apply')}
                 </Link>
