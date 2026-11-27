@@ -40,9 +40,7 @@ export function AuthCard({ title, intro, children, footer }: { title: string; in
       <div className="auth-card relative z-10 mx-auto mt-6 grid w-full max-w-5xl flex-1 overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_80px_rgb(9_43_76/0.16)] lg:mt-8 lg:min-h-[36rem] lg:grid-cols-2 lg:flex-none">
         <AuthVisual />
         <div className="flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-12">
-          <span className="grid size-12 place-items-center rounded-xl bg-navy-950">
-            <BridgeMark className="w-8" />
-          </span>
+          <BridgeMark className="h-12 w-auto" tone="dark" />
           <h1 className="mt-6 text-3xl tracking-[0.08em] uppercase sm:text-4xl">{title}</h1>
           {intro && <p className="mt-2 text-sm text-ink-500">{intro}</p>}
           <div className="mt-7">{children}</div>

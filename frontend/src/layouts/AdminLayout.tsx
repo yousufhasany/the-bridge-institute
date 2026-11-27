@@ -114,7 +114,7 @@ function Brand() {
   const { t } = useTranslation();
   return (
     <Link to="/admin" className="flex items-center gap-2.5 px-5 py-5 text-white">
-      <BridgeMark className="w-9" />
+      <BridgeMark className="h-11 w-auto shrink-0" />
       <span className="flex flex-col leading-tight">
         <span className="text-sm font-bold">{t('brand.short')}</span>
         <span className="text-xs text-sky-50/70">{t('admin:title')}</span>
