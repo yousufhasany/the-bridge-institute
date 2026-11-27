@@ -106,7 +106,7 @@ function settingRule(key: string): z.ZodTypeAny {
   if (/^contact\.[a-zA-Z]+Email$/.test(key)) return emailOrEmpty;
   if (key === 'contact.phone') return z.string().trim().max(40);
   if (key === 'contact.address') return z.string().trim().max(500);
-  if (key === 'social.facebookUrl' || key.startsWith('qr.')) return urlOrEmpty;
+  if (key === 'social.facebookUrl' || key === 'social.instagramUrl' || key.startsWith('qr.')) return urlOrEmpty;
   if (key === 'social.links') return z.array(z.object({ label: z.string().trim().min(1).max(60), url: urlOrEmpty })).max(20);
   if (key === 'seo.defaults') {
     return z.object({

@@ -6,12 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { Button } from '../../components/common/Button';
 import { QrLinks } from '../../components/common/QrLinks';
+import { SocialLinks } from '../../components/common/SocialIcon';
 import { photos } from '../../assets/photos';
 import { PageHeader, Section } from '../../components/common/Section';
 import { Alert, useErrorMessage } from '../../components/common/States';
 import { SelectField, TextArea, TextField } from '../../components/forms/Field';
 import { applyServerErrors, v } from '../../components/forms/formUtils';
-import { BROCHURE_EMAIL, useSetting } from '../../features/cms/useSiteContent';
+import { useContactChannels, useSetting } from '../../features/cms/useSiteContent';
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { api } from '../../lib/api';
 
@@ -31,11 +32,9 @@ export function ContactPage() {
   const errorMessage = useErrorMessage();
   const [sent, setSent] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
-  const general = useSetting('contact.generalEmail', BROCHURE_EMAIL);
+  const { email: general, phone, address, social, tel, maps } = useContactChannels();
   const admission = useSetting('contact.admissionEmail');
   const partnership = useSetting('contact.partnershipEmail');
-  const phone = useSetting('contact.phone');
-  const address = useSetting('contact.address');
   usePageMeta({ title: t('contact.metaTitle'), description: t('contact.metaDescription') });
 
   const { register, handleSubmit, formState, setError, reset } = useForm<FormValues>({
@@ -84,7 +83,7 @@ export function ContactPage() {
                 <Phone className="mt-0.5 size-5 shrink-0 text-royal-600" aria-hidden />
                 <div>
                   <p className="text-sm font-semibold text-navy-950">{t('contact.phone')}</p>
-                  <a href={`tel:${phone.replace(/[^+0-9]/g, '')}`} className="text-sm text-royal-700 hover:underline">
+                  <a href={tel} className="text-sm text-royal-700 hover:underline">
                     {phone}
                   </a>
                 </div>
@@ -95,7 +94,17 @@ export function ContactPage() {
                 <MapPin className="mt-0.5 size-5 shrink-0 text-royal-600" aria-hidden />
                 <div>
                   <p className="text-sm font-semibold text-navy-950">{t('contact.address')}</p>
-                  <p className="text-sm whitespace-pre-line">{address}</p>
+                  <a href={maps} target="_blank" rel="noopener noreferrer" className="text-sm whitespace-pre-line text-royal-700 hover:underline">
+                    {address}
+                  </a>
+                </div>
+              </div>
+            )}
+            {social.length > 0 && (
+              <div className="card p-4">
+                <p className="text-sm font-semibold text-navy-950">{t('common:footer.followUs')}</p>
+                <div className="mt-3">
+                  <SocialLinks links={social} />
                 </div>
               </div>
             )}

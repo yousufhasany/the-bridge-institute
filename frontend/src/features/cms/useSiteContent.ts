@@ -54,3 +54,55 @@ export function useFaqs() {
 }
 
 export const BROCHURE_EMAIL = 'thebridgeinstitute2026@gmail.com';
+export const SITE_PHONE = '01348319375';
+export const SITE_ADDRESS = '125 Motijheel C/A, 2nd Floor, Dhaka 1000\nBangladesh Institute of Islamic Finance (BIIF)';
+export const SITE_FACEBOOK_URL = 'https://www.facebook.com/people/The-Bridge-Institute/61595249856998/';
+export const SITE_INSTAGRAM_URL = 'https://www.instagram.com/careersbridging/';
+
+const SAFE_URL = /^https?:\/\//i;
+
+export function telHref(phone: string): string {
+  const digits = phone.replace(/[^+0-9]/g, '');
+  if (/^01\d{9}$/.test(digits)) return `tel:+880${digits.slice(1)}`;
+  return `tel:${digits}`;
+}
+
+export function mapsHref(address: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address.replace(/\s*\n\s*/g, ', '))}`;
+}
+
+function samePage(a: string, b: string): boolean {
+  try {
+    const left = new URL(a);
+    const right = new URL(b);
+    return left.origin === right.origin && left.pathname.replace(/\/+$/, '') === right.pathname.replace(/\/+$/, '');
+  } catch {
+    return a === b;
+  }
+}
+
+/** Official pages, plus any extra links saved in the admin settings. */
+export function useSocialLinks(): { label: string; url: string }[] {
+  const { t } = useTranslation();
+  const settings = usePublicSettings();
+  const facebook = useSetting('social.facebookUrl', SITE_FACEBOOK_URL);
+  const instagramSetting = useSetting('social.instagramUrl');
+  const extras = ((settings.data?.['social.links'] as { label?: string; url?: string }[] | undefined) ?? []).flatMap((link) =>
+    typeof link?.url === 'string' && typeof link.label === 'string' && SAFE_URL.test(link.url) ? [{ label: link.label, url: link.url }] : [],
+  );
+  const instagram = instagramSetting || extras.find((link) => /instagram\.com/i.test(link.url))?.url || SITE_INSTAGRAM_URL;
+  const primary = [
+    { label: t('qr.facebook'), url: facebook },
+    { label: t('qr.instagram'), url: instagram },
+  ].filter((link) => SAFE_URL.test(link.url));
+  const rest = extras.filter((link) => !primary.some((item) => samePage(item.url, link.url)));
+  return [...primary, ...rest];
+}
+
+export function useContactChannels() {
+  const email = useSetting('contact.generalEmail', BROCHURE_EMAIL);
+  const phone = useSetting('contact.phone', SITE_PHONE);
+  const address = useSetting('contact.address', SITE_ADDRESS);
+  const social = useSocialLinks();
+  return { email, phone, address, social, tel: telHref(phone), maps: mapsHref(address) };
+}

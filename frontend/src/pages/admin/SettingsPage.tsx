@@ -110,7 +110,7 @@ function SettingRow({ setting }: { setting: Setting }) {
           type={type}
           wrapperClassName="flex-1"
           placeholder={type === 'url' ? 'https://' : undefined}
-          hint={setting.key.startsWith('qr.') || setting.key === 'social.facebookUrl' ? t('settings.notConfiguredHint') : undefined}
+          hint={setting.key.startsWith('qr.') ? t('settings.notConfiguredHint') : undefined}
           value={text}
           onChange={(e) => setValue(e.target.value)}
         />

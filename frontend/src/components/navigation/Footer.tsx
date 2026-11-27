@@ -1,21 +1,14 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
-import { BROCHURE_EMAIL, usePublicSettings, useSection, useSetting } from '../../features/cms/useSiteContent';
+import { useContactChannels, useSection } from '../../features/cms/useSiteContent';
 import { Logo } from '../common/Logo';
-
-const SAFE_URL = /^https?:\/\//i;
+import { SocialLinks } from '../common/SocialIcon';
 
 export function Footer() {
   const { t } = useTranslation();
   const footer = useSection<{ about: string }>('footer');
-  const settings = usePublicSettings();
-  const email = useSetting('contact.generalEmail', BROCHURE_EMAIL);
-  const phone = useSetting('contact.phone');
-  const address = useSetting('contact.address');
-  const facebook = useSetting('social.facebookUrl');
-  const otherLinks = ((settings.data?.['social.links'] as { label: string; url: string }[] | undefined) ?? []).filter((l) => SAFE_URL.test(l.url));
-  const social = [...(SAFE_URL.test(facebook) ? [{ label: t('qr.facebook'), url: facebook }] : []), ...otherLinks];
+  const { email, phone, address, social, tel, maps } = useContactChannels();
   const year = new Date().getFullYear();
 
   const explore = [
@@ -52,7 +45,7 @@ export function Footer() {
             {phone && (
               <li className="flex gap-2.5">
                 <Phone className="mt-0.5 size-4 shrink-0 text-orange-400" aria-hidden />
-                <a href={`tel:${phone.replace(/[^+0-9]/g, '')}`} className="hover:text-white hover:underline">
+                <a href={tel} className="hover:text-white hover:underline">
                   {phone}
                 </a>
               </li>
@@ -60,22 +53,16 @@ export function Footer() {
             {address && (
               <li className="flex gap-2.5">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-orange-400" aria-hidden />
-                <span className="whitespace-pre-line">{address}</span>
+                <a href={maps} target="_blank" rel="noopener noreferrer" className="whitespace-pre-line hover:text-white hover:underline">
+                  {address}
+                </a>
               </li>
             )}
           </ul>
           {social.length > 0 && (
             <div className="mt-5">
               <p className="mb-2 text-xs font-semibold tracking-wide text-white uppercase">{t('footer.followUs')}</p>
-              <ul className="flex flex-wrap gap-2">
-                {social.map((s) => (
-                  <li key={s.url}>
-                    <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-white/30 hover:bg-white/10">
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <SocialLinks links={social} />
             </div>
           )}
         </div>

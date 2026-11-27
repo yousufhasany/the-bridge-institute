@@ -216,10 +216,13 @@ describe('contact and partnership forms', () => {
 });
 
 describe('public settings', () => {
-  it('exposes the brochure email and leaves unconfirmed links empty', async () => {
+  it('exposes the public contact details and leaves unconfirmed QR links empty', async () => {
     const res = await request(app).get(`${API}/settings/public`).expect(200);
     expect(res.body.data['contact.generalEmail']).toBe('thebridgeinstitute2026@gmail.com');
-    expect(res.body.data['social.facebookUrl']).toBe('');
+    expect(res.body.data['contact.phone']).toBe('01348319375');
+    expect(res.body.data['contact.address']).toContain('125 Motijheel C/A');
+    expect(res.body.data['social.facebookUrl']).toBe('https://www.facebook.com/people/The-Bridge-Institute/61595249856998/');
+    expect(res.body.data['social.instagramUrl']).toBe('https://www.instagram.com/careersbridging/');
     expect(res.body.data['qr.admissionInformation']).toBe('');
     expect(res.body.data['program.sixMonthProgram']).toBeUndefined();
   });

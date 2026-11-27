@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Check, GraduationCap, Mail, Quote, ScrollText, Send, Target } from 'lucide-react';
+import { ArrowRight, Check, GraduationCap, Mail, MapPin, Phone, Quote, ScrollText, Send, Target } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { photos } from '../../assets/photos';
@@ -7,12 +7,13 @@ import { ButtonLink } from '../../components/common/Button';
 import { Reveal } from '../../components/common/Reveal';
 import { CircleIcon } from '../../components/common/Icon';
 import { QrLinks } from '../../components/common/QrLinks';
+import { SocialLinks } from '../../components/common/SocialIcon';
 import { Section, SectionHeading } from '../../components/common/Section';
 import { ErrorState } from '../../components/common/States';
 import { CourseCard, CourseCardSkeleton } from '../../components/courses/CourseCard';
 import { Pathway, type PathwayStep } from '../../components/roadmap/Pathway';
 import { Roadmap, type RoadmapYear } from '../../components/roadmap/Roadmap';
-import { BROCHURE_EMAIL, useSection, useSetting } from '../../features/cms/useSiteContent';
+import { useContactChannels, useSection } from '../../features/cms/useSiteContent';
 import { useCourses } from '../../features/courses/useCourses';
 import { PartnerList } from '../../features/companies/PartnerList';
 import { usePageMeta } from '../../hooks/usePageMeta';
@@ -309,19 +310,32 @@ function Collaborate() {
 function Contact() {
   const { t } = useTranslation('home');
   const contact = useSection<{ title: string; body: string }>('contact');
-  const email = useSetting('contact.generalEmail', BROCHURE_EMAIL);
+  const { email, phone, address, social, tel, maps } = useContactChannels();
   return (
     <Section tone="navy" id="contact" labelledBy="contact-title" reveal>
       <div className="grid gap-10 lg:grid-cols-2">
         <div>
           <SectionHeading id="contact-title" title={contact.title} subtitle={contact.body} tone="light" />
-          <a href={`mailto:${email}`} className="inline-flex items-center gap-3 rounded-2xl bg-white/10 px-5 py-4 text-lg font-semibold break-all text-white ring-1 ring-white/20 hover:bg-white/15">
-            <Mail className="size-6 shrink-0 text-orange-400" aria-hidden />
-            <span>
-              <span className="sr-only">{t('contact.emailLabel')}: </span>
-              {email}
-            </span>
-          </a>
+          <div className="flex flex-col gap-3">
+            <a href={`mailto:${email}`} className="inline-flex items-center gap-3 rounded-2xl bg-white/10 px-5 py-4 text-lg font-semibold break-all text-white ring-1 ring-white/20 hover:bg-white/15">
+              <Mail className="size-6 shrink-0 text-orange-400" aria-hidden />
+              <span>
+                <span className="sr-only">{t('contact.emailLabel')}: </span>
+                {email}
+              </span>
+            </a>
+            <a href={tel} className="inline-flex items-center gap-3 rounded-2xl bg-white/10 px-5 py-4 text-lg font-semibold text-white ring-1 ring-white/20 hover:bg-white/15">
+              <Phone className="size-6 shrink-0 text-orange-400" aria-hidden />
+              <span>{phone}</span>
+            </a>
+            <a href={maps} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-3 rounded-2xl bg-white/10 px-5 py-4 text-base font-semibold whitespace-pre-line text-white ring-1 ring-white/20 hover:bg-white/15">
+              <MapPin className="mt-0.5 size-6 shrink-0 text-orange-400" aria-hidden />
+              <span>{address}</span>
+            </a>
+          </div>
+          <div className="mt-4">
+            <SocialLinks links={social} />
+          </div>
         </div>
         <ul className="grid content-center gap-3">
           {(

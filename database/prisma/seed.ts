@@ -4,7 +4,7 @@
  * Seeds only verified brochure information and system configuration:
  *  - roles and permissions (RBAC)
  *  - the five foundation courses (English + Bangla)
- *  - contact settings using the brochure email, with every unconfirmed link left empty
+ *  - contact settings: brochure email, Motijheel office, phone, Facebook and Instagram
  *  - FAQs derived from brochure statements
  *
  * It deliberately does NOT create users, passwords, students, alumni, testimonials,
@@ -240,14 +240,19 @@ const COURSES: SeedCourse[] = [
 // ---------------------------------------------------------------------------
 // Settings. Empty strings mean "not yet confirmed by the institute".
 // ---------------------------------------------------------------------------
+const OFFICE_ADDRESS = '125 Motijheel C/A, 2nd Floor, Dhaka 1000\nBangladesh Institute of Islamic Finance (BIIF)';
+const FACEBOOK_URL = 'https://www.facebook.com/people/The-Bridge-Institute/61595249856998/';
+const INSTAGRAM_URL = 'https://www.instagram.com/careersbridging/';
+
 const SETTINGS: { key: string; group: string; value: unknown; isPublic: boolean; description: string }[] = [
   { key: 'contact.generalEmail', group: 'contact', value: 'thebridgeinstitute2026@gmail.com', isPublic: true, description: 'General inquiry email (printed in the brochure)' },
   { key: 'contact.admissionEmail', group: 'contact', value: '', isPublic: true, description: 'Admission inquiry email' },
   { key: 'contact.partnershipEmail', group: 'contact', value: '', isPublic: true, description: 'Industry partnership inquiry email' },
-  { key: 'contact.phone', group: 'contact', value: '', isPublic: true, description: 'Phone number' },
-  { key: 'contact.address', group: 'contact', value: '', isPublic: true, description: 'Office address' },
-  { key: 'social.facebookUrl', group: 'social', value: '', isPublic: true, description: 'Official Facebook page (shown as a QR code in the brochure - URL not yet confirmed)' },
-  { key: 'social.links', group: 'social', value: [], isPublic: true, description: 'Other social links: [{ "label": "...", "url": "https://..." }]' },
+  { key: 'contact.phone', group: 'contact', value: '01348319375', isPublic: true, description: 'Phone number' },
+  { key: 'contact.address', group: 'contact', value: OFFICE_ADDRESS, isPublic: true, description: 'Office address' },
+  { key: 'social.facebookUrl', group: 'social', value: FACEBOOK_URL, isPublic: true, description: 'Official Facebook page' },
+  { key: 'social.instagramUrl', group: 'social', value: INSTAGRAM_URL, isPublic: true, description: 'Official Instagram profile' },
+  { key: 'social.links', group: 'social', value: [{ label: 'Instagram', url: INSTAGRAM_URL }], isPublic: true, description: 'Other social links: [{ "label": "...", "url": "https://..." }]' },
   { key: 'qr.employmentSeekers', group: 'qr', value: '', isPublic: true, description: 'Destination of the "Employment Seekers" brochure QR code' },
   { key: 'qr.admissionInformation', group: 'qr', value: '', isPublic: true, description: 'Destination of the "Admission Information" brochure QR code' },
   { key: 'qr.industryQueries', group: 'qr', value: '', isPublic: true, description: 'Destination of the "Industry Queries" brochure QR code' },
@@ -364,11 +369,14 @@ async function main() {
     });
   }
 
-  // Settings (create only, never overwrite admin-entered values)
+  // Settings. A blank value is still "not set", so the confirmed office details can fill it.
+  // Any value an administrator has already entered is left unchanged.
   for (const s of SETTINGS) {
+    const existing = await prisma.websiteSetting.findUnique({ where: { key: s.key } });
+    const blank = existing == null || existing.value === '' || existing.value === null || (Array.isArray(existing.value) && existing.value.length === 0);
     await prisma.websiteSetting.upsert({
       where: { key: s.key },
-      update: { description: s.description, group: s.group },
+      update: { description: s.description, group: s.group, ...(blank ? { value: s.value as object } : {}) },
       create: { key: s.key, group: s.group, value: s.value as object, isPublic: s.isPublic, description: s.description },
     });
   }
