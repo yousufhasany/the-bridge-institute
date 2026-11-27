@@ -1,7 +1,8 @@
 import type { NextFunction, Request, Response } from 'express';
-import { allowedOrigins, env, isProduction } from '../config/env.js';
+import { env, isProduction } from '../config/env.js';
 import { randomToken, safeEqual } from '../utils/crypto.js';
 import { ApiError } from '../utils/http.js';
+import { isAllowedOrigin } from '../utils/origin.js';
 
 export const CSRF_COOKIE = 'bi_csrf';
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
@@ -39,9 +40,7 @@ export function issueCsrfToken(req: Request, res: Response) {
 export function csrfProtection(req: Request, _res: Response, next: NextFunction) {
   if (SAFE_METHODS.has(req.method)) return next();
 
-  const origin = requestOrigin(req);
-  if (origin && !allowedOrigins.includes(origin)) throw new ApiError(403, 'CSRF_ORIGIN', 'Origin not allowed');
-  if (!origin) throw new ApiError(403, 'CSRF_ORIGIN', 'Origin not allowed');
+  if (!isAllowedOrigin(requestOrigin(req), req)) throw new ApiError(403, 'CSRF_ORIGIN', 'Origin not allowed');
 
   const cookie = req.cookies?.[CSRF_COOKIE];
   const header = req.get('x-csrf-token');

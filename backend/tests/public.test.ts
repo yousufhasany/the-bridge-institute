@@ -32,6 +32,34 @@ describe('health and security basics', () => {
     expect(res.body.error.code).toBe('CSRF_ORIGIN');
   });
 
+  it('accepts the public website origin even when it is not in WEB_ORIGIN', async () => {
+    const res = await request(app)
+      .post(`${API}/contact`)
+      .set('Origin', 'https://www.thebridgeinstituteuit.com')
+      .send({})
+      .expect(403);
+    expect(res.body.error.code).toBe('CSRF_INVALID');
+  });
+
+  it('accepts a same-host browser origin and still rejects a forged one', async () => {
+    const sameHost = await request(app)
+      .post(`${API}/contact`)
+      .set('Host', 'campus.example')
+      .set('Origin', 'http://campus.example')
+      .send({})
+      .expect(403);
+    expect(sameHost.body.error.code).toBe('CSRF_INVALID');
+
+    const forged = await request(app)
+      .post(`${API}/contact`)
+      .set('Host', 'campus.example')
+      .set('Origin', 'https://evil.example')
+      .set('X-Forwarded-Host', 'evil.example')
+      .send({})
+      .expect(403);
+    expect(forged.body.error.code).toBe('CSRF_ORIGIN');
+  });
+
   it('returns JSON 404s for unknown routes', async () => {
     const res = await request(app).get(`${API}/does-not-exist`).expect(404);
     expect(res.body.error.code).toBe('NOT_FOUND');

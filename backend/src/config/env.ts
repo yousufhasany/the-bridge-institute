@@ -81,8 +81,18 @@ const fallback = {
 export const env = parsed.success ? parsed.data : schema.parse(fallback);
 export const isProduction = env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production';
 export const isTest = env.NODE_ENV === 'test';
+/**
+ * The public site. Vercel only puts the *.vercel.app deployment host in
+ * VERCEL_URL, so a custom domain is rejected unless it is listed here too.
+ */
+const canonicalSiteOrigins = ['https://www.thebridgeinstituteuit.com', 'https://thebridgeinstituteuit.com'];
+
 export const allowedOrigins = [
-  ...new Set([...env.WEB_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean), ...deploymentOrigins()]),
+  ...new Set([
+    ...env.WEB_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean),
+    ...deploymentOrigins(),
+    ...canonicalSiteOrigins,
+  ]),
 ];
 export const storageConfigured = Boolean(
   (env.AWS_ENDPOINT_URL_S3 && env.AWS_ACCESS_KEY_ID && env.AWS_SECRET_ACCESS_KEY) ||

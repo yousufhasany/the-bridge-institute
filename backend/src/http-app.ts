@@ -2,7 +2,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import { allowedOrigins, env, envError } from './config/env.js';
+import { env, envError } from './config/env.js';
+import { isAllowedOrigin } from './utils/origin.js';
 import { logger } from './lib/logger.js';
 import { loadSession } from './middleware/auth.js';
 import { csrfProtection } from './middleware/csrf.js';
@@ -35,15 +36,15 @@ export function createApp() {
       crossOriginResourcePolicy: { policy: 'same-site' },
     }),
   );
-  app.use(
+  app.use((req, res, next) => {
     cors({
-      origin: (origin, callback) => callback(null, !origin || allowedOrigins.includes(origin)),
+      origin: (origin, callback) => callback(null, !origin || isAllowedOrigin(origin, req)),
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
       allowedHeaders: ['Content-Type', 'X-CSRF-Token', 'X-Request-Id'],
       maxAge: 600,
-    }),
-  );
+    })(req, res, next);
+  });
   app.use(express.json({ limit: '200kb' }));
   app.use(express.urlencoded({ extended: false, limit: '50kb' }));
   app.use(cookieParser());
