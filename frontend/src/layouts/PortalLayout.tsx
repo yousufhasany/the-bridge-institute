@@ -57,7 +57,7 @@ export function PortalLayout({ nav, title }: { nav: PortalNavItem[]; title: stri
                   className={({ isActive }) =>
                     cn(
                       'inline-block border-b-2 px-3 py-3 text-sm font-semibold whitespace-nowrap',
-                      isActive ? 'border-orange-500 text-navy-950' : 'border-transparent text-ink-500 hover:text-navy-950',
+                      isActive ? 'border-navy-950 text-navy-950' : 'border-transparent text-ink-500 hover:text-navy-950',
                     )
                   }
                 >

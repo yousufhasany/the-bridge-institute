@@ -41,11 +41,7 @@ export function SectionHeading({
       {eyebrow && <p className={cn('eyebrow mb-3', tone === 'light' ? 'text-orange-400' : 'text-orange-700')}>{eyebrow}</p>}
       <Tag
         id={id}
-        className={cn(
-          'orange-underline text-3xl sm:text-4xl',
-          tone === 'light' && 'text-white',
-          align === 'center' && 'after:left-1/2 after:-translate-x-1/2',
-        )}
+        className={cn('text-3xl sm:text-4xl', tone === 'light' && 'text-white')}
       >
         {title}
       </Tag>
@@ -60,7 +56,7 @@ export function PageHeader({ title, subtitle, children, image = photos.hero }: {
       <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover object-[72%_center]" />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/85 to-navy-950/30" />
       <div className="container-page relative">
-        <h1 className="orange-underline max-w-3xl text-3xl text-white sm:text-5xl">{title}</h1>
+        <h1 className="max-w-3xl text-3xl text-white sm:text-5xl">{title}</h1>
         {subtitle && <p className="mt-6 max-w-2xl text-lg text-sky-50/90">{subtitle}</p>}
         {children}
       </div>

@@ -111,7 +111,6 @@ function Intro() {
         <figure className="relative order-last lg:order-first">
           <div className="relative overflow-hidden rounded-3xl shadow-(--shadow-card) ring-1 ring-mist-200">
             <img src={photos.learning} alt={t('photos.learning')} className="aspect-[4/3] w-full object-cover object-top" />
-            <span aria-hidden className="absolute bottom-0 left-0 h-1.5 w-20 bg-orange-500" />
           </div>
         </figure>
         <div>
@@ -147,7 +146,7 @@ function Goal() {
       <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <CircleIcon name="target" size="lg" tone="navy" />
-          <h2 id="goal-title" className="orange-underline mt-6 text-3xl sm:text-4xl">
+          <h2 id="goal-title" className="mt-6 text-3xl sm:text-4xl">
             {goal.title}
           </h2>
           <p className="mt-6 text-xl leading-relaxed font-semibold text-navy-900">{goal.statement}</p>

@@ -66,23 +66,12 @@ export function Header() {
                   end={'end' in item}
                   className={({ isActive }) =>
                     cn(
-                      'relative inline-flex h-10 items-center rounded-full px-2.5 text-sm font-semibold whitespace-nowrap transition-colors 2xl:px-3.5',
-                      isActive ? 'text-navy-950' : 'text-ink-700 hover:bg-mist-50 hover:text-navy-950',
+                      'inline-flex h-10 items-center rounded-full px-2.5 text-sm font-semibold whitespace-nowrap transition-colors 2xl:px-3.5',
+                      isActive ? 'font-bold text-navy-950' : 'text-ink-700 hover:bg-mist-50 hover:text-navy-950',
                     )
                   }
                 >
-                  {({ isActive }) => (
-                    <>
-                      {t(`nav.${item.key}`)}
-                      <span
-                        aria-hidden
-                        className={cn(
-                          'pointer-events-none absolute inset-x-2.5 bottom-1.5 h-0.5 rounded-full bg-orange-500 2xl:inset-x-3.5',
-                          isActive ? 'opacity-100' : 'opacity-0',
-                        )}
-                      />
-                    </>
-                  )}
+                  {t(`nav.${item.key}`)}
                 </NavLink>
               </li>
             ))}
@@ -139,7 +128,7 @@ export function Header() {
                     className={({ isActive }) =>
                       cn(
                         'block rounded-2xl px-4 py-3 text-base font-semibold transition-colors',
-                        isActive ? 'bg-sky-50 text-navy-950 shadow-[inset_3px_0_0_#f7941d]' : 'text-navy-900 hover:bg-mist-50',
+                        isActive ? 'bg-sky-50 text-navy-950' : 'text-navy-900 hover:bg-mist-50',
                       )
                     }
                   >

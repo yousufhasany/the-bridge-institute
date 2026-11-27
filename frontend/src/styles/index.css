@@ -66,13 +66,6 @@
   .eyebrow {
     @apply text-sm font-semibold tracking-[0.18em] uppercase;
   }
-  .orange-underline {
-    @apply relative inline-block pb-3;
-  }
-  .orange-underline::after {
-    content: '';
-    @apply absolute bottom-0 left-0 h-1.5 w-20 rounded-full bg-orange-500;
-  }
   .prose-content p {
     @apply mb-4 leading-relaxed;
   }

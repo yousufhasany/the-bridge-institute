@@ -14,7 +14,7 @@ const accents = ['bg-royal-500', 'bg-royal-600', 'bg-navy-800', 'bg-navy-950'];
 export function Roadmap({ years }: { years: RoadmapYear[] }) {
   return (
     <ol className="relative grid gap-6 lg:grid-cols-4 lg:gap-5">
-      <span aria-hidden className="absolute top-8 right-[12%] left-[12%] hidden h-1 rounded-full bg-gradient-to-r from-royal-500 via-orange-500 to-navy-950 lg:block" />
+      <span aria-hidden className="absolute top-8 right-[12%] left-[12%] hidden h-1 rounded-full bg-gradient-to-r from-royal-500 to-navy-950 lg:block" />
       {years.map((year, index) => (
         <li key={year.label} className="relative flex gap-4 lg:flex-col lg:items-center lg:text-center">
           {index < years.length - 1 && <span aria-hidden className="absolute top-16 bottom-[-1.5rem] left-8 w-1 -translate-x-1/2 rounded-full bg-royal-100 lg:hidden" />}
