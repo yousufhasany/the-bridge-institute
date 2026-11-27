@@ -72,7 +72,7 @@ export function MessagesPage() {
             cell: (r) => (
               <button
                 type="button"
-                className={`flex items-start gap-2 text-left hover:underline ${r.isRead ? 'text-ink-700' : 'font-bold text-navy-950'}`}
+                className={`flex items-start gap-2 text-left ${r.isRead ? 'text-ink-700' : 'font-bold text-navy-950'}`}
                 onClick={() => {
                   setOpen(r);
                   if (!r.isRead) void setRead(r, true);

@@ -26,7 +26,7 @@ export function AlumniStoryPage() {
       <Section>
         {story.error instanceof ApiError && story.error.status === 404 ? (
           <EmptyState title={t('public.storyNotFound')}>
-            <Link to="/alumni" className="font-semibold text-royal-700 hover:underline">
+            <Link to="/alumni" className="font-semibold text-royal-700">
               {t('public.back')}
             </Link>
           </EmptyState>
@@ -48,7 +48,7 @@ export function AlumniStoryPage() {
           <h1 className="mt-6 text-3xl text-white sm:text-4xl">{s.title}</h1>
           <p className="mt-3 text-sm text-sky-50/80">
             {s.author ? (
-              <Link to={`/alumni/${s.author.slug}`} className="font-semibold text-white hover:underline">
+              <Link to={`/alumni/${s.author.slug}`} className="font-semibold text-white">
                 {s.author.displayName}
               </Link>
             ) : (

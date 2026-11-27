@@ -81,7 +81,7 @@ export function AdminLayout() {
           <button type="button" onClick={() => setOpen(true)} className="rounded-full p-2 text-navy-950 hover:bg-mist-50 lg:hidden" aria-label={t('common:nav.openMenu')}>
             <Menu className="size-5" aria-hidden />
           </button>
-          <Link to="/" className="hidden items-center gap-1.5 text-sm font-semibold text-royal-700 hover:underline sm:inline-flex">
+          <Link to="/" className="hidden items-center gap-1.5 text-sm font-semibold text-royal-700 sm:inline-flex">
             {t('viewSite')}
             <ExternalLink className="size-3.5" aria-hidden />
           </Link>

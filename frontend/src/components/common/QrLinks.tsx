@@ -1,4 +1,4 @@
-import { QRCodeSVG } from 'qrcode.react';
+﻿import { QRCodeSVG } from 'qrcode.react';
 import { ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { SITE_FACEBOOK_URL, SITE_INSTAGRAM_URL, usePublicSettings } from '../../features/cms/useSiteContent';
@@ -48,7 +48,7 @@ export function QrLinks({ tone = 'light' }: { tone?: 'light' | 'dark' }) {
                 {item.setting === 'social.instagramUrl' && <InstagramFavicon className="size-4" />}
                 {label}
               </span>
-              <a href={item.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-semibold text-royal-700 hover:underline">
+              <a href={item.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-semibold text-royal-700">
                 {t('qr.open')}
                 <ExternalLink className="size-3" aria-hidden />
                 <span className="sr-only">: {label}</span>

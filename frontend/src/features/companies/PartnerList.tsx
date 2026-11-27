@@ -31,7 +31,7 @@ export function PartnerList({ className }: { className?: string }) {
         {items.map((company, index) => (
           <li key={`${company.name}-${index}`} className="rounded-2xl bg-sky-50 px-5 py-4 ring-1 ring-mist-200">
             {company.website ? (
-              <a href={company.website} className="font-semibold text-navy-950 hover:text-royal-700 hover:underline" target="_blank" rel="noopener noreferrer">
+              <a href={company.website} className="font-semibold text-navy-950 hover:text-royal-700" target="_blank" rel="noopener noreferrer">
                 {company.name}
               </a>
             ) : (

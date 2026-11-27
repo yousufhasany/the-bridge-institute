@@ -144,7 +144,7 @@ export function StudentDashboardPage() {
                       {m.description && <p className="text-sm text-ink-500">{m.description}</p>}
                     </div>
                     {m.url && /^https?:\/\//i.test(m.url) && (
-                      <a href={m.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-royal-700 hover:underline">
+                      <a href={m.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-royal-700">
                         {t('common:actions.learnMore')}
                         <ExternalLink className="size-3.5" aria-hidden />
                       </a>

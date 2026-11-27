@@ -26,7 +26,7 @@ export function LearningJourneyPage() {
   return (
     <>
       <PageHeader title={journey.title} subtitle={journey.intro} image={photos.journey}>
-        <Link to="#roadmap" className="mt-8 inline-flex items-center gap-1.5 font-semibold text-orange-400 hover:underline">
+        <Link to="#roadmap" className="mt-8 inline-flex items-center gap-1.5 font-semibold text-orange-400">
           {t('journey.roadmapLink')}
           <ArrowRight className="size-4" aria-hidden />
         </Link>

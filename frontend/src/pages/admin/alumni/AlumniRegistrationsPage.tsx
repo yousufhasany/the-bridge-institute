@@ -59,7 +59,7 @@ export function AlumniRegistrationsPage() {
             key: 'name',
             header: t('common.name'),
             cell: (r) => (
-              <button type="button" className="text-left font-semibold text-navy-950 hover:underline" onClick={() => setOpenId(r.id)}>
+              <button type="button" className="text-left font-semibold text-navy-950" onClick={() => setOpenId(r.id)}>
                 {r.fullName}
                 <span className="block text-xs font-normal text-ink-500">{r.email}</span>
               </button>

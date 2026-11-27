@@ -198,7 +198,7 @@ function Courses() {
     <Section tone="mist" id="courses" labelledBy="courses-title" reveal>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <SectionHeading id="courses-title" title={section.title} subtitle={section.subtitle} />
-        <Link to="/courses" className="mb-10 inline-flex items-center gap-1.5 font-semibold text-royal-700 hover:underline">
+        <Link to="/courses" className="mb-10 inline-flex items-center gap-1.5 font-semibold text-royal-700">
           {section.viewAll}
           <ArrowRight className="size-4" aria-hidden />
         </Link>

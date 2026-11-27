@@ -46,7 +46,7 @@ export function ResetPasswordPage() {
     <AuthCard
       title={title}
       footer={
-        <Link to={STAFF_LOGIN_PATH} className="font-semibold text-royal-700 hover:underline">
+        <Link to={STAFF_LOGIN_PATH} className="font-semibold text-royal-700">
           {t('auth.backToLogin')}
         </Link>
       }

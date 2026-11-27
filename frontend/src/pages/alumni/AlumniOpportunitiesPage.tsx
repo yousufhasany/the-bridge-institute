@@ -79,7 +79,7 @@ export function AlumniOpportunitiesPage() {
               </div>
               <p className="mt-3 flex-1 text-sm leading-relaxed whitespace-pre-line">{o.description}</p>
               {o.applyUrl && /^https?:\/\//i.test(o.applyUrl) && (
-                <a href={o.applyUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-royal-700 hover:underline">
+                <a href={o.applyUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-royal-700">
                   {t('portal.opportunities.apply')}
                   <ExternalLink className="size-4" aria-hidden />
                 </a>

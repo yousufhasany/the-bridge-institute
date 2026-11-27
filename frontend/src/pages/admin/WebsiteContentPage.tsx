@@ -173,7 +173,7 @@ function SectionEditor({ def, locale, row }: { def: SectionDefinition; locale: L
             {row?.publishedAt && t('cms.publishedAt', { date: formatDateTime(row.publishedAt) })}
           </p>
         </div>
-        <a href={PREVIEW_PATH[def.key] ?? '/'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-royal-700 hover:underline">
+        <a href={PREVIEW_PATH[def.key] ?? '/'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-royal-700">
           {t('cms.viewOnSite')}
           <ExternalLink className="size-3.5" aria-hidden />
         </a>

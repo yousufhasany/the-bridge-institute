@@ -23,7 +23,7 @@ export function CourseDetailPage() {
       <Section>
         {missing ? (
           <EmptyState title={t('course.notFound')}>
-            <Link to="/courses" className="font-semibold text-royal-700 hover:underline">
+            <Link to="/courses" className="font-semibold text-royal-700">
               {t('course.back')}
             </Link>
           </EmptyState>

@@ -91,7 +91,7 @@ export function AlumniMyStoriesPage() {
               <div className="flex items-center gap-3">
                 <StatusBadge status={s.status} label={t(`portal.stories.status.${s.status}`)} />
                 {s.status === 'PUBLISHED' ? (
-                  <Link to={`/alumni/story/${s.slug}`} className="text-sm font-semibold text-royal-700 hover:underline">
+                  <Link to={`/alumni/story/${s.slug}`} className="text-sm font-semibold text-royal-700">
                     {t('common:actions.readMore')}
                   </Link>
                 ) : (

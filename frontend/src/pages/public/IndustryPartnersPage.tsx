@@ -35,7 +35,7 @@ export function IndustryPartnersPage() {
                     <dt className="font-semibold tracking-wide text-ink-500 uppercase">{t('companies.websiteLabel')}</dt>
                     <dd className="mt-1 text-base">
                       {company.website ? (
-                        <a href={company.website} className="inline-flex items-center gap-1.5 font-semibold break-all text-royal-700 hover:underline" target="_blank" rel="noopener noreferrer">
+                        <a href={company.website} className="inline-flex items-center gap-1.5 font-semibold break-all text-royal-700" target="_blank" rel="noopener noreferrer">
                           {company.website}
                           <ExternalLink className="size-4 shrink-0" aria-hidden />
                           <span className="sr-only">{t('companies.visitWebsite')}</span>

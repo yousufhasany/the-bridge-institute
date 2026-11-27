@@ -72,7 +72,7 @@ export function ContactPage() {
                 <Mail className="mt-0.5 size-5 shrink-0 text-royal-600" aria-hidden />
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-navy-950">{e.label}</p>
-                  <a href={`mailto:${e.value}`} className="text-sm break-all text-royal-700 hover:underline">
+                  <a href={`mailto:${e.value}`} className="text-sm break-all text-royal-700">
                     {e.value}
                   </a>
                 </div>
@@ -83,7 +83,7 @@ export function ContactPage() {
                 <Phone className="mt-0.5 size-5 shrink-0 text-royal-600" aria-hidden />
                 <div>
                   <p className="text-sm font-semibold text-navy-950">{t('contact.phone')}</p>
-                  <a href={tel} className="text-sm text-royal-700 hover:underline">
+                  <a href={tel} className="text-sm text-royal-700">
                     {phone}
                   </a>
                 </div>
@@ -94,7 +94,7 @@ export function ContactPage() {
                 <MapPin className="mt-0.5 size-5 shrink-0 text-royal-600" aria-hidden />
                 <div>
                   <p className="text-sm font-semibold text-navy-950">{t('contact.address')}</p>
-                  <a href={maps} target="_blank" rel="noopener noreferrer" className="text-sm whitespace-pre-line text-royal-700 hover:underline">
+                  <a href={maps} target="_blank" rel="noopener noreferrer" className="text-sm whitespace-pre-line text-royal-700">
                     {address}
                   </a>
                 </div>

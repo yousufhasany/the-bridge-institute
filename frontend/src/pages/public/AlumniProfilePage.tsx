@@ -26,7 +26,7 @@ export function AlumniProfilePage() {
       <Section>
         {profile.error instanceof ApiError && profile.error.status === 404 ? (
           <EmptyState title={t('public.notFound')}>
-            <Link to="/alumni" className="font-semibold text-royal-700 hover:underline">
+            <Link to="/alumni" className="font-semibold text-royal-700">
               {t('public.back')}
             </Link>
           </EmptyState>
@@ -111,7 +111,7 @@ export function AlumniProfilePage() {
               <ul className="card space-y-2 p-5">
                 {links.map((l) => (
                   <li key={l.url}>
-                    <a href={l.url} target="_blank" rel="noopener noreferrer nofollow" className="inline-flex items-center gap-1.5 text-sm font-semibold text-royal-700 hover:underline">
+                    <a href={l.url} target="_blank" rel="noopener noreferrer nofollow" className="inline-flex items-center gap-1.5 text-sm font-semibold text-royal-700">
                       {l.label}
                       <ExternalLink className="size-3.5" aria-hidden />
                     </a>

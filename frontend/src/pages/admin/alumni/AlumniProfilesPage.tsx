@@ -100,7 +100,7 @@ export function AlumniProfilesPage() {
             key: 'name',
             header: t('common.name'),
             cell: (r) => (
-              <button type="button" className="text-left font-semibold text-navy-950 hover:underline" onClick={() => setOpenId(r.id)}>
+              <button type="button" className="text-left font-semibold text-navy-950" onClick={() => setOpenId(r.id)}>
                 {r.displayName}
                 <span className="block text-xs font-normal text-ink-500">{r.user.email}</span>
               </button>
@@ -180,7 +180,7 @@ function ProfileModal({ id, onClose }: { id: string; onClose: () => void }) {
             <Badge tone={consented ? 'green' : 'gray'}>{consented ? t('alumniAdmin.profiles.consentGiven', { date: formatDate(p.publicConsentAt!) }) : t('alumniAdmin.profiles.noConsent')}</Badge>
             {p.archivedAt && <Badge tone="gray">{t('alumniAdmin.archived')}</Badge>}
             {isLive && (
-              <a href={`/alumni/${p.slug}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-royal-700 hover:underline">
+              <a href={`/alumni/${p.slug}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-royal-700">
                 {t('alumniAdmin.profiles.viewPublic')}
                 <ExternalLink className="size-3.5" aria-hidden />
               </a>

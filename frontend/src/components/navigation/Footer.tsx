@@ -38,14 +38,14 @@ export function Footer() {
           <ul className="space-y-3 text-sm">
             <li className="flex gap-2.5">
               <Mail className="mt-0.5 size-4 shrink-0 text-orange-400" aria-hidden />
-              <a href={`mailto:${email}`} className="break-all hover:text-white hover:underline">
+              <a href={`mailto:${email}`} className="break-all hover:text-white">
                 {email}
               </a>
             </li>
             {phone && (
               <li className="flex gap-2.5">
                 <Phone className="mt-0.5 size-4 shrink-0 text-orange-400" aria-hidden />
-                <a href={tel} className="hover:text-white hover:underline">
+                <a href={tel} className="hover:text-white">
                   {phone}
                 </a>
               </li>
@@ -53,7 +53,7 @@ export function Footer() {
             {address && (
               <li className="flex gap-2.5">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-orange-400" aria-hidden />
-                <a href={maps} target="_blank" rel="noopener noreferrer" className="whitespace-pre-line hover:text-white hover:underline">
+                <a href={maps} target="_blank" rel="noopener noreferrer" className="whitespace-pre-line hover:text-white">
                   {address}
                 </a>
               </li>
@@ -74,12 +74,12 @@ export function Footer() {
           </p>
           <ul className="flex gap-4">
             <li>
-              <Link to="/privacy" className="hover:text-white hover:underline">
+              <Link to="/privacy" className="hover:text-white">
                 {t('footer.privacy')}
               </Link>
             </li>
             <li>
-              <Link to="/terms" className="hover:text-white hover:underline">
+              <Link to="/terms" className="hover:text-white">
                 {t('footer.terms')}
               </Link>
             </li>
@@ -98,7 +98,7 @@ function FooterLinks({ title, links }: { title: string; links: readonly (readonl
       <ul className="space-y-2.5 text-sm">
         {links.map(([to, key]) => (
           <li key={to}>
-            <Link to={to} className="hover:text-white hover:underline">
+            <Link to={to} className="hover:text-white">
               {t(key)}
             </Link>
           </li>

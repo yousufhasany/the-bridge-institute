@@ -72,7 +72,7 @@ export function AlumniStoriesPage() {
             key: 'title',
             header: t('fields.title'),
             cell: (r) => (
-              <button type="button" className="text-left font-semibold text-navy-950 hover:underline" onClick={() => setOpen(r)}>
+              <button type="button" className="text-left font-semibold text-navy-950" onClick={() => setOpen(r)}>
                 {r.titleEn || r.titleBn || t('alumniAdmin.stories.untitled')}
               </button>
             ),
@@ -158,7 +158,7 @@ function StoryModal({ story, onClose }: { story: Story; onClose: () => void }) {
             {t('alumniAdmin.stories.by', { name: story.author.displayName })} · {formatDate(story.createdAt)}
           </span>
           {story.status === 'PUBLISHED' && (
-            <a href={`/alumni/story/${story.slug}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-royal-700 hover:underline">
+            <a href={`/alumni/story/${story.slug}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-royal-700">
               {t('alumniAdmin.stories.viewPublic')}
               <ExternalLink className="size-3.5" aria-hidden />
             </a>

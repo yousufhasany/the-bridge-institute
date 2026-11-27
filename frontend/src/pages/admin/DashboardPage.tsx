@@ -53,7 +53,7 @@ export function DashboardPage() {
             <h2 id="recent-title" className="text-lg">
               {t('dashboard.recent')}
             </h2>
-            <Link to="/admin/applications" className="text-sm font-semibold text-royal-700 hover:underline">
+            <Link to="/admin/applications" className="text-sm font-semibold text-royal-700">
               {t('common:actions.viewAll')}
             </Link>
           </div>
